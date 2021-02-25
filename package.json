@@ -1,0 +1,36 @@
+{
+  "name": "tower-defense-game",
+  "version": "1.0.0",
+  "description": "A 2D tower defense game written in Typescript, using Phaser 3 (html5 game-engine) and Ionic 4 (cross-platform bundler)",
+  "main": "main.ts",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack",
+    "serve": "webpack-dev-server --hot"
+  },
+  "dependencies": {
+    "node-dijkstra": "^2.5.0",
+    "random": "^2.2.0"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^7.0.2",
+    "ts-loader": "^6.2.2",
+    "typescript": "^4.1.5",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "author": "Soós Noémi",
+  "license": "UNLICENSED",
+  "private": true,
+  "keywords": [
+    "tower",
+    "defense",
+    "game",
+    "phaser",
+    "ionic",
+    "javascript",
+    "typescript"
+  ]
+}
