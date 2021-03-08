@@ -7,7 +7,7 @@ type EnemyWithDistance = EnemyObject & {
 }
 
 export class TurretObject extends BaseObject {
-    private nextTic!: number;
+    private canShootAfterTimeMs!: number;
     private enemiesGroup!: Phaser.Physics.Arcade.Group;
     private bulletGroup!: Phaser.Physics.Arcade.Group;
     private radius!: number;
@@ -18,7 +18,7 @@ export class TurretObject extends BaseObject {
     }
 
     create(position: Phaser.Math.Vector2, enemiesGroup: Phaser.Physics.Arcade.Group, bulletGroup: Phaser.Physics.Arcade.Group) {
-        this.nextTic = 0;
+        this.canShootAfterTimeMs = 0;
         this.enemiesGroup = enemiesGroup;
         this.bulletGroup = bulletGroup;
         this.radius = 200;
@@ -78,19 +78,24 @@ export class TurretObject extends BaseObject {
         }
     }
 
-    private fire() {
+    private fire(): boolean {
         const enemy = this.getEnemy(this.position, this.radius);
         if (enemy) {
             const angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
             this.angle = (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
             this.addBullet(this.position.clone(), angle);
+
+            return true;
+        } else {
+            return false;
         }
     }
 
     update(time: number, delta: number) {
-        if (time > this.nextTic) {
-            this.fire();
-            this.nextTic = time + 1000;
+        if (time > this.canShootAfterTimeMs) {
+            if(this.fire()) {
+                this.canShootAfterTimeMs = time + 1000;
+            }
         }
     }
 
