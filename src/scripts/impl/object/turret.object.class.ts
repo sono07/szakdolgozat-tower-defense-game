@@ -11,6 +11,7 @@ export class TurretObject extends BaseObject {
     private enemiesGroup!: Phaser.Physics.Arcade.Group;
     private bulletGroup!: Phaser.Physics.Arcade.Group;
     private radius!: number;
+    private debugCircle!: Phaser.GameObjects.Arc;
 
     constructor(scene: Phaser.Scene) {
         super(scene, 'sprites', 'turret');
@@ -23,6 +24,10 @@ export class TurretObject extends BaseObject {
         this.radius = 200;
 
         super._create(position);
+
+        if(this.scene.physics.world.drawDebug) {
+            this.debugCircle = this.scene.add.circle(position.x, position.y, this.radius, 0xFF0000, 0.1)
+        }
     }
 
     // private enemySorterFirst(a: Enemy, b: Enemy) {
@@ -90,6 +95,10 @@ export class TurretObject extends BaseObject {
     }
 
     destroy() {
+        if(this.debugCircle != null) {
+            this.debugCircle.destroy();
+        }
+
         super._destroy();
     }
 }

@@ -9,6 +9,7 @@ export class EnemyObject extends BaseObject implements IEnemy {
     effects!: IEffect[];
     path!: Phaser.Curves.Path;
     private pathT!: number;
+    private debugCircle!: Phaser.GameObjects.Arc;
 
     constructor(scene: Phaser.Scene) {
         super(scene, "sprites", "enemy")
@@ -24,6 +25,10 @@ export class EnemyObject extends BaseObject implements IEnemy {
         let vector = new Phaser.Math.Vector2();
         this.path.getPoint(this.pathT, vector);
         super._create(vector);
+
+        if(this.scene.physics.world.drawDebug) {
+            this.debugCircle = this.scene.add.circle(this.position.x, this.position.y, 1, 0x00FF00, 1)
+        }
     }
 
     update(time: number, delta: number): void {
@@ -33,6 +38,10 @@ export class EnemyObject extends BaseObject implements IEnemy {
         let vector = new Phaser.Math.Vector2();
         this.path.getPoint(this.pathT, vector);
         this.position = vector;
+
+        if(this.debugCircle != null) {
+            this.debugCircle.setPosition(this.position.x, this.position.y);
+        }
 
         for(const effect of this.effects) {
             effect.update(time, delta, this);
@@ -45,6 +54,10 @@ export class EnemyObject extends BaseObject implements IEnemy {
     }
 
     destroy() {
+        if(this.debugCircle != null) {
+            this.debugCircle.destroy();
+        }
+
         super._destroy();
     }
 
