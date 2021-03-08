@@ -1,3 +1,5 @@
+import { FlatSlowEffect } from "../effect/active-effect/flat-slow-effect.class";
+import { FlatDamageEffect } from "../effect/instant-effect/flat-damage-effect.class";
 import { EnemyObject } from "./enemy.object.class";
 import { BaseObject } from "./_abstract/base.object.abstract";
 
@@ -34,7 +36,8 @@ export class BulletObject extends BaseObject {
             // we remove the bullet right away
             bullet.destroy();
 
-            enemy.receiveDamage(25);
+            enemy.effects.push(new FlatDamageEffect(25));
+            enemy.effects.push(new FlatSlowEffect(1000, 50));
         }
     }
 
