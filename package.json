@@ -4,22 +4,27 @@
   "description": "A 2D tower defense game written in Typescript, using Phaser 3 (html5 game-engine) and Ionic 4 (cross-platform bundler)",
   "main": "main.ts",
   "scripts": {
+    "start": "webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack",
-    "serve": "webpack-dev-server --hot"
+    "serve-build": "http-server --port 4949 --silent -o /dist"
   },
   "dependencies": {
     "node-dijkstra": "^2.5.0",
     "random": "^2.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-typescript": "^7.13.0",
     "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^5.1.1",
+    "copy-webpack-plugin": "^5.1.2",
     "cross-env": "^7.0.2",
+    "http-server": "^0.12.3",
     "ts-loader": "^6.2.2",
     "typescript": "^4.1.5",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2"
   },
   "author": "Soós Noémi",
   "license": "UNLICENSED",
