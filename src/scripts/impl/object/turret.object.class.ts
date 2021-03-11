@@ -1,4 +1,6 @@
 import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
+import { FlatSlowEffect } from "../effect/active-effect/flat-slow-effect.class";
+import { FlatDamageEffect } from "../effect/instant-effect/flat-damage-effect.class";
 import { BulletGroup } from "../group/bullet.group.class";
 import { EnemyGroup } from "../group/enemy.group.class";
 import { EnemyObject } from "./enemy.object.class";
@@ -92,8 +94,74 @@ export class TurretObject extends BaseObject {
     private addBullet(enemy: IEnemy) {
         const bullet = this.bulletGroup.get();
         if (bullet) {
-            const angle = Phaser.Math.Angle.BetweenPoints(this.position, enemy.position);
-            bullet.init(this.position.clone(), angle, this.enemiesGroup);
+
+            //PenetratingBulletObject
+            const targetPos = this.position.clone().add(enemy.position.clone().subtract(this.position.clone()).normalize().scale(this.radius));
+            bullet.init(
+                this.position.clone(),
+                targetPos,
+                210,
+                [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
+                this.enemiesGroup,
+                1,
+            );
+
+            // //TargetedHomingBulletObject
+            // bullet.init(
+            //     this.position.clone(),
+            //     enemy,
+            //     210,
+            //     [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
+            // );
+
+            // //TargetedBullet
+            // const targetPos = this.position.clone().add(enemy.position.clone().subtract(this.position.clone()).normalize().scale(this.radius));
+            // bullet.init(
+            //     this.position.clone(),
+            //     targetPos,
+            //     210,
+            //     [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
+            //     enemy,
+            // );
+
+            // //Bullet
+            // const targetPos = this.position.clone().add(enemy.position.clone().subtract(this.position.clone()).normalize().scale(this.radius));
+            // bullet.init(
+            //     this.position.clone(),
+            //     targetPos,
+            //     210,
+            //     [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
+            //     this.enemiesGroup.getChildren(),
+            // );
+
+            // //Laser
+            // const targetPos = this.position.clone().add(enemy.position.clone().subtract(this.position.clone()).normalize().scale(this.radius));
+            // bullet.init(
+            //     this.position.clone(),
+            //     targetPos,
+            //     [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
+            //     this.enemiesGroup,
+            //     250,
+            // );
+
+            // //OverTimeLaser
+            // const targetPos = this.position.clone().add(enemy.position.clone().subtract(this.position.clone()).normalize().scale(this.radius));
+            // bullet.init(
+            //     this.position.clone(),
+            //     targetPos,
+            //     [ new FlatDamageEffect(20), new FlatSlowEffect(1000, 100)],
+            //     this.enemiesGroup,
+            //     1000,
+            //     250,
+            // );
+
+            // //TargetedLaser
+            // bullet.init(
+            //     this.position.clone(),
+            //     enemy,
+            //     [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
+            //     250,
+            // );
         }
     }
 
