@@ -13,7 +13,14 @@ export class FlatDamageEffect extends BaseInstantEffect {
         this.flatAmount = flatAmount;
     }
 
-    protected _create(enemy: IEnemy): void {
+    protected _init(enemy: IEnemy): void {
         enemy.health -= this.flatAmount;
+    }
+
+    copy(o: this): this {
+        this.flatAmount = o.flatAmount;
+        super.copy(o);
+
+        return this;
     }
 }

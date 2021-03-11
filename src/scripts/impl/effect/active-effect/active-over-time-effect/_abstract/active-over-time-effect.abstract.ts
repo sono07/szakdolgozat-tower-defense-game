@@ -12,7 +12,7 @@ export abstract class BaseActiveOverTimeEffect extends BaseActiveEffect {
         this.tickCount = 0;
     }
 
-    protected _create(enemy: IEnemy): void {
+    protected _init(): void {
         //do nothing
     }
 
@@ -31,7 +31,15 @@ export abstract class BaseActiveOverTimeEffect extends BaseActiveEffect {
 
     protected abstract tick(enemy: IEnemy): void;
 
-    protected _destroy(enemy: IEnemy): void {
+    protected _remove(): void {
         //do nothing
+    }
+
+    copy(o: this): this {
+        this.times = o.times;
+        this.tickCount = o.tickCount;
+        super.copy(o);
+
+        return this;
     }
 }

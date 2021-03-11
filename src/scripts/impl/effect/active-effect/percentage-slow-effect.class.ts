@@ -17,9 +17,8 @@ export class PercentageSlowEffect extends BaseActiveEffect {
         this.flatAmount = 0;
     }
 
-    protected _create(enemy: IEnemy): void {
+    protected _init(enemy: IEnemy): void {
         this.flatAmount = enemy.speed * this.percentageAmount;
-
         enemy.speed -= this.flatAmount;
     }
 
@@ -27,7 +26,15 @@ export class PercentageSlowEffect extends BaseActiveEffect {
         //do nothing
     }
 
-    protected _destroy(enemy: IEnemy): void {
+    protected _remove(enemy: IEnemy): void {
         enemy.speed += this.flatAmount;
+    }
+
+    copy(o: this): this {
+        this.percentageAmount = o.percentageAmount;
+        this.flatAmount = o.flatAmount;
+        super.copy(o);
+
+        return this;
     }
 }

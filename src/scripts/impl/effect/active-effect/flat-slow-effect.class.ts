@@ -13,15 +13,22 @@ export class FlatSlowEffect extends BaseActiveEffect {
         this.flatAmount = flatAmount;
     }
 
-    protected _create(enemy: IEnemy): void {
-        enemy.speed -= this.flatAmount; //TODO can be negative! 
+    protected _init(enemy: IEnemy): void {
+        enemy.speed -= this.flatAmount;
     }
 
     protected _update(time: number, delta: number, enemy: IEnemy): void {
         //do nothing
     }
 
-    protected _destroy(enemy: IEnemy): void {
+    protected _remove(enemy: IEnemy): void {
         enemy.speed += this.flatAmount;
+    }
+
+    copy(o: this): this {
+        this.flatAmount = o.flatAmount;
+        super.copy(o);
+
+        return this;
     }
 }

@@ -19,4 +19,11 @@ export class PercentageFireEffect extends BaseActiveOverTimeEffect {
     protected tick(enemy: IEnemy) {
         enemy.health *= (1 - this.percentageAmount);
     }
+
+    copy(o: this): this {
+        this.percentageAmount = o.percentageAmount;
+        super.copy(o);
+
+        return this;
+    }
 }

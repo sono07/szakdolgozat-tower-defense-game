@@ -1,7 +1,8 @@
 export interface IObject {
+    active: boolean;
     position: Phaser.Math.Vector2;
 
-    create(...args: any[]): void;
+    init(...args: any[]): void;
     update(time: number, delta: number): void;
-    destroy(): void;
+    remove(): void;
 }

@@ -14,7 +14,14 @@ export abstract class BaseInstantEffect extends BaseEffect {
         //do nothing
     }
 
-    protected _destroy(enemy: IEnemy): void {
+    protected _remove(): void {
         //do nothing
+    }
+
+    copy(o: this): this {
+        this.totalDurationMs = o.totalDurationMs;
+        super.copy(o);
+
+        return this;
     }
 }

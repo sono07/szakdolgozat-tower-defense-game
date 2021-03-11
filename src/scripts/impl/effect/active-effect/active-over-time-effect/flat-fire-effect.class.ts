@@ -18,4 +18,11 @@ export class FlatFireEffect extends BaseActiveOverTimeEffect {
     protected tick(enemy: IEnemy) {
         enemy.health -= this.flatAmount;
     }
+
+    copy(o: this): this {
+        this.flatAmount = o.flatAmount;
+        super.copy(o);
+
+        return this;
+    }
 }

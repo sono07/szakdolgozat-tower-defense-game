@@ -8,4 +8,11 @@ export abstract class BaseActiveEffect extends BaseEffect {
 
         this.totalDurationMs = totalDurationMs;
     }
+
+    copy(o: this): this {
+        this.totalDurationMs = o.totalDurationMs;
+        super.copy(o);
+
+        return this;
+    }
 }

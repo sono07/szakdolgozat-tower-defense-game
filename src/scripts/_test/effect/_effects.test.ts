@@ -9,6 +9,33 @@ import { PercentageDamageEffect } from "../../impl/effect/instant-effect/percent
 
 //TODO write more test
 
+type EffectConstructorType = new(...params: any[]) => IEffect;
+
+test('Test cloning', () => {
+    testClones(FlatDamageEffect, [100]);
+    testClones(FlatDamageEffect, [500]);
+    testClones(PercentageDamageEffect, [0.1]);
+    testClones(PercentageDamageEffect, [0.1]);
+    testClones(PercentageSlowEffect, [600, 0.10]);
+    testClones(FlatSlowEffect, [1000, 50]);
+    testClones(FlatSlowEffect, [1100, 30]);
+    testClones(PercentageSlowEffect, [600, 0.10]);
+    testClones(PercentageSlowEffect, [1300, 0.10]);
+    testClones(FlatFireEffect, [1000, 5, 10]);
+    testClones(FlatFireEffect, [400, 4, 10]);
+    testClones(PercentageFireEffect, [1000, 5, 0.10]);
+    testClones(PercentageFireEffect, [500, 5, 0.10]);
+})
+
+function testClones<T extends EffectConstructorType>(classConstructor: T, params: ConstructorParameters<T>) {
+  const a = new classConstructor(...params);
+  const b = a.clone();
+
+  expect(a).toBeInstanceOf(classConstructor);
+  expect(b).toBeInstanceOf(classConstructor);
+  expect(a == b).toBeFalsy()
+}
+
 test('Test FlatDamageEffect with 233', () => {
   const enemy: Partial<IEnemy> = {
     health: 1000,
@@ -95,7 +122,6 @@ test('Complex multi effect test', () => {
 
 function testEffects(_enemy: Partial<IEnemy>, effects: IEffect[], _expectedResults: Partial<IEnemy>[]) {
   const enemy: IEnemy = {
-    // discriminator: "ENEMY",
     // position: Point2dUtils.createPoint2d({x: 0, y: 0}),
     health: 1000,
     speed: 100,
