@@ -88,7 +88,6 @@ export function test() {
             to[1] = p1[1];
         }
         
-        // console.warn({tiles, from, to})
         let graph = new Graph()
         for(let i = from[0]; i < to[0]+1; i++) {
             for (let j = from[1]; j < to[1]+1; j++) {
@@ -158,7 +157,6 @@ export function test() {
             [gridWidth-1, gridHeight-1]
         ];
 
-        console.warn(fixPoints);
     
         let path: string[] = [];
         for (let i = 0; i < fixPoints.length-1; i++) {
