@@ -8,5 +8,6 @@ export interface IEnemy extends IObject {
     effects: IEffect[];
     // damage: number;
 
+    addEffect(effect: IEffect): void;
     init(health: number, speed: number, path: Phaser.Curves.Path): void;
 }

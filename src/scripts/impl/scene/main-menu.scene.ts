@@ -1,6 +1,6 @@
 import { BaseScene } from "./_abstract/base.scene.abstract";
 
-//TODO impl
+//TODO impl scene
 export const MAIN_MENU_SCENE_KEY = "MainMenu";
 export class MainMenuScene extends BaseScene {
 

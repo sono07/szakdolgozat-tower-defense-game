@@ -1,4 +1,6 @@
-import { BulletObject } from "./bullet.object.class";
+import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
+import { BulletGroup } from "../group/bullet.group.class";
+import { EnemyGroup } from "../group/enemy.group.class";
 import { EnemyObject } from "./enemy.object.class";
 import { BaseObject } from "./_abstract/base.object.abstract";
 
@@ -8,8 +10,8 @@ type EnemyWithDistance = EnemyObject & {
 
 export class TurretObject extends BaseObject {
     private canShootAfterTimeMs!: number;
-    private enemiesGroup!: Phaser.Physics.Arcade.Group;
-    private bulletGroup!: Phaser.Physics.Arcade.Group;
+    private enemiesGroup!: EnemyGroup;
+    private bulletGroup!: BulletGroup;
     private radius!: number;
     private debugCircle!: Phaser.GameObjects.Arc;
 
@@ -17,17 +19,18 @@ export class TurretObject extends BaseObject {
         super(scene, 'sprites', 'turret');
     }
 
-    create(position: Phaser.Math.Vector2, enemiesGroup: Phaser.Physics.Arcade.Group, bulletGroup: Phaser.Physics.Arcade.Group) {
+    
+    protected _init(position: Phaser.Math.Vector2, enemiesGroup: EnemyGroup, bulletGroup: BulletGroup): [position: Phaser.Math.Vector2] {
         this.canShootAfterTimeMs = 0;
         this.enemiesGroup = enemiesGroup;
         this.bulletGroup = bulletGroup;
         this.radius = 200;
 
-        super._create(position);
-
-        if(this.scene.physics.world.drawDebug) {
+        if(this.scene.matter.world.drawDebug) {
             this.debugCircle = this.scene.add.circle(position.x, position.y, this.radius, 0xFF0000, 0.1)
         }
+
+        return [position];
     }
 
     // private enemySorterFirst(a: Enemy, b: Enemy) {
@@ -50,6 +53,16 @@ export class TurretObject extends BaseObject {
         }
     }
 
+    // private enemySorterFurthest(a: EnemyWithDistance, b: EnemyWithDistance) {
+    //     if(a._d < b._d) {
+    //         return 1;
+    //     } else if(a._d == b._d) {
+    //         return 0;
+    //     } else {
+    //         return -1;
+    //     }
+    // }
+
     // private enemySorterLowestHp(a: EnemyWithDistance, b: EnemyWithDistance) {
     //     if(a.hp < b.hp) {
     //         return -1;
@@ -64,26 +77,32 @@ export class TurretObject extends BaseObject {
         const enemies = this.enemiesGroup.getChildren() as EnemyObject[];
         const activeEnemies = enemies.filter(e => e.active);
         const activeInRangeEnemies = activeEnemies
-            .map(e => ({...e, _d: (Phaser.Math.Distance.BetweenPoints(position, e.position))} as EnemyWithDistance))
+            .map(e => {
+                const ee: EnemyWithDistance = e as any;
+                ee._d = (Phaser.Math.Distance.BetweenPoints(position, e.position))
+
+                return ee;
+            })
             .filter(e => e._d <= distance);
         const result = activeInRangeEnemies.sort(this.enemySorterClosest)
 
         return result.shift();
     }
 
-    private addBullet(position: Phaser.Math.Vector2, angle: number) {
-        const bullet: BulletObject = this.bulletGroup.get();
+    private addBullet(enemy: IEnemy) {
+        const bullet = this.bulletGroup.get();
         if (bullet) {
-            bullet.create(position, angle, this.enemiesGroup);
+            const angle = Phaser.Math.Angle.BetweenPoints(this.position, enemy.position);
+            bullet.init(this.position.clone(), angle, this.enemiesGroup);
         }
     }
 
     private fire(): boolean {
         const enemy = this.getEnemy(this.position, this.radius);
         if (enemy) {
-            const angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
+            this.addBullet(enemy);
+            const angle = Phaser.Math.Angle.BetweenPoints(this.position, enemy.position);
             this.angle = (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
-            this.addBullet(this.position.clone(), angle);
 
             return true;
         } else {
@@ -91,19 +110,17 @@ export class TurretObject extends BaseObject {
         }
     }
 
-    update(time: number, delta: number) {
+    protected _update(time: number, delta: number): void {
         if (time > this.canShootAfterTimeMs) {
             if(this.fire()) {
-                this.canShootAfterTimeMs = time + 1000;
+                this.canShootAfterTimeMs = time + 200;
             }
         }
     }
 
-    destroy() {
+    protected _remove(): void {
         if(this.debugCircle != null) {
             this.debugCircle.destroy();
         }
-
-        super._destroy();
     }
 }

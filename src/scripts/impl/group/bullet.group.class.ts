@@ -5,6 +5,5 @@ export class BulletGroup extends BaseGroup<BulletObject> {
 
     constructor(scene: Phaser.Scene) {
         super(scene, BulletObject);
-        this.runChildUpdate = true;
     }
 }

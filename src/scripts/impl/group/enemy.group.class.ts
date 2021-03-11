@@ -5,6 +5,5 @@ export class EnemyGroup extends BaseGroup<EnemyObject> {
 
     constructor(scene: Phaser.Scene) {
         super(scene, EnemyObject);
-        this.runChildUpdate = true;
     }
 }

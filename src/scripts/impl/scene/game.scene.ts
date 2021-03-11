@@ -1,15 +1,14 @@
 import { BaseScene } from './_abstract/base.scene.abstract';
-import { BulletGroup } from '../group/bullet.group.class';
 import { EnemyGroup } from '../group/enemy.group.class';
 import { TurretGroup } from '../group/turret.group.class';
+import { BulletGroup } from '../group/bullet.group.class';
 
-//TODO impl
 export const GAME_SCENE_KEY = "Game";
 export class GameScene extends BaseScene {
     path!: Phaser.Curves.Path;
+    private enemiesGroup!: EnemyGroup;
     private turretsGroup!: TurretGroup;
     private bulletsGroup!: BulletGroup;
-    private enemiesGroup!: EnemyGroup;
     private nextEnemy!: number;
     map!: number[][];
     i = 0;
@@ -61,10 +60,10 @@ export class GameScene extends BaseScene {
         if (time > this.nextEnemy) {
             const enemy = this.enemiesGroup.get();
             if (enemy) {
-                enemy.create(100, 100, this.path)
+                enemy.init(100, 150, this.path)
                 enemy.id = this.i++;
 
-                this.nextEnemy = time + 2000;
+                this.nextEnemy = time + 1000;
             }
         }
     }
@@ -92,7 +91,7 @@ export class GameScene extends BaseScene {
                     j * 64 + 64 / 2,
                     i * 64 + 64 / 2,
                 );
-                turret.create(pos, this.enemiesGroup, this.bulletsGroup);
+                turret.init(pos, this.enemiesGroup, this.bulletsGroup);
                 this.map[i][j] = 1;
             }
         }

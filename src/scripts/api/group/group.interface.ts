@@ -1,15 +1,10 @@
-export interface IGroup<T extends Phaser.GameObjects.GameObject> extends Phaser.Physics.Arcade.Group {
+export interface IGroup<T extends Phaser.GameObjects.GameObject> extends Phaser.GameObjects.Group {
     children: Phaser.Structs.Set<T>;
     createCallbackT: (item: T) => void;
     removeCallbackT: (item: T) => void;
     createMultipleCallbackT: (items: T[]) => void;
 
     destroy(destroyChildren?: boolean): void;
-    createCallbackHandler(child: T): void;
-    removeCallbackHandler(child: T): void;
-    setVelocity(x: number, y: number, step?: number): this;
-    setVelocityX(value: number, step?: number): this;
-    setVelocityY(value: number, step?: number): this;
     create(x?: number, y?: number, key?: string, frame?: string | number, visible?: boolean, active?: boolean): T;
     createMultiple(config: Phaser.Types.GameObjects.Group.GroupCreateConfig | Phaser.Types.GameObjects.Group.GroupCreateConfig[]): T[];
     createFromConfig(options: Phaser.Types.GameObjects.Group.GroupCreateConfig): T[];

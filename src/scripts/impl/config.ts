@@ -20,10 +20,15 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
     width: 640,
     height: 512,
     physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true
-        }
+        default: 'matter',
+        matter: {
+            enableSleeping: false,
+            gravity: {
+                y: 0,
+                x: 0,
+            },
+            debug: true,
+        },
     },
 
     // scale: {

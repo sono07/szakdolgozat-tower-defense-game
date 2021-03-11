@@ -5,6 +5,5 @@ export class TurretGroup extends BaseGroup<TurretObject> {
 
     constructor(scene: Phaser.Scene) {
         super(scene, TurretObject);
-        this.runChildUpdate = true;
     }
 }

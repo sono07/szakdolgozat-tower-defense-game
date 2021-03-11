@@ -1,6 +1,6 @@
 import { IGroup } from "../../../api/group/group.interface";
 
-export abstract class BaseGroup<T extends Phaser.GameObjects.GameObject> extends Phaser.Physics.Arcade.Group implements IGroup<T> {
+export abstract class BaseGroup<T extends Phaser.GameObjects.GameObject> extends Phaser.GameObjects.Group implements IGroup<T> {
 
     children!: Phaser.Structs.Set<T>
 
@@ -35,8 +35,7 @@ export abstract class BaseGroup<T extends Phaser.GameObjects.GameObject> extends
     }
 
     constructor(scene: Phaser.Scene, clazz: new (scene: Phaser.Scene) => T) {
-        super(scene.physics.world, scene);
-        this.classType = clazz;
+        super(scene, {runChildUpdate: true, classType: clazz})
 
         scene.sys.updateList.add(this as any);
     }
@@ -44,29 +43,6 @@ export abstract class BaseGroup<T extends Phaser.GameObjects.GameObject> extends
     destroy(destroyChildren?: boolean): void {
         this.scene.sys.updateList.remove(this as any)
         return super.destroy(destroyChildren);
-    }
-
-    createCallbackHandler(child: T): void {
-        return super.createCallbackHandler(child);
-    }
-
-    removeCallbackHandler(child: T): void {
-        return super.removeCallbackHandler(child);
-    }
-
-    setVelocity(x: number, y: number, step?: number): this {
-        super.setVelocity(x, y, step);
-        return this;
-    }
-
-    setVelocityX(value: number, step?: number): this {
-        super.setVelocityX(value, step);
-        return this;
-    }
-
-    setVelocityY(value: number, step?: number): this {
-        super.setVelocityY(value, step);
-        return this;
     }
 
     create(x?: number, y?: number, key?: string, frame?: string | number, visible?: boolean, active?: boolean): T {
