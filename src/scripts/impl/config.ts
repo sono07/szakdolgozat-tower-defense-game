@@ -1,22 +1,12 @@
+import { BootScene } from "./scene/boot.scene";
+import { GameOverScene } from "./scene/game-over.scene";
 import { GameScene } from "./scene/game.scene";
+import { MainMenuScene } from "./scene/main-menu.scene";
+import { PrealoadScene } from "./scene/preload.scene";
 
 export const GameConfig: Phaser.Types.Core.GameConfig = {
-    //TODO remove comments
-//   version: '1.0.0',
-//   width: 800,
-//   height: 600,
-//   backgroundColor: 0x3a404d,
-//   type: Phaser.AUTO,
-//   parent: 'game',
-//   physics: {
-//     default: 'arcade',
-//     arcade: {
-//       gravity: { y: 200 }
-//     }
-//   },
-//   scene: [MainScene]
+    version: '1.0.0',
     type: Phaser.AUTO,
-    // parent: 'content',
     width: 640,
     height: 512,
     physics: {
@@ -30,11 +20,9 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
             debug: true,
         },
     },
-
-    // scale: {
-    //     mode: Phaser.Scale.FIT,
-    //     autoCenter: Phaser.Scale.CENTER_BOTH
-    // },
-
-    scene: [GameScene]
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    scene: [BootScene, PrealoadScene, MainMenuScene, GameScene, GameOverScene]
 };

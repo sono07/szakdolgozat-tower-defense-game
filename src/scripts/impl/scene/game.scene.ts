@@ -1,14 +1,10 @@
 import { BaseScene } from './_abstract/base.scene.abstract';
-import { EnemyGroup } from '../group/enemy.group.class';
-import { TurretGroup } from '../group/turret.group.class';
-import { BulletGroup } from '../group/bullet.group.class';
+import { ObjectStore } from '../object-store/object.store.class';
 
 export const GAME_SCENE_KEY = "Game";
 export class GameScene extends BaseScene {
     path!: Phaser.Curves.Path;
-    private enemiesGroup!: EnemyGroup;
-    private turretsGroup!: TurretGroup;
-    private bulletsGroup!: BulletGroup;
+    private objectStore!: ObjectStore;
     private nextEnemy!: number;
     map!: number[][];
     i = 0;
@@ -31,8 +27,6 @@ export class GameScene extends BaseScene {
     }
 
     preload(): void {
-        this.load.atlas('sprites', 'images/spritesheet.png', 'images/spritesheet.json');
-        this.load.image('bullet', 'images/bullet.png');
     }
 
     create(data: object): void {
@@ -47,9 +41,7 @@ export class GameScene extends BaseScene {
         graphics.lineStyle(2, 0xffffff, 1);
         this.path.draw(graphics);
 
-        this.enemiesGroup = new EnemyGroup(this);
-        this.turretsGroup = new TurretGroup(this);
-        this.bulletsGroup = new BulletGroup(this);
+        this.objectStore = new ObjectStore(this);
 
         this.nextEnemy = 0;
 
@@ -58,9 +50,9 @@ export class GameScene extends BaseScene {
 
     update(time: number, delta: number): void {
         if (time > this.nextEnemy) {
-            const enemy = this.enemiesGroup.get();
+            const enemy = this.objectStore.enemiesGroup.get();
             if (enemy) {
-                enemy.init(100, 150, this.path)
+                enemy.init(100, 150, this.path, this.objectStore)
                 enemy.id = this.i++;
 
                 this.nextEnemy = time + 1000;
@@ -81,17 +73,19 @@ export class GameScene extends BaseScene {
         graphics.strokePath();
     }
 
+    turretIndex: number = 0;
+
     placeTurret(pointer: any /*TODO type */) {
         const i = Math.floor(pointer.y / 64);
         const j = Math.floor(pointer.x / 64);
         if (this.canPlaceTurret(i, j)) {
-            const turret = this.turretsGroup.get();
+            const turret = this.objectStore.turretRocketMk3sGroup.get();
             if (turret) {
                 const pos = new Phaser.Math.Vector2(
                     j * 64 + 64 / 2,
                     i * 64 + 64 / 2,
                 );
-                turret.init(pos, this.enemiesGroup, this.bulletsGroup);
+                turret.init(pos, this.objectStore);
                 this.map[i][j] = 1;
             }
         }
