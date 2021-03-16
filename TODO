@@ -9,3 +9,34 @@ problémák az ARCADe pshisics-szel áttérés matter physics-re
 https://blog.ourcade.co/posts/2020/phaser-3-optimization-object-pool-matter-js-physics/
 SAT problémák, optimalizáció része előző ütközést használja fel, de mivel ezek a lövedékek laser esetén nem mozognak (legalábbis nem a fizikai motor mozgatja őket), így ha ugyan arra a pozícióra spawnolja az előzőleg despawnolt projectile-t (pl laser esetén lehetséges) akkor megpróbálja felhasználni az előző collision eredményét, viszont itt már mások lesznek az értékekt és egy null pointerrel később elszáll, feltehetően ennek nem így kellene működnie, de egyelőre megoldást jelentett, hogy minden egyes spawn-nál hozzáadom a fizikai motorhoz a testet ha még nincs hozzáadva (alapból ez automatikusan megtörténik a cosntructorban), illetve despawn-kor pedig eltávolítom onnan azt, így resetelve gyakorlatilag a fizikai számításait az objektumnak.
 cloning added, so effects can be easily cloned using its interface only.
+https://yyz-productions.com/2015/11/26/making-a-tower-defense-game-part-2/
+https://gamedev.stackexchange.com/questions/86428/is-object-oriented-underestimated-for-game-development
+    https://en.wikipedia.org/wiki/Entity_component_system
+    https://www.guru99.com/entity-component-system.html
+https://jestjs.io/docs/getting-started
+http://www.plantuml.com
+Overlap vs collision matter js
+    https://phaser.discourse.group/t/matter-js-how-do-you-do-a-system-of-overlap/3874/9
+    https://www.html5gamedevs.com/topic/38622-phaser-3-matter-collision-events-for-specific-objects/
+
+why use spritesheets vs single images
+    - single file faster to load
+    https://gamedev.stackexchange.com/questions/7069/2d-graphics-why-use-spritesheets
+
+sprite-k átalakítása
+    átszínezés
+    átméretezés
+    használatával
+        https://www.photopea.com/ 
+        https://ezgif.com/sprite-cutter/
+        https://www.codeandweb.com/free-sprite-sheet-packer
+
+https://blog.ourcade.co/posts/2020/phaser-3-add-text-input-rexui/
+    UI felület készítése
+
+https://gamedevacademy.org/creating-a-preloading-screen-in-phaser-3/?a=13
+https://www.patchesoft.com/phaser-3-loading-screen
+    loading screen tutorial
+
+https://dribbble.com/shots/3525956-Main-Menu-Background
+    background image
