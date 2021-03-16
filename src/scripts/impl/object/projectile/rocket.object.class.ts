@@ -3,30 +3,24 @@ import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { convertOverlapParams } from "../../utils/matter.physics.utils";
 import { BaseObject } from "../_abstract/base.object.abstract";
 
-export class BulletObject extends BaseObject {
+export class RocketObject extends BaseObject {
     private isBodyAdded: boolean = true;
     private startPosition!: Phaser.Math.Vector2;
     private speed!: number;
     private dPosition!: Phaser.Math.Vector2;
     private maxDistance!: number;
     private targets!: IEnemy[];
-    private hitCount!: number;
-    private enemiesAlreadyGotHit!: IEnemy[];
     private effects!: IEffect[];
+    private radius!: number;
     private isRemoving!: boolean; 
 
     constructor(scene: Phaser.Scene) {
-        super(scene, 'projectile-bullet');
-
-        this.setScale(1.5);
-        this.setCircle(1);
-        this.setSensor(true);
-        this.setDepth(10);
+        super(scene, 'projectile-rocket');
 
         this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.remove);
     }
 
-    init(startPosition: Phaser.Math.Vector2, endPosition: Phaser.Math.Vector2, speed: number, effects: IEffect[], targets: IEnemy[], penetrationCount: number): void {
+    init(startPosition: Phaser.Math.Vector2, endPosition: Phaser.Math.Vector2, speed: number, effects: IEffect[], targets: IEnemy[], radius: number) {
         //reset body
         if(!this.isBodyAdded) {
             this.isBodyAdded = true;
@@ -36,6 +30,10 @@ export class BulletObject extends BaseObject {
         //reset animation frame.
         this.setFrame('001');
 
+        this.setScale(200/256,200/256);
+        this.setCircle(radius);
+        this.setSensor(true);
+        this.setDepth(10);
         this.setRotation(Phaser.Math.Angle.BetweenPoints(startPosition, endPosition) + Math.PI / 2);
 
         this.isRemoving = false;
@@ -45,9 +43,8 @@ export class BulletObject extends BaseObject {
         this.dPosition = endPosition.clone().subtract(startPosition.clone()).normalize().scale(Phaser.Math.GetSpeed(this.speed, 1));
         this.maxDistance = startPosition.clone().distance(endPosition.clone());
         this.targets = targets;
-        this.hitCount = penetrationCount + 1;
-        this.enemiesAlreadyGotHit = [];
         this.effects = effects;
+        this.radius = radius;
 
         this.setActive(true);
         this.setVisible(true);
@@ -57,9 +54,8 @@ export class BulletObject extends BaseObject {
         if(!this.isRemoving) {
             this.position = this.position.add(this.dPosition.clone().scale(delta));
 
-            this.checkOverlapAndApplyEffects(this.targets);
-
             if (this.position.distance(this.startPosition) >= this.maxDistance) {
+                this.checkOverlapAndApplyEffects(this.targets);
                 this.startRemove();
             }
         }
@@ -78,17 +74,17 @@ export class BulletObject extends BaseObject {
             this.effects.forEach(effect => {
                 enemy.addEffect(effect.clone());
             });
-            
-            this.enemiesAlreadyGotHit.push(enemy);
-            if(this.enemiesAlreadyGotHit.length >= this.hitCount) {
-                this.startRemove();
-            }
         }
     }
 
     private startRemove() {
         this.isRemoving = true;
-        this.play({ key: "projectile-bullet-blow-animation", repeat: 0, frameRate: (6*5) });
+
+        this.setFrame('002');
+        this.setScale(this.radius*4/this.displayHeight)
+        this.play({ key: "projectile-rocket-blow-animation", repeat: 0, frameRate: (49/2) });
+        this.setRotation(0);
+        this.position = this.position.clone().add(new Phaser.Math.Vector2(-8, 10).scale(this.radius*4/100))
     }
 
     remove() {        

@@ -1,12 +1,14 @@
 import { IEffect } from "../../api/effect/effect.interface";
 import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
-import { BaseObject } from "./_abstract/base.object.abstract";
+import { ObjectStore } from "../object-store/object.store.class";
+import { BaseObject } from "./_abstract/_base.object.abstract";
 
 export class EnemyObject extends BaseObject implements IEnemy {
     id!: number;
     health!: number;
     speed!: number;
     effects!: IEffect[];
+    private objectStore!: ObjectStore;
     path!: Phaser.Curves.Path;
     private pathT!: number;
 
@@ -14,10 +16,11 @@ export class EnemyObject extends BaseObject implements IEnemy {
         super(scene, "sprites", "enemy");
     }
     
-    protected _init(healt: number, speed: number, path: Phaser.Curves.Path): [position: Phaser.Math.Vector2] {
+    protected _init(healt: number, speed: number, path: Phaser.Curves.Path, objectStore: ObjectStore): [position: Phaser.Math.Vector2] {
         this.health = healt;
         this.speed = speed;
         this.effects = [];
+        this.objectStore = objectStore;
         this.path = path;
         this.pathT = 0;
 
@@ -26,7 +29,6 @@ export class EnemyObject extends BaseObject implements IEnemy {
 
         return [vector];
     }
-
 
     addEffect(effect: IEffect): void {
         this.effects.push(effect);
@@ -45,12 +47,14 @@ export class EnemyObject extends BaseObject implements IEnemy {
         }
         this.effects = this.effects.filter(effect => !effect.isDestroyed);
 
-        if (this.pathT >= 1 || this.health <= 0) {
+        if(this.health <= 0) {
+            this.remove();
+        } else if (this.pathT >= 1) {
+            this.objectStore.receiveDamage(1);
             this.remove();
         }
     }
 
     protected _remove(): void {
     }
-
 }

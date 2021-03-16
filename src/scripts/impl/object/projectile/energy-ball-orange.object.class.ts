@@ -1,9 +1,11 @@
 import { IEffect } from "../../../api/effect/effect.interface";
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
+import { IObject } from "../../../api/object/object.interface";
+import { IProjectile } from "../../../api/object/projectile-object/projectile.interface";
 import { convertOverlapParams } from "../../utils/matter.physics.utils";
 import { BaseObject } from "../_abstract/base.object.abstract";
 
-export class BulletObject extends BaseObject {
+export class EnergyBallOrangeObject extends BaseObject implements IObject, IProjectile {
     private isBodyAdded: boolean = true;
     private startPosition!: Phaser.Math.Vector2;
     private speed!: number;
@@ -16,9 +18,8 @@ export class BulletObject extends BaseObject {
     private isRemoving!: boolean; 
 
     constructor(scene: Phaser.Scene) {
-        super(scene, 'projectile-bullet');
+        super(scene, 'projectile-energy-ball-orange');
 
-        this.setScale(1.5);
         this.setCircle(1);
         this.setSensor(true);
         this.setDepth(10);
@@ -35,8 +36,6 @@ export class BulletObject extends BaseObject {
 
         //reset animation frame.
         this.setFrame('001');
-
-        this.setRotation(Phaser.Math.Angle.BetweenPoints(startPosition, endPosition) + Math.PI / 2);
 
         this.isRemoving = false;
         this.startPosition = startPosition.clone();
@@ -88,7 +87,7 @@ export class BulletObject extends BaseObject {
 
     private startRemove() {
         this.isRemoving = true;
-        this.play({ key: "projectile-bullet-blow-animation", repeat: 0, frameRate: (6*5) });
+        this.play({ key: "projectile-energy-ball-orange-blow-animation", repeat: 0, frameRate: (7*5) });
     }
 
     remove() {        

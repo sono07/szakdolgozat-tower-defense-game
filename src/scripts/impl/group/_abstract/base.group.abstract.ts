@@ -41,7 +41,10 @@ export abstract class BaseGroup<T extends Phaser.GameObjects.GameObject> extends
     }
 
     destroy(destroyChildren?: boolean): void {
-        this.scene.sys.updateList.remove(this as any)
+        if(this.scene != null) {
+            this.scene.sys.updateList.remove(this as any)
+        }
+
         return super.destroy(destroyChildren);
     }
 
