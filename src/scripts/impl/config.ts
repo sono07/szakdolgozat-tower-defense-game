@@ -9,6 +9,7 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: 640,
     height: 512,
+    parent: 'phaser-canvas-container',
     physics: {
         default: 'matter',
         matter: {
@@ -23,6 +24,9 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    dom: {
+        createContainer: true,
     },
     scene: [BootScene, PrealoadScene, MainMenuScene, GameScene, GameOverScene]
 };

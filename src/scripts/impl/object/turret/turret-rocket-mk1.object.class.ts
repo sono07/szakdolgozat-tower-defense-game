@@ -2,7 +2,7 @@ import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.class";
 import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
 import { EnemyObject } from "../enemy.object.class";
-import { ObjectStore } from "../../object-store/object.store.class";
+import { GameStateStore } from "../../game-state-store/game-state.store.class";
 import { BaseObject } from "../_abstract/base.object.abstract";
 
 type EnemyWithDistance = EnemyObject & {
@@ -12,7 +12,7 @@ type EnemyWithDistance = EnemyObject & {
 export class TurretRocketMk1Object extends BaseObject {
     private isBodyAdded = true;
     private canShootAfterTimeMs!: number;
-    private objectStore!: ObjectStore;
+    private gameStateStore!: GameStateStore;
     private radius!: number;
     private baseImage!: Phaser.GameObjects.Image;
     private debugCircle!: Phaser.GameObjects.Arc;
@@ -29,9 +29,9 @@ export class TurretRocketMk1Object extends BaseObject {
         this.baseImage.setScale(0.65);
     }
     
-    init(position: Phaser.Math.Vector2, objectStore: ObjectStore): void {
+    init(position: Phaser.Math.Vector2, gameStateStore: GameStateStore): void {
         this.canShootAfterTimeMs = 0;
-        this.objectStore = objectStore;
+        this.gameStateStore = gameStateStore;
         this.radius = 200;
 
         if(this.scene.matter.world.drawDebug) {
@@ -93,7 +93,7 @@ export class TurretRocketMk1Object extends BaseObject {
     // }
 
     private getEnemy(position: Phaser.Math.Vector2, distance: number): EnemyObject | undefined {
-        const enemies = this.objectStore.enemiesGroup.getChildren() as EnemyObject[];
+        const enemies = this.gameStateStore.enemiesGroup.getChildren() as EnemyObject[];
         const activeEnemies = enemies.filter(e => e.active);
         const activeInRangeEnemies = activeEnemies
             .map(e => {
@@ -134,7 +134,7 @@ export class TurretRocketMk1Object extends BaseObject {
             }
         }
 
-        const rocket = this.objectStore.rocketsGroup.get();
+        const rocket = this.gameStateStore.rocketsGroup.get();
         if (rocket) {
             const fromPos = this.position.clone().add(forwardOffset.clone().add(sideOffset));
             const targetPos = enemy.position.clone();
@@ -143,7 +143,7 @@ export class TurretRocketMk1Object extends BaseObject {
                 targetPos,
                 100,
                 [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
-                this.objectStore.enemiesGroup.getChildren(),
+                this.gameStateStore.enemiesGroup.getChildren(),
                 50,
             );
         }

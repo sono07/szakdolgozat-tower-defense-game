@@ -1,10 +1,10 @@
 import { BaseScene } from './_abstract/base.scene.abstract';
-import { ObjectStore } from '../object-store/object.store.class';
+import { GameStateStore } from '../game-state-store/game-state.store.class';
 
 export const GAME_SCENE_KEY = "Game";
 export class GameScene extends BaseScene {
     path!: Phaser.Curves.Path;
-    private objectStore!: ObjectStore;
+    private gameStateStore!: GameStateStore;
     private nextEnemy!: number;
     map!: number[][];
     i = 0;
@@ -13,7 +13,7 @@ export class GameScene extends BaseScene {
         super(GAME_SCENE_KEY);
     }
 
-    init(data: object): void {
+    init(data: {seed: string}): void {
         this.map = [
             [0, -1, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, -1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -41,7 +41,7 @@ export class GameScene extends BaseScene {
         graphics.lineStyle(2, 0xffffff, 1);
         this.path.draw(graphics);
 
-        this.objectStore = new ObjectStore(this);
+        this.gameStateStore = new GameStateStore(this);
 
         this.nextEnemy = 0;
 
@@ -50,9 +50,9 @@ export class GameScene extends BaseScene {
 
     update(time: number, delta: number): void {
         if (time > this.nextEnemy) {
-            const enemy = this.objectStore.enemiesGroup.get();
+            const enemy = this.gameStateStore.enemiesGroup.get();
             if (enemy) {
-                enemy.init(100, 150, this.path, this.objectStore)
+                enemy.init(100, 150, this.path, this.gameStateStore)
                 enemy.id = this.i++;
 
                 this.nextEnemy = time + 1000;
@@ -79,13 +79,13 @@ export class GameScene extends BaseScene {
         const i = Math.floor(pointer.y / 64);
         const j = Math.floor(pointer.x / 64);
         if (this.canPlaceTurret(i, j)) {
-            const turret = this.objectStore.turretRocketMk3sGroup.get();
+            const turret = this.gameStateStore.turretRocketMk3sGroup.get();
             if (turret) {
                 const pos = new Phaser.Math.Vector2(
                     j * 64 + 64 / 2,
                     i * 64 + 64 / 2,
                 );
-                turret.init(pos, this.objectStore);
+                turret.init(pos, this.gameStateStore);
                 this.map[i][j] = 1;
             }
         }

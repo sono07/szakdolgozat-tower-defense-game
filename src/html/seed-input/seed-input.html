@@ -1,0 +1,30 @@
+<style>
+.container {
+    display: flex;
+    align-items: center;
+    pointer-events: all;
+}
+
+.container .randomise-container {
+    margin-left: 5px;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+    display: flex;
+}
+
+.container .randomise-container:hover {
+    background-color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+</style>
+
+<div class="container">
+    <div>
+        <input type="text" placeholder="seed" id="seed-input">
+    </div>
+    <div id="seed-randomise" class="randomise-container">
+        <img src="images/randomise.png" alt="randomise" title="Randomise seed" width="20px" height="20px">
+    </div>
+</div>

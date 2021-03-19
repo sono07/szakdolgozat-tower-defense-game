@@ -21,10 +21,11 @@ import { TurretLaserMk2Group } from "../group/turret/turret-laser-mk2.group.clas
 import { TurretLaserMk3Group } from "../group/turret/turret-laser-mk3.group.class";
 import { GAME_OVER_SCENE_KEY } from "../scene/game-over.scene";
 
-export class ObjectStore {
+export class GameStateStore {
     private scene: Phaser.Scene;
 
     private health: number;
+    private score: number;
 
     public enemiesGroup: EnemyGroup;
 
@@ -54,6 +55,7 @@ export class ObjectStore {
         this.scene = scene;
 
         this.health = 3;
+        this.score = 0;
 
         this.enemiesGroup = new EnemyGroup(this.scene);
 
@@ -80,11 +82,18 @@ export class ObjectStore {
         this.rocketsGroup = new RocketGroup(this.scene);
     }
 
+    getHealth(): number {
+        return this.health;
+    }
+
+    getScore(): number {
+        return this.score;
+    }
+
     receiveDamage(value: number): void {
         this.health -= value;
         if(this.health <= 0) {
-            //TODO score
-            this.scene.scene.start(GAME_OVER_SCENE_KEY, {score: 111});
+            this.scene.scene.start(GAME_OVER_SCENE_KEY, {score: this.score});
         }
     }
 }
