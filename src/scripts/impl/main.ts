@@ -13,7 +13,3 @@ export class App {
 window.addEventListener('load', () => {
   App.run();
 });
-// import { test } from './map/generate';
-// window.addEventListener('load', () => {
-//   test();
-// });

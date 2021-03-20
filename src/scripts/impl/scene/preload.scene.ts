@@ -84,6 +84,8 @@ export class PrealoadScene extends BaseScene {
 
         this.load.html('seed-input', 'seed-input/seed-input.html');
 
+        this.load.atlas('terrain-tiles', 'images/spritesheets/terrain/terrain-light-grass.spritesheet.png', 'images/spritesheets/terrain/terrain-light-grass.spritesheet.json');
+
         this.load.atlas('turret-bases', 'images/spritesheets/turret/turret-base.spritesheet.png', 'images/spritesheets/turret/turret-base.spritesheet.json');
         this.load.atlas('turret-weapons', 'images/spritesheets/turret/turret-weapon.spritesheet.png', 'images/spritesheets/turret/turret-weapon.spritesheet.json');
         

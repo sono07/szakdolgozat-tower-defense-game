@@ -7,8 +7,8 @@ import { PrealoadScene } from "./scene/preload.scene";
 export const GameConfig: Phaser.Types.Core.GameConfig = {
     version: '1.0.0',
     type: Phaser.AUTO,
-    width: 640,
-    height: 512,
+    width: 800,
+    height: 640,
     parent: 'phaser-canvas-container',
     physics: {
         default: 'matter',
