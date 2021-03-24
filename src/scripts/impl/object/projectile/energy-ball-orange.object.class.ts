@@ -73,7 +73,7 @@ export class EnergyBallOrangeObject extends BaseObject implements IObject, IProj
     }
 
     private applyEffects(enemy: IEnemy): void {
-        if(enemy.active === true) {
+        if(enemy.active === true && this.isRemoving == false) {
             this.effects.forEach(effect => {
                 enemy.addEffect(effect.clone());
             });

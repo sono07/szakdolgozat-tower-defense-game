@@ -74,7 +74,7 @@ export class BulletObject extends BaseObject {
     }
 
     private applyEffects(enemy: IEnemy): void {
-        if(enemy.active === true) {
+        if(enemy.active === true && this.isRemoving == false) {
             this.effects.forEach(effect => {
                 enemy.addEffect(effect.clone());
             });
