@@ -4,7 +4,6 @@ import { convertOverlapParams } from "../../../utils/matter.physics.utils";
 import { BaseObject } from "../../_abstract/_base.object.abstract";
 
 export abstract class BaseProjectile extends BaseObject /*implements IProjectile*/ {
-//     protected movingTo!: Phaser.Math.Vector2 | IEnemy;
     protected effects!: IEffect[];
     protected visibleAfterRemoveMs!: number;
     protected isRemoving!: boolean;

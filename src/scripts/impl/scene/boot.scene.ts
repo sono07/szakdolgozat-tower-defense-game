@@ -19,6 +19,5 @@ export class BootScene extends BaseScene {
     }
 
     update(time: number, delta: number): void {
-
     }
 }

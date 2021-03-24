@@ -1,10 +1,10 @@
-import { GameStateStore } from "../../../impl/game-state-store/game-state.store.class";
+import { IGameStateStore } from "../../game-state/game-state-store.interface";
 import { IObject } from "../object.interface";
 
 export interface ITurretObject extends IObject {
     ignoreUpdate: boolean;
 
-    init(position: Phaser.Math.Vector2, gameStateStore: GameStateStore, ignoreUpdate?: boolean): void;
+    init(position: Phaser.Math.Vector2, gameStateStore: IGameStateStore, ignoreUpdate?: boolean): void;
     showRange(): void;
     hideRange(): void;
 }

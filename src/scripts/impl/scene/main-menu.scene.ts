@@ -43,7 +43,6 @@ export class MainMenuScene extends BaseScene {
             seedInput.value = genRandomStr(10);
         })
 
-
         this.playBox = this.add.rectangle(
             width / 2,
             height / 2 + 50,

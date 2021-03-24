@@ -1,21 +1,11 @@
-import { IGroup } from "../../api/group/group.interface";
+import { EnemyDescription } from "../../api/common/types";
+import { IEnemySpawner } from "../../api/map/enemy-spawner.interface";
+import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
 import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
-import { GameStateStore } from "./game-state.store.class";
+import { ENEMY_BASE_HEALTH, ENEMY_BASE_SPEED, ENEMY_EXTRA_HEALTH_PER_WAVE, WAVE_SPAWN_DELAY_MS, WAVE_START_DELAY_MS } from "../utils/config.constants";
 
-const WAVE_START_DELAY_MS = 5000;
-const SPAWN_DELAY_MS = 1000;
-const EXTRA_HEALTH_PER_WAVE = 10;
-const ENEMY_BASE_HEALTH = 100;
-const ENEMY_BASE_SPEED = 75;
-
-export type EnemyDescription = {
-    group: IGroup<Phaser.GameObjects.Sprite & IEnemy>,
-    health: number,
-    speed: number,
-}
-
-export class EnemySpawner {
-    private gameStateStore: GameStateStore;
+export class EnemySpawner implements IEnemySpawner {
+    private gameStateStore: IGameStateStore;
     private path: Phaser.Curves.Path;
 
     private waveNumber: number = 0;
@@ -31,7 +21,7 @@ export class EnemySpawner {
     public waveNumberChangedCallback: ((waveNumber: number) => void)[] = [];
     public waveEnemyNumberChangedCallback: ((enemyNumber: number) => void)[] = [];
 
-    constructor(gameStateStore: GameStateStore) {
+    constructor(gameStateStore: IGameStateStore) {
         this.gameStateStore = gameStateStore;
         this.path = gameStateStore.path;
     }
@@ -44,9 +34,9 @@ export class EnemySpawner {
         return this.enemyDescriptions.length;
     }
 
-    startNewWave(time: number) {
+    private startNewWave(time: number) {
         this.enemyDescriptions = this.enemyDescriptions.map(e => {
-            e.health += EXTRA_HEALTH_PER_WAVE;
+            e.health += ENEMY_EXTRA_HEALTH_PER_WAVE;
             return e;
         })
 
@@ -55,11 +45,11 @@ export class EnemySpawner {
             health: ENEMY_BASE_HEALTH,
             speed: ENEMY_BASE_SPEED,
         },
-        {
-            group: this.gameStateStore.enemiesGroup as any,
-            health: ENEMY_BASE_HEALTH,
-            speed: ENEMY_BASE_SPEED,
-        })
+            {
+                group: this.gameStateStore.enemiesGroup as any,
+                health: ENEMY_BASE_HEALTH,
+                speed: ENEMY_BASE_SPEED,
+            })
         this.waveEnemyNumberChangedCallback.forEach(cb => {
             cb(this.getWaveEnemyNumber())
         })
@@ -75,33 +65,33 @@ export class EnemySpawner {
 
         this.isWaveRunning = true;
     }
-    
-    processWave(time: number) {
-        if(time > this.nextWaveTime) {
-            if(this.nextEnemyIndex < this.enemyDescriptions.length) {
-                if(time > this.nextEnemyTime) {
+
+    private processWave(time: number) {
+        if (time > this.nextWaveTime) {
+            if (this.nextEnemyIndex < this.enemyDescriptions.length) {
+                if (time > this.nextEnemyTime) {
                     const enemyDescription = this.enemyDescriptions[this.nextEnemyIndex];
 
                     const enemy = enemyDescription.group.get();
                     if (enemy) {
                         enemy.init(enemyDescription.health, enemyDescription.speed, this.path, this.gameStateStore)
-                        this.nextEnemyTime = time + SPAWN_DELAY_MS;
+                        this.nextEnemyTime = time + WAVE_SPAWN_DELAY_MS;
                         this.nextEnemyIndex++;
 
                         this.spawnedEnemies.push(enemy);
                     }
                 }
             } else {
-                if(this.spawnedEnemies.every(se => se.active == false && se.visible == false)) {
+                if (this.spawnedEnemies.every(se => se.active == false && se.visible == false)) {
                     this.spawnedEnemies = [];
                     this.isWaveRunning = false;
                 }
             }
         }
     }
-    
+
     update(time: number, delta: number) {
-        if(this.isWaveRunning == false) {
+        if (this.isWaveRunning == false) {
             this.startNewWave(time);
         } else {
             this.processWave(time);

@@ -1,10 +1,10 @@
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.class";
 import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
-import { GameStateStore } from "../../game-state-store/game-state.store.class";
-import { EnemyObject } from "../enemy.object.class";
-import { BaseTurretObject, EnemySorters, EnemyWithDistance } from "./_abstract/base-turret.object.asbtract";
+import { GameStateStore } from "../../game-state/game-state.store.class";
+import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 import { TURRET_LASER_MK1_FIRERATE, TURRET_LASER_MK1_RANGE } from "../../utils/config.constants";
+import { EnemyWithDistance } from "../../../api/common/types";
 
 export class TurretLaserMk1Object extends BaseTurretObject {
     private isBodyAdded = true;
@@ -61,8 +61,8 @@ export class TurretLaserMk1Object extends BaseTurretObject {
         this.rangeCircle.setVisible(false);
     }
 
-    private getEnemy(position: Phaser.Math.Vector2, distance: number): EnemyObject | undefined {
-        const enemies = this.gameStateStore.enemiesGroup.getChildren() as EnemyObject[];
+    private getEnemy(position: Phaser.Math.Vector2, distance: number): IEnemy | undefined {
+        const enemies = this.gameStateStore.enemiesGroup.getChildren();
         const activeEnemies = enemies.filter(e => e.active);
         const activeInRangeEnemies = activeEnemies
             .map(e => {

@@ -6,6 +6,11 @@ export const TILE_ROAD_2WAY_CORNER = 4;
 export const TILE_ROAD_3WAY = 5;
 export const TILE_ROAD_4WAY = 6;
 
+/**
+ * All Turret tile values must be larger than this value!
+ */
+export const MINIMUM_TURRET_TILE_VALUE = 10;
+
 export const TILE_TURRET_BULLET_MK1 = 11
 export const TILE_TURRET_BULLET_MK2 = 12
 export const TILE_TURRET_BULLET_MK3 = 13
@@ -46,3 +51,5 @@ export const ACTION_KEY_PLACE_TURRET_LASER_MK3 = "PLACE_TURRET_LASER_MK3"
 export const ACTION_KEY_PLACE_TURRET_ROCKET_MK1 = "PLACE_TURRET_ROCKET_MK1"
 export const ACTION_KEY_PLACE_TURRET_ROCKET_MK2 = "PLACE_TURRET_ROCKET_MK2"
 export const ACTION_KEY_PLACE_TURRET_ROCKET_MK3 = "PLACE_TURRET_ROCKET_MK3"
+
+export const ENEMY_HEALTH_BAR_OFFSET_PX = 30;

@@ -14,18 +14,16 @@ export class GameOverScene extends BaseScene {
     }
 
     init(data: object): void {
-
     }
 
     preload(): void {
-
     }
 
-    create(data: {score: number}): void {
+    create(data: { score: number }): void {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
-        this.backgroundImage = this.add.image(width/2, height/2, 'background');
+        this.backgroundImage = this.add.image(width / 2, height / 2, 'background');
         this.backgroundImage.setScale(1.2);
         this.backgroundImage.setAlpha(0.5);
 
@@ -61,8 +59,8 @@ export class GameOverScene extends BaseScene {
         )
         this.backBox.setOrigin(0.5);
         this.backBox.setInteractive({ useHandCursor: true });
-        this.backBox.on(Phaser.Input.Events.POINTER_DOWN, () => { 
-            this.scene.start(MAIN_MENU_SCENE_KEY); 
+        this.backBox.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.scene.start(MAIN_MENU_SCENE_KEY);
         });
 
         this.backText = this.make.text({
@@ -78,6 +76,5 @@ export class GameOverScene extends BaseScene {
     }
 
     update(time: number, delta: number): void {
-
     }
 }

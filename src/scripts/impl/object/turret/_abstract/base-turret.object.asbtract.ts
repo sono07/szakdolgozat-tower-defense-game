@@ -1,6 +1,6 @@
+import { EnemyWithDistance } from "../../../../api/common/types";
 import { ITurretObject } from "../../../../api/object/turret-object/turret-object.interface";
-import { GameStateStore } from "../../../game-state-store/game-state.store.class";
-import { EnemyObject } from "../../enemy.object.class";
+import { GameStateStore } from "../../../game-state/game-state.store.class";
 import { BaseObject } from "../../_abstract/base.object.abstract";
 
 export abstract class BaseTurretObject extends BaseObject implements ITurretObject {
@@ -10,10 +10,6 @@ export abstract class BaseTurretObject extends BaseObject implements ITurretObje
     abstract remove(): void;
     abstract showRange(): void;
     abstract hideRange(): void;
-}
-
-export type EnemyWithDistance = EnemyObject & {
-    _d: number
 }
 
 export const EnemySorters = {

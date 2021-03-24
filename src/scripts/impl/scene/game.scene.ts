@@ -1,16 +1,27 @@
 import { BaseScene } from './_abstract/base.scene.abstract';
-import { GameStateStore } from '../game-state-store/game-state.store.class';
-import { generateMap, Tuple } from '../map/generate-map';
+import { GameStateStore } from '../game-state/game-state.store.class';
 import { ROTATION_DIVISOR } from '../utils/constants';
 import { MAP_TILES_COL_COUNT, MAP_TILES_ROW_COUNT } from '../utils/config.constants';
-import { IAction, PlaceTurretBulletMk1Action, PlaceTurretBulletMk2Action, PlaceTurretBulletMk3Action, PlaceTurretEnergyBallBlueMk1Action, PlaceTurretEnergyBallBlueMk2Action, PlaceTurretEnergyBallBlueMk3Action, PlaceTurretEnergyBallOrangeMk1Action, PlaceTurretEnergyBallOrangeMk2Action, PlaceTurretEnergyBallOrangeMk3Action, PlaceTurretLaserMk1Action, PlaceTurretLaserMk2Action, PlaceTurretLaserMk3Action, PlaceTurretRocketMk1Action, PlaceTurretRocketMk2Action, PlaceTurretRocketMk3Action, RemoveAction, SelectAction } from '../action/action.interface';
-
-export type WindowSizes = {
-    width: number,
-    height: number,
-    tileWidth: number,
-    tileHeight: number,
-}
+import { Tuple, WindowSizes } from '../../api/common/types';
+import { IAction } from '../../api/action/action.interface';
+import { PlaceTurretBulletMk1Action } from '../action/place-action/place-turret-bullet-mk1-action.class';
+import { PlaceTurretBulletMk2Action } from '../action/place-action/place-turret-bullet-mk2-action.class';
+import { PlaceTurretBulletMk3Action } from '../action/place-action/place-turret-bullet-mk3-action.class';
+import { PlaceTurretEnergyBallBlueMk1Action } from '../action/place-action/place-turret-energy-ball-blue-mk1-action.class';
+import { PlaceTurretEnergyBallBlueMk2Action } from '../action/place-action/place-turret-energy-ball-blue-mk2-action.class';
+import { PlaceTurretEnergyBallBlueMk3Action } from '../action/place-action/place-turret-energy-ball-blue-mk3-action.class';
+import { PlaceTurretEnergyBallOrangeMk1Action } from '../action/place-action/place-turret-energy-ball-orange-mk1-action.class';
+import { PlaceTurretEnergyBallOrangeMk2Action } from '../action/place-action/place-turret-energy-ball-orange-mk2-action.class';
+import { PlaceTurretEnergyBallOrangeMk3Action } from '../action/place-action/place-turret-energy-ball-orange-mk3-action.class';
+import { PlaceTurretLaserMk1Action } from '../action/place-action/place-turret-laser-mk1-action.class';
+import { PlaceTurretLaserMk2Action } from '../action/place-action/place-turret-laser-mk2-action.class';
+import { PlaceTurretLaserMk3Action } from '../action/place-action/place-turret-laser-mk3-action.class';
+import { PlaceTurretRocketMk1Action } from '../action/place-action/place-turret-rocket-mk1-action.class';
+import { PlaceTurretRocketMk2Action } from '../action/place-action/place-turret-rocket-mk2-action.class';
+import { PlaceTurretRocketMk3Action } from '../action/place-action/place-turret-rocket-mk3-action.class';
+import { RemoveAction } from '../action/remove-action.class';
+import { SelectAction } from '../action/select-action.class';
+import { MapGenerator } from '../map/generate-map';
 
 export const GAME_SCENE_KEY = "Game";
 export class GameScene extends BaseScene {
@@ -34,7 +45,7 @@ export class GameScene extends BaseScene {
     create(data: {seed: string}): void {
         const windowSizes = this.getWindowSizes();
 
-        const {map, path} = generateMap(data.seed, MAP_TILES_ROW_COUNT, MAP_TILES_COL_COUNT)
+        const {map, path} = MapGenerator.generateMap(data.seed, MAP_TILES_ROW_COUNT, MAP_TILES_COL_COUNT)
         
         const convertedPath = this.getConvertedPath(path, windowSizes);
         this.gameStateStore = new GameStateStore(this, map, convertedPath);

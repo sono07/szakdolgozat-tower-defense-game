@@ -1,5 +1,8 @@
 //TODO these values should be fine tuned
 
+export const GAME_WIDTH_PIXELS = 960;
+export const GAME_HEIGHT_PIXELS = 720;
+
 export const MAP_TILES_COL_COUNT = 10;
 export const MAP_TILES_ROW_COUNT = 8;
 
@@ -8,6 +11,14 @@ export const CRATERS_CLEAR_COST = 100;
 
 export const STARTING_MONEY = 10000;
 export const STARTING_HEALTH = 3;
+
+export const WAVE_START_DELAY_MS = 5000;
+export const WAVE_SPAWN_DELAY_MS = 1000;
+export const ENEMY_EXTRA_HEALTH_PER_WAVE = 10;
+export const ENEMY_BASE_HEALTH = 100;
+export const ENEMY_BASE_SPEED = 75;
+export const ENEMY_DAMAGE_TO_PLAYER = 1;
+export const ENEMY_MONEY_VALUE = 100;
 
 export const REMOVE_PRICE_MULTIPLIER = 0.8;
 
