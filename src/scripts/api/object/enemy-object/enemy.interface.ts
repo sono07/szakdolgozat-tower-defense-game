@@ -6,6 +6,7 @@ export interface IEnemy extends IObject {
     health: number;
     speed: number;
     path: Phaser.Curves.Path;
+    pathT: number;
     effects: IEffect[];
     // damage: number;
 

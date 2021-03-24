@@ -10,7 +10,7 @@ export class EnemyObject extends BaseObject implements IEnemy {
     effects!: IEffect[];
     private gameStateStore!: GameStateStore;
     path!: Phaser.Curves.Path;
-    private pathT!: number;
+    pathT!: number;
 
     constructor(scene: Phaser.Scene) {
         super(scene, "sprites", "enemy");
@@ -49,6 +49,7 @@ export class EnemyObject extends BaseObject implements IEnemy {
 
         if(this.health <= 0) {
             this.remove();
+            this.gameStateStore.receiveMoney(100)
         } else if (this.pathT >= 1) {
             this.gameStateStore.receiveDamage(1);
             this.remove();

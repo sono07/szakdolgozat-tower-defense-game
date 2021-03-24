@@ -20,12 +20,28 @@ import { TurretLaserMk1Group } from "../group/turret/turret-laser-mk1.group.clas
 import { TurretLaserMk2Group } from "../group/turret/turret-laser-mk2.group.class";
 import { TurretLaserMk3Group } from "../group/turret/turret-laser-mk3.group.class";
 import { GAME_OVER_SCENE_KEY } from "../scene/game-over.scene";
+import { TILE_CRATERS, TILE_EMPTY, TILE_ROAD_2WAY_CORNER, TILE_ROAD_2WAY_STRAIGHT, TILE_ROAD_3WAY, TILE_ROAD_4WAY, TILE_TREES } from "../utils/constants";
+import { IAction, SelectAction } from "../action/action.interface";
+import { ITurretGroup } from "../../api/group/turret-group/turret-group.interface";
+import { ITurretObject } from "../../api/object/turret-object/turret-object.interface";
+import { STARTING_HEALTH, STARTING_MONEY } from "../utils/config.constants";
 
 export class GameStateStore {
     private scene: Phaser.Scene;
 
+    private map: number[][];
+    public tileChangedCallbacks: ((i: number, j: number, value: number) => void)[] = [];
+    public tileForTileMapChangedCallbacks: ((i: number, j: number, value: number) => void)[] = [];
+
+    private action: IAction = new SelectAction(this);
+    public actionChangedCallbacks: ((value: IAction) => void)[] = [];
+
     private health: number;
+    public healtChangedCallbacks: ((value: number) => void)[] = [];
     private score: number;
+    public scoreChangedCallbacks: ((value: number) => void)[] = [];
+    private money: number;
+    public moneyChangedCallbacks: ((value: number) => void)[] = [];
 
     public enemiesGroup: EnemyGroup;
 
@@ -51,11 +67,13 @@ export class GameStateStore {
     public energyBallOrangesGroup: EnergyBallOrangeGroup;
     public rocketsGroup: RocketGroup;
 
-    constructor(scene: Phaser.Scene) {
+    constructor(scene: Phaser.Scene, map: number[][]) {
         this.scene = scene;
+        this.map = map;
 
-        this.health = 3;
+        this.health = STARTING_HEALTH;
         this.score = 0;
+        this.money = STARTING_MONEY;
 
         this.enemiesGroup = new EnemyGroup(this.scene);
 
@@ -82,18 +100,124 @@ export class GameStateStore {
         this.rocketsGroup = new RocketGroup(this.scene);
     }
 
+    getAllTurretGroups(): ITurretGroup<Phaser.GameObjects.Sprite & ITurretObject>[] {
+        return [
+            this.turretBulletMk1sGroup,
+            this.turretBulletMk2sGroup,
+            this.turretBulletMk3sGroup,
+
+            this.turretEnergyBallBlueMk1sGroup,
+            this.turretEnergyBallBlueMk2sGroup,
+            this.turretEnergyBallBlueMk3sGroup,
+
+            this.turretEnergyBallOrangeMk1sGroup,
+            this.turretEnergyBallOrangeMk2sGroup,
+            this.turretEnergyBallOrangeMk3sGroup,
+
+            this.turretLaserMk1sGroup,
+            this.turretLaserMk2sGroup,
+            this.turretLaserMk3sGroup,
+
+            this.turretRocketMk1sGroup,
+            this.turretRocketMk2sGroup,
+            this.turretRocketMk3sGroup,
+        ] as any[];
+    }
+
+    getAction() {
+        return this.action;
+    }
+
+    setAction(value: IAction) {
+        this.action = value;
+
+        this.actionChangedCallbacks.forEach(cb => {
+            cb(this.action);
+        })
+    }
+
+    getMap() {
+        return this.map;
+    }
+
+    getMapDataForTileMap() {
+        return this.map.map(row => row.map(cell => {
+            switch(Math.floor(cell)) {
+                case TILE_CRATERS:
+                case TILE_TREES:
+                case TILE_ROAD_2WAY_STRAIGHT:
+                case TILE_ROAD_2WAY_CORNER:
+                case TILE_ROAD_3WAY:
+                case TILE_ROAD_4WAY:
+                    return cell;
+                default:
+                    return TILE_EMPTY;
+            }
+        }))
+    }
+
+    setTile(i: number, j: number, value: number) {
+        this.map[i][j] = value;
+    
+        this.tileChangedCallbacks.forEach(cb => {
+            cb(i, j, this.getMap()[i][j])
+        })
+
+        this.tileForTileMapChangedCallbacks.forEach(cb => {
+            cb(i, j, this.getMapDataForTileMap()[i][j])
+        })
+    }
+
     getHealth(): number {
         return this.health;
+    }
+
+    setHealth(value: number) {
+        this.health = value;
+
+        this.healtChangedCallbacks.forEach(cb => {
+            cb(value)
+        })
     }
 
     getScore(): number {
         return this.score;
     }
 
+    setScore(value: number) {
+        this.score = value;
+
+        this.scoreChangedCallbacks.forEach(cb => {
+            cb(value);
+        })
+    }
+
+    getMoney(): number {
+        return this.money;
+    }
+
+    setMoney(value: number) {
+        this.money = value;
+
+        this.moneyChangedCallbacks.forEach(cb => {
+            cb(value)
+        })
+    }
+
+    receiveMoney(value: number): void {
+        this.setScore(this.score + value);
+        this.setMoney(this.money + value);
+    }
+
+    spendMoney(value: number): void {
+        this.setMoney(this.money - value);
+    }
+
     receiveDamage(value: number): void {
-        this.health -= value;
-        if(this.health <= 0) {
-            this.scene.scene.start(GAME_OVER_SCENE_KEY, {score: this.score});
+        this.setHealth(this.health - value);
+
+        if (this.health <= 0) {
+            this.scene.scene.start(GAME_OVER_SCENE_KEY, { score: this.score });
         }
     }
 }

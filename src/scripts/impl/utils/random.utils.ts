@@ -1,6 +1,6 @@
 export function genRandomStr(length: number) {
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result           = '';
+    let result             = '';
 
     for ( var i = 0; i < length; i++ ) {
        result += characters.charAt(Math.floor(Math.random() * characters.length));

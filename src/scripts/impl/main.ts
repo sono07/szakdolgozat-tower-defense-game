@@ -1,6 +1,6 @@
 import 'Phaser';
-import { GameConfig } from './config';
-import { Game } from './game';
+import { GameConfig } from './phaser.config';
+import { Game } from './phaser.game';
 
 export class App {
   static game: Game;

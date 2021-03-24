@@ -19,6 +19,7 @@ export class PrealoadScene extends BaseScene {
         const height = this.cameras.main.height;
 
         this.backgroundImage = this.add.image(width/2, height/2, 'background');
+        this.backgroundImage.setScale(1.2);
         this.backgroundImage.setAlpha(0.5);
 
         this.progressBar = this.add.graphics();
@@ -81,6 +82,8 @@ export class PrealoadScene extends BaseScene {
     preload(): void {
         //TODO remove
         this.load.atlas('sprites', 'images/spritesheet.png', 'images/spritesheet.json');
+
+        this.load.atlas('ui', 'images/spritesheets/ui/ui.png', 'images/spritesheets/ui/ui.json');
 
         this.load.html('seed-input', 'seed-input/seed-input.html');
 

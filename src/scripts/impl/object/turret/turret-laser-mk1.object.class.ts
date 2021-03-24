@@ -1,21 +1,19 @@
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.class";
 import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
-import { EnemyObject } from "../enemy.object.class";
 import { GameStateStore } from "../../game-state-store/game-state.store.class";
-import { BaseObject } from "../_abstract/base.object.abstract";
+import { EnemyObject } from "../enemy.object.class";
+import { BaseTurretObject, EnemySorters, EnemyWithDistance } from "./_abstract/base-turret.object.asbtract";
+import { TURRET_LASER_MK1_FIRERATE, TURRET_LASER_MK1_RANGE } from "../../utils/config.constants";
 
-type EnemyWithDistance = EnemyObject & {
-    _d: number
-}
-
-export class TurretLaserMk1Object extends BaseObject {
+export class TurretLaserMk1Object extends BaseTurretObject {
     private isBodyAdded = true;
     private canShootAfterTimeMs!: number;
     private gameStateStore!: GameStateStore;
-    private radius!: number;
+    private radius: number = TURRET_LASER_MK1_RANGE;
+    private firerate: number = TURRET_LASER_MK1_FIRERATE;
     private baseImage!: Phaser.GameObjects.Image;
-    private debugCircle!: Phaser.GameObjects.Arc;
+    private rangeCircle!: Phaser.GameObjects.Arc;
 
     constructor(scene: Phaser.Scene) {
         super(scene, 'turret-weapons', 'laser-mk1');
@@ -25,16 +23,17 @@ export class TurretLaserMk1Object extends BaseObject {
         this.baseImage = this.scene.add.image(0, 0, 'turret-bases', '004');
         this.baseImage.setDepth(4);
         this.baseImage.setScale(0.65);
+
+        this.rangeCircle = this.scene.add.circle(0, 0, this.radius, 0xFFFFFF, 0.2)
+        this.rangeCircle.setStrokeStyle(2, 0xFFFFFF, 1)
+        this.rangeCircle.setActive(false);
+        this.rangeCircle.setVisible(false);
     }
     
-    init(position: Phaser.Math.Vector2, gameStateStore: GameStateStore): void {
+    init(position: Phaser.Math.Vector2, gameStateStore: GameStateStore, ignoreUpdate?: boolean): void {
+        this.ignoreUpdate = ignoreUpdate == true;
         this.canShootAfterTimeMs = 0;
         this.gameStateStore = gameStateStore;
-        this.radius = 200;
-
-        if(this.scene.matter.world.drawDebug) {
-            this.debugCircle = this.scene.add.circle(position.x, position.y, this.radius, 0xFF0000, 0.1)
-        }
 
         this.position = position;
         if(!this.isBodyAdded) {
@@ -46,49 +45,21 @@ export class TurretLaserMk1Object extends BaseObject {
         this.baseImage.setActive(true);
         this.baseImage.setVisible(true);
 
+        this.rangeCircle.setPosition(position.x, position.y);
+        this.rangeCircle.setActive(false);
+        this.rangeCircle.setVisible(false);
+
         this.setActive(true);
         this.setVisible(true);
     }
 
-    // private enemySorterFirst(a: Enemy, b: Enemy) {
-    //     if(a.id < b.id) {
-    //         return -1;
-    //     } else if(a.id == b.id) {
-    //         return 0;
-    //     } else {
-    //         return 1;
-    //     }
-    // }
-
-    private enemySorterClosest(a: EnemyWithDistance, b: EnemyWithDistance) {
-        if(a._d < b._d) {
-            return -1;
-        } else if(a._d == b._d) {
-            return 0;
-        } else {
-            return 1;
-        }
+    showRange() {
+        this.rangeCircle.setVisible(true);
     }
 
-    // private enemySorterFurthest(a: EnemyWithDistance, b: EnemyWithDistance) {
-    //     if(a._d < b._d) {
-    //         return 1;
-    //     } else if(a._d == b._d) {
-    //         return 0;
-    //     } else {
-    //         return -1;
-    //     }
-    // }
-
-    // private enemySorterLowestHp(a: EnemyWithDistance, b: EnemyWithDistance) {
-    //     if(a.hp < b.hp) {
-    //         return -1;
-    //     } else if(a.hp == b.hp) {
-    //         return 0;
-    //     } else {
-    //         return 1;
-    //     }
-    // }
+    hideRange() {
+        this.rangeCircle.setVisible(false);
+    }
 
     private getEnemy(position: Phaser.Math.Vector2, distance: number): EnemyObject | undefined {
         const enemies = this.gameStateStore.enemiesGroup.getChildren() as EnemyObject[];
@@ -101,7 +72,7 @@ export class TurretLaserMk1Object extends BaseObject {
                 return ee;
             })
             .filter(e => e._d <= distance);
-        const result = activeInRangeEnemies.sort(this.enemySorterClosest)
+        const result = activeInRangeEnemies.sort(EnemySorters.enemySorterClosest)
 
         return result.shift();
     }
@@ -137,17 +108,16 @@ export class TurretLaserMk1Object extends BaseObject {
     }
 
     update(time: number, delta: number): void {
-        if (time > this.canShootAfterTimeMs) {
+        if (!this.ignoreUpdate && time > this.canShootAfterTimeMs) {
             if(this.fire()) {
-                this.canShootAfterTimeMs = time + 1000;
+                this.canShootAfterTimeMs = time + this.firerate;
             }
         }
     }
 
     remove(): void {
-        if(this.debugCircle != null) {
-            this.debugCircle.destroy();
-        }
+        this.rangeCircle.setActive(false);
+        this.rangeCircle.setVisible(false);
 
         this.baseImage.setActive(false);
         this.baseImage.setVisible(false);

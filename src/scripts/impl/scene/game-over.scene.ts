@@ -26,6 +26,7 @@ export class GameOverScene extends BaseScene {
         const height = this.cameras.main.height;
 
         this.backgroundImage = this.add.image(width/2, height/2, 'background');
+        this.backgroundImage.setScale(1.2);
         this.backgroundImage.setAlpha(0.5);
 
         this.gameOverText = this.make.text({

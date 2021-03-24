@@ -1,9 +1,19 @@
 import { TurretEnergyBallBlueMk1Object } from "../../object/turret/turret-energy-ball-blue-mk1.object.class";
-import { BaseGroup } from "../_abstract/base.group.abstract";
+import { TURRET_ENERGY_BALL_BLUE_MK1_COST } from "../../utils/config.constants";
+import { TILE_TURRET_ENERGY_BALL_BLUE_MK1 } from "../../utils/constants";
+import { BaseTurretGroup } from "./_abstract/base-turret.group.abstract.class";
 
-export class TurretEnergyBallBlueMk1Group extends BaseGroup<TurretEnergyBallBlueMk1Object> {
+export class TurretEnergyBallBlueMk1Group extends BaseTurretGroup<TurretEnergyBallBlueMk1Object> {
 
     constructor(scene: Phaser.Scene) {
         super(scene, TurretEnergyBallBlueMk1Object);
+    }
+
+    getPrice() {
+        return TURRET_ENERGY_BALL_BLUE_MK1_COST;
+    }
+
+    getTile() {
+        return TILE_TURRET_ENERGY_BALL_BLUE_MK1;
     }
 }

@@ -1,9 +1,19 @@
 import { TurretLaserMk1Object } from "../../object/turret/turret-laser-mk1.object.class";
-import { BaseGroup } from "../_abstract/base.group.abstract";
+import { TURRET_LASER_MK1_COST } from "../../utils/config.constants";
+import { TILE_TURRET_LASER_MK1 } from "../../utils/constants";
+import { BaseTurretGroup } from "./_abstract/base-turret.group.abstract.class";
 
-export class TurretLaserMk1Group extends BaseGroup<TurretLaserMk1Object> {
+export class TurretLaserMk1Group extends BaseTurretGroup<TurretLaserMk1Object> {
 
     constructor(scene: Phaser.Scene) {
         super(scene, TurretLaserMk1Object);
+    }
+
+    getPrice() {
+        return TURRET_LASER_MK1_COST;
+    }
+
+    getTile() {
+        return TILE_TURRET_LASER_MK1;
     }
 }

@@ -4,6 +4,7 @@ TODO effefct kattintásra pl megöli az összes enemy-t egy körben
 TODO UML csinál (projectile)
 TODO UML modósít (effect)
 TODO projectile DRY
+TODO turretek effektek finomhangolni
 
 problémák az ARCADe pshisics-szel áttérés matter physics-re
 https://blog.ourcade.co/posts/2020/phaser-3-optimization-object-pool-matter-js-physics/
