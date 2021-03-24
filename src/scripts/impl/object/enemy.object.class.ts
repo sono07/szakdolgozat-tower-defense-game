@@ -8,6 +8,7 @@ const healthBarOffset = 30;
 export class EnemyObject extends BaseObject implements IEnemy {
     id!: number;
     health!: number;
+    private maxSpeed!: number;
     speed!: number;
     effects!: IEffect[];
     private gameStateStore!: GameStateStore;
@@ -17,7 +18,7 @@ export class EnemyObject extends BaseObject implements IEnemy {
     private healthBar: HealthBarObject;
 
     constructor(scene: Phaser.Scene) {
-        super(scene, "sprites", "enemy");
+        super(scene, "enemy", "001");
 
         this.setDepth(1);
 
@@ -26,6 +27,7 @@ export class EnemyObject extends BaseObject implements IEnemy {
     
     protected _init(healt: number, speed: number, path: Phaser.Curves.Path, gameStateStore: GameStateStore): [position: Phaser.Math.Vector2] {
         this.health = healt;
+        this.maxSpeed = speed;
         this.speed = speed;
         this.effects = [];
         this.gameStateStore = gameStateStore;
@@ -36,6 +38,8 @@ export class EnemyObject extends BaseObject implements IEnemy {
         this.path.getPoint(this.pathT, vector);
 
         this.healthBar.init(new Phaser.Math.Vector2(vector.x, vector.y - healthBarOffset), 50, 10, 1, this.health, this.health);
+        this.play({ key: "enemy-walk-animation", repeat: -1, frameRate: (8*5)/6 });
+        this.anims.timeScale = this.speed / this.maxSpeed;
 
         return [vector];
     }
@@ -47,10 +51,16 @@ export class EnemyObject extends BaseObject implements IEnemy {
     protected  _update(time: number, delta: number): void {
         const speed = this.speed < 0 ? 0 : Phaser.Math.GetSpeed(this.speed/this.path.getLength(), 1);
         this.pathT += speed * delta;
+
+        this.anims.timeScale = this.speed / this.maxSpeed;
         
         let vector = new Phaser.Math.Vector2();
         this.path.getPoint(this.pathT, vector);
         this.position = vector;
+
+        let vector2 = new Phaser.Math.Vector2();
+        this.path.getTangent(this.pathT, vector2);
+        this.rotation = Phaser.Math.Angle.BetweenPoints(new Phaser.Math.Vector2(0, 0), vector2) - Math.PI / 2;
 
         this.healthBar.update(new Phaser.Math.Vector2(vector.x, vector.y - healthBarOffset), this.health);
 
@@ -69,6 +79,7 @@ export class EnemyObject extends BaseObject implements IEnemy {
     }
 
     protected _remove(): void {
+        this.stop();
         this.healthBar.remove();
     }
 }

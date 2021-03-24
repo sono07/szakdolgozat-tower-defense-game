@@ -25,6 +25,7 @@ import { IAction, SelectAction } from "../action/action.interface";
 import { ITurretGroup } from "../../api/group/turret-group/turret-group.interface";
 import { ITurretObject } from "../../api/object/turret-object/turret-object.interface";
 import { STARTING_HEALTH, STARTING_MONEY } from "../utils/config.constants";
+import { EnemySpawner } from "./enemy-spawner.class";
 
 export class GameStateStore {
     private scene: Phaser.Scene;
@@ -42,6 +43,10 @@ export class GameStateStore {
     public scoreChangedCallbacks: ((value: number) => void)[] = [];
     private money: number;
     public moneyChangedCallbacks: ((value: number) => void)[] = [];
+
+    public path: Phaser.Curves.Path;
+    
+    public enemySpawner: EnemySpawner;
 
     public enemiesGroup: EnemyGroup;
 
@@ -67,15 +72,18 @@ export class GameStateStore {
     public energyBallOrangesGroup: EnergyBallOrangeGroup;
     public rocketsGroup: RocketGroup;
 
-    constructor(scene: Phaser.Scene, map: number[][]) {
+    constructor(scene: Phaser.Scene, map: number[][], path: Phaser.Curves.Path) {
         this.scene = scene;
         this.map = map;
+        this.path = path;
 
         this.health = STARTING_HEALTH;
         this.score = 0;
         this.money = STARTING_MONEY;
 
         this.enemiesGroup = new EnemyGroup(this.scene);
+
+        this.enemySpawner = new EnemySpawner(this);
 
         this.turretBulletMk1sGroup = new TurretBulletMk1Group(this.scene);
         this.turretBulletMk2sGroup = new TurretBulletMk2Group(this.scene);
@@ -219,5 +227,9 @@ export class GameStateStore {
         if (this.health <= 0) {
             this.scene.scene.start(GAME_OVER_SCENE_KEY, { score: this.score });
         }
+    }
+
+    updateSpawner(time: number, delta: number) {
+        this.enemySpawner.update(time, delta);
     }
 }

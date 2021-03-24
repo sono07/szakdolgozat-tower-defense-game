@@ -80,12 +80,11 @@ export class PrealoadScene extends BaseScene {
     }
 
     preload(): void {
-        //TODO remove
-        this.load.atlas('sprites', 'images/spritesheet.png', 'images/spritesheet.json');
-
-        this.load.atlas('ui', 'images/spritesheets/ui/ui.png', 'images/spritesheets/ui/ui.json');
-
         this.load.html('seed-input', 'seed-input/seed-input.html');
+        
+        this.load.atlas('ui', 'images/spritesheets/ui/ui.spritesheet.png', 'images/spritesheets/ui/ui.spritesheet.json');
+        
+        this.load.atlas('enemy', 'images/spritesheets/enemy/enemy.spritesheet.png', 'images/spritesheets/enemy/enemy.spritesheet.json');
 
         this.load.atlas('terrain-tiles', 'images/spritesheets/terrain/terrain-light-grass.spritesheet.png', 'images/spritesheets/terrain/terrain-light-grass.spritesheet.json');
 
@@ -100,6 +99,7 @@ export class PrealoadScene extends BaseScene {
     }
 
     create(data: object): void {
+        this.anims.create({ key: 'enemy-walk-animation', frames: this.anims.generateFrameNames('enemy', {prefix: '', start: 1, end: 8, zeroPad: 3}), repeat: -1 })
         this.anims.create({ key: 'projectile-bullet-blow-animation', frames: this.anims.generateFrameNames('projectile-bullet', { prefix: '', start: 1, end: 6, zeroPad: 3 }), repeat: 0 });
         this.anims.create({ key: 'projectile-laser-blow-animation', frames: this.anims.generateFrameNames('projectile-laser', { prefix: '', start: 1, end: 5, zeroPad: 3 }), repeat: 0 });
         this.anims.create({ key: 'projectile-energy-ball-orange-blow-animation', frames: this.anims.generateFrameNames('projectile-energy-ball-orange', { prefix: '', start: 1, end: 7, zeroPad: 3 }), repeat: 0 });

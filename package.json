@@ -4,7 +4,7 @@
   "description": "A 2D tower defense game written in Typescript, using Phaser 3 (html5 game-engine) and Ionic 4 (cross-platform bundler)",
   "main": "main.ts",
   "scripts": {
-    "start": "webpack-dev-server --hot",
+    "start": "webpack-dev-server --hot --host 0.0.0.0",
     "build": "cross-env NODE_ENV=production webpack",
     "serve-build": "http-server --port 4949 --silent -o /dist",
     "test": "jest"

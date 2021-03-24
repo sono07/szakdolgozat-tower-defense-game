@@ -15,13 +15,11 @@ export type WindowSizes = {
 export const GAME_SCENE_KEY = "Game";
 export class GameScene extends BaseScene {
     private gameStateStore!: GameStateStore;
-    private nextEnemy!: number;
     
     private tileMap!: Phaser.Tilemaps.Tilemap;
     private tileMapLayer!: Phaser.Tilemaps.TilemapLayer;
     private tileSelector!: Phaser.GameObjects.Rectangle;
     private priceText!: Phaser.GameObjects.Text;
-    private path!: Phaser.Curves.Path;
 
     constructor() {
         super(GAME_SCENE_KEY);
@@ -34,34 +32,26 @@ export class GameScene extends BaseScene {
     }
 
     create(data: {seed: string}): void {
+        const windowSizes = this.getWindowSizes();
+
         const {map, path} = generateMap(data.seed, MAP_TILES_ROW_COUNT, MAP_TILES_COL_COUNT)
-        this.gameStateStore = new GameStateStore(this, map);
         
-        const windowSizes = this.createWindowSizes();
+        const convertedPath = this.getConvertedPath(path, windowSizes);
+        this.gameStateStore = new GameStateStore(this, map, convertedPath);
         
         this.createMapTiles(this.gameStateStore.getMapDataForTileMap(), windowSizes);
-        this.createPath(path, windowSizes);
         this.createMapTileSelector(windowSizes);
         this.createMapGrid(windowSizes);
         this.createTopUI();
         this.createSideUI();
         this.createUIInputHandlers();
-
-        this.nextEnemy = 0;
     }   
 
     update(time: number, delta: number): void {
-        // TODO
-        if (time > this.nextEnemy) {
-            const enemy = this.gameStateStore.enemiesGroup.get();
-            if (enemy) {
-                enemy.init(100, 150, this.path, this.gameStateStore)
-                this.nextEnemy = time + 1000 +1000000;
-            }
-        }
+        this.gameStateStore.updateSpawner(time, delta);
     }
 
-    private createWindowSizes(): WindowSizes {
+    private getWindowSizes(): WindowSizes {
         const windowSizes: WindowSizes = {
             width: 0,
             height: 0,
@@ -116,7 +106,7 @@ export class GameScene extends BaseScene {
         })
     }
 
-    private createPath(path: Tuple<number, 2>[], windowSizes: WindowSizes) {
+    private getConvertedPath(path: Tuple<number, 2>[], windowSizes: WindowSizes): Phaser.Curves.Path {
         const { tileWidth, tileHeight } = windowSizes;
 
         path.unshift([0, -1]);
@@ -125,10 +115,12 @@ export class GameScene extends BaseScene {
             return [(point[0] + 0.5) * tileWidth, (point[1] + 0.5) * tileHeight + 80]
         })
         
-        this.path = this.add.path(...path[0]);
+        const resultPath = this.add.path(...path[0]);
         for (let i = 1; i < path.length; i++) {
-            this.path.lineTo(...path[i]);
+            resultPath.lineTo(...path[i]);
         }
+
+        return resultPath;
     }
 
     private createMapTileSelector(windowSizes: WindowSizes) {
@@ -255,6 +247,62 @@ export class GameScene extends BaseScene {
         scoreText.setDepth(103);
         this.gameStateStore.scoreChangedCallbacks.push((value) => {
             scoreText.setText(value.toString())
+        })
+
+        const waveBox = this.add.graphics();
+        waveBox.fillStyle(0x222222, 0.8);
+        waveBox.fillRoundedRect(655, 25, 120, 30, 5);
+        waveBox.setDepth(101);
+
+        const waveIcon = this.add.image(0,0, 'ui', 'wave');
+        waveIcon.setOrigin(0, 0.5);
+        waveIcon.x = 620;
+        waveIcon.y = 40;
+        waveIcon.displayHeight = 45;
+        waveIcon.setScale(waveIcon.scaleY)
+        waveIcon.setDepth(102);
+
+        const waveText = this.make.text({
+            x: 765,
+            y: 40,
+            text: this.gameStateStore.enemySpawner.getWaveNumber().toString(),
+            style: {
+                font: '25px monospace',
+                color: '#ffffff',
+            }
+        });
+        waveText.setOrigin(1, 0.5);
+        waveText.setDepth(103);
+        this.gameStateStore.enemySpawner.waveNumberChangedCallback.push((value) => {
+            waveText.setText(value.toString())
+        })
+
+        const enemyBox = this.add.graphics();
+        enemyBox.fillStyle(0x222222, 0.8);
+        enemyBox.fillRoundedRect(810, 25, 120, 30, 5);
+        enemyBox.setDepth(101);
+
+        const enemyIcon = this.add.image(0,0, 'ui', 'enemy');
+        enemyIcon.setOrigin(0, 0.5);
+        enemyIcon.x = 785;
+        enemyIcon.y = 40;
+        enemyIcon.displayHeight = 45;
+        enemyIcon.setScale(enemyIcon.scaleY)
+        enemyIcon.setDepth(102);
+
+        const enemyText = this.make.text({
+            x: 920,
+            y: 40,
+            text: this.gameStateStore.enemySpawner.getWaveEnemyNumber().toString(),
+            style: {
+                font: '25px monospace',
+                color: '#ffffff',
+            }
+        });
+        enemyText.setOrigin(1, 0.5);
+        enemyText.setDepth(103);
+        this.gameStateStore.enemySpawner.waveEnemyNumberChangedCallback.push((value) => {
+            enemyText.setText(value.toString())
         })
     }
 

@@ -1,10 +1,31 @@
 {
 	"frames": [
 		{
-			"filename": "bulldoze",
+			"filename": "001",
 			"frame": {
-				"x": 1,
-				"y": 1,
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			}
+		},
+		{
+			"filename": "002",
+			"frame": {
+				"x": 48,
+				"y": 0,
 				"w": 48,
 				"h": 48
 			},
@@ -22,94 +43,115 @@
 			}
 		},
 		{
-			"filename": "hearth",
+			"filename": "003",
 			"frame": {
-				"x": 51,
-				"y": 1,
-				"w": 56,
-				"h": 50
+				"x": 96,
+				"y": 0,
+				"w": 48,
+				"h": 48
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 56,
-				"h": 50
+				"w": 48,
+				"h": 48
 			},
 			"sourceSize": {
-				"w": 56,
-				"h": 50
+				"w": 48,
+				"h": 48
 			}
 		},
 		{
-			"filename": "money",
+			"filename": "004",
 			"frame": {
-				"x": 109,
-				"y": 1,
-				"w": 53,
-				"h": 53
+				"x": 144,
+				"y": 0,
+				"w": 48,
+				"h": 48
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 53,
-				"h": 53
+				"w": 48,
+				"h": 48
 			},
 			"sourceSize": {
-				"w": 53,
-				"h": 53
+				"w": 48,
+				"h": 48
 			}
 		},
 		{
-			"filename": "panel",
+			"filename": "005",
 			"frame": {
-				"x": 164,
-				"y": 1,
-				"w": 38,
-				"h": 76
+				"x": 192,
+				"y": 0,
+				"w": 48,
+				"h": 48
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 38,
-				"h": 76
+				"w": 48,
+				"h": 48
 			},
 			"sourceSize": {
-				"w": 38,
-				"h": 76
+				"w": 48,
+				"h": 48
 			}
 		},
 		{
-			"filename": "score",
+			"filename": "006",
 			"frame": {
-				"x": 204,
-				"y": 1,
-				"w": 57,
-				"h": 55
+				"x": 240,
+				"y": 0,
+				"w": 48,
+				"h": 48
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 57,
-				"h": 55
+				"w": 48,
+				"h": 48
 			},
 			"sourceSize": {
-				"w": 57,
-				"h": 55
+				"w": 48,
+				"h": 48
 			}
 		},
 		{
-			"filename": "select",
+			"filename": "007",
 			"frame": {
-				"x": 263,
-				"y": 1,
+				"x": 288,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			}
+		},
+		{
+			"filename": "008",
+			"frame": {
+				"x": 336,
+				"y": 0,
 				"w": 48,
 				"h": 48
 			},
@@ -133,8 +175,8 @@
 		"image": "spritesheet.png",
 		"format": "RGBA8888",
 		"size": {
-			"w": 312,
-			"h": 78
+			"w": 384,
+			"h": 48
 		},
 		"scale": "1"
 	}
