@@ -1,0 +1,100 @@
+@startuml
+interface IGameStateStore {
+    +tileChangedCallbacks: ((i: number, j: number, value: number) => void)[]
+    +tileForTileMapChangedCallbacks: ((i: number, j: number, value: number) => void)[]
+    +actionChangedCallbacks: ((value: IAction) => void)[]
+    +healtChangedCallbacks: ((value: number) => void)[]
+    +scoreChangedCallbacks: ((value: number) => void)[]
+    +moneyChangedCallbacks: ((value: number) => void)[]
+    +path: Phaser.Curves.Path
+    +enemySpawner: IEnemySpawner
+    +enemiesGroup: IGroup<Phaser.GameObjects.GameObject & IEnemy>
+    +turretBulletMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretBulletMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretBulletMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretRocketMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretRocketMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretRocketMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallBlueMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallBlueMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallBlueMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallOrangeMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallOrangeMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallOrangeMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretLaserMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretLaserMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretLaserMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +bulletsGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>
+    +lasersGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>
+    +energyBallBluesGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>
+    +energyBallOrangesGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>
+    +rocketsGroup: IGroup<Phaser.GameObjects.GameObject & IAOEMovingProjectile>
+    +getAllTurretGroups(): ITurretGroup<Phaser.GameObjects.Sprite & ITurretObject>[]
+    +getAction(): IAction
+    +setAction(value: IAction): void
+    +getMap(): number[][]
+    +getMapDataForTileMap(): number[][]
+    +setTile(i: number, j: number, value: number): void
+    +getHealth(): number
+    +getScore(): number
+    +getMoney(): number
+    +receiveMoney(value: number): void
+    +spendMoney(value: number): void
+    +receiveDamage(value: number): void
+    +updateSpawner(time: number, delta: number): void
+}
+
+class GameStateStore implements IGameStateStore {
+    -scene: Phaser.Scene
+    -map: number[][]
+    +tileChangedCallbacks: ((i: number, j: number, value: number) => void)[]
+    +tileForTileMapChangedCallbacks: ((i: number, j: number, value: number) => void)[]
+    -action: IAction
+    +actionChangedCallbacks: ((value: IAction) => void)[]
+    -health: number
+    +healtChangedCallbacks: ((value: number) => void)[]
+    -score: number
+    +scoreChangedCallbacks: ((value: number) => void)[]
+    -money: number
+    +moneyChangedCallbacks: ((value: number) => void)[]
+    +path: Phaser.Curves.Path
+    +enemySpawner: IEnemySpawner
+    +enemiesGroup: IGroup<Phaser.GameObjects.GameObject & IEnemy>
+    +turretBulletMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretBulletMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretBulletMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretRocketMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretRocketMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretRocketMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallBlueMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallBlueMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallBlueMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallOrangeMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallOrangeMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretEnergyBallOrangeMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretLaserMk1sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretLaserMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +turretLaserMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>
+    +bulletsGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>
+    +lasersGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>
+    +energyBallBluesGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>
+    +energyBallOrangesGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>
+    +rocketsGroup: IGroup<Phaser.GameObjects.GameObject & IAOEMovingProjectile>
+    +getAllTurretGroups(): ITurretGroup<Phaser.GameObjects.Sprite & ITurretObject>[]
+    +getAction(): IAction
+    +setAction(value: IAction): void
+    +getMap(): number[][]
+    +getMapDataForTileMap(): number[][]
+    +setTile(i: number, j: number, value: number): void
+    +getHealth(): number
+    -setHealth(value: number): void
+    +getScore(): number
+    -setScore(value: number): void
+    +getMoney(): number
+    -setMoney(value: number): void
+    +receiveMoney(value: number): void
+    +spendMoney(value: number): void
+    +receiveDamage(value: number): void
+    +updateSpawner(time: number, delta: number): void
+}
+@enduml

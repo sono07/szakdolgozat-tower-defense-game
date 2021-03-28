@@ -1,0 +1,8 @@
+@startuml
+class Game extends Phaser.Game
+
+class App {
+    +{static} game: Game
+    +{static} run(): void
+}
+@enduml
