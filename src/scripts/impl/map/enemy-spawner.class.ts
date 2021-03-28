@@ -74,7 +74,12 @@ export class EnemySpawner implements IEnemySpawner {
 
                     const enemy = enemyDescription.group.get();
                     if (enemy) {
-                        enemy.init(enemyDescription.health, enemyDescription.speed, this.path, this.gameStateStore)
+                        enemy.init({
+                            health: enemyDescription.health,
+                            speed: enemyDescription.speed,
+                            path: this.path,
+                            gameStateStore: this.gameStateStore,
+                        })
                         this.nextEnemyTime = time + WAVE_SPAWN_DELAY_MS;
                         this.nextEnemyIndex++;
 

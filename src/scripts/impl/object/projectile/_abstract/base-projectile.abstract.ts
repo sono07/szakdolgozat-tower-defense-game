@@ -6,7 +6,6 @@ import { convertOverlapParams } from "../../../utils/matter.physics.utils";
 import { BaseObject } from "../../_abstract/base.object.abstract";
 
 export abstract class BaseProjectile extends BaseObject implements IProjectile {
-    protected isBodyAdded: boolean = true;
     protected isRemoving: boolean = false;
     protected effects!: IEffect[];
     protected targets!: IEnemy[];
@@ -24,26 +23,22 @@ export abstract class BaseProjectile extends BaseObject implements IProjectile {
         effects: IEffect[],
         targets: IEnemy[],
         cb?: () => void,
-    }) {
+    }): void {
         const { effects, targets, cb } = params;
 
-        //reset body
-        if(!this.isBodyAdded) {
-            this.isBodyAdded = true;
-            this.scene.matter.world.add(this.body);
-        }
+        super.init({
+            ...params,
+            cb: () => {
+                //reset animation frame.
+                this.setFrame('001');
 
-        //reset animation frame.
-        this.setFrame('001');
+                this.isRemoving = false;
+                this.effects = effects;
+                this.targets = targets;
 
-        this.isRemoving = false;
-        this.effects = effects;
-        this.targets = targets;
-
-        if(cb) cb();
-
-        this.setActive(true);
-        this.setVisible(true);
+                if(cb) cb();
+            }
+        })
     }
 
     public update(time: number, delta: number, cb?: (time: number, delta: number) => void): void {
@@ -76,16 +71,8 @@ export abstract class BaseProjectile extends BaseObject implements IProjectile {
         if (cb) cb();
     }
 
-    public remove(cb?: IProjectile['remove']) {
-        this.setActive(false);
-        this.setVisible(false);
-
-        if (cb) cb();
-
-        if (this.isBodyAdded) {
-            this.isBodyAdded = false;
-            this.scene.matter.world.remove(this.body);
-        }
+    public remove(cb?: (() => void)) {
+        super.remove(cb);
 
         this.isRemoving = false;
     }

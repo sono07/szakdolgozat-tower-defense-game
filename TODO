@@ -1,11 +1,3 @@
-TODO effect percentage damage should be calculated from max-hp
-TODO effefct kattintásra pl megöli az összes enemy-t egy körben
-
-TODO UML csinál (projectile)
-TODO UML modósít (effect)
-TODO projectile DRY
-TODO turretek effektek finomhangolni
-
 problémák az ARCADe pshisics-szel áttérés matter physics-re
 https://blog.ourcade.co/posts/2020/phaser-3-optimization-object-pool-matter-js-physics/
 SAT problémák, optimalizáció része előző ütközést használja fel, de mivel ezek a lövedékek laser esetén nem mozognak (legalábbis nem a fizikai motor mozgatja őket), így ha ugyan arra a pozícióra spawnolja az előzőleg despawnolt projectile-t (pl laser esetén lehetséges) akkor megpróbálja felhasználni az előző collision eredményét, viszont itt már mások lesznek az értékekt és egy null pointerrel később elszáll, feltehetően ennek nem így kellene működnie, de egyelőre megoldást jelentett, hogy minden egyes spawn-nál hozzáadom a fizikai motorhoz a testet ha még nincs hozzáadva (alapból ez automatikusan megtörténik a cosntructorban), illetve despawn-kor pedig eltávolítom onnan azt, így resetelve gyakorlatilag a fizikai számításait az objektumnak.

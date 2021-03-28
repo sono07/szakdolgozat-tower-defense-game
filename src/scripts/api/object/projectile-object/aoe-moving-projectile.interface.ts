@@ -1,6 +1,6 @@
 import { IEffect } from "../../effect/effect.interface";
 import { IEnemy } from "../enemy-object/enemy.interface";
-import { IMovingProjectile } from "./projectile.interface";
+import { IMovingProjectile } from "./moving-projectile.interface";
 
 export interface IAOEMovingProjectile extends IMovingProjectile {
     init(params: {

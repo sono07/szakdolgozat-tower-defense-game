@@ -10,5 +10,10 @@ export interface IEnemy extends IObject {
     effects: IEffect[];
 
     addEffect(effect: IEffect): void;
-    init(health: number, speed: number, path: Phaser.Curves.Path, gameStateStore: IGameStateStore): void;
+    init(params: {
+        health: number,
+        speed: number,
+        path: Phaser.Curves.Path,
+        gameStateStore: IGameStateStore,
+    }): void;
 }

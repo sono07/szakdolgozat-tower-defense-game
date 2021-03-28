@@ -1,3 +1,5 @@
+import { ENEMY_HEALTH_BAR_BACKGROUND_INDICATOR_Z_INDEX, ENEMY_HEALTH_BAR_BOX_Z_INDEX, ENEMY_HEALTH_BAR_FOREGROUND_INDICATOR_Z_INDEX } from "../../utils/constants";
+
 export class HealthBarObject {
     private scene: Phaser.Scene;
     private healthBarBox: Phaser.GameObjects.Rectangle;
@@ -15,21 +17,21 @@ export class HealthBarObject {
         this.scene = scene;
 
         this.healthBarBox = this.scene.add.rectangle();
-        this.healthBarBox.setDepth(11)
+        this.healthBarBox.setDepth(ENEMY_HEALTH_BAR_BOX_Z_INDEX)
         this.healthBarBox.setFillStyle(0x222222, 1)
         this.healthBarBox.setOrigin(0.5, 0.5)
         this.healthBarBox.setActive(false);
         this.healthBarBox.setVisible(false);
 
         this.healthBarBackground = this.scene.add.rectangle();
-        this.healthBarBackground.setDepth(12)
+        this.healthBarBackground.setDepth(ENEMY_HEALTH_BAR_BACKGROUND_INDICATOR_Z_INDEX)
         this.healthBarBackground.setFillStyle(0xFF0000, 1)
         this.healthBarBackground.setOrigin(0.5, 0.5)
         this.healthBarBackground.setActive(false);
         this.healthBarBackground.setVisible(false);
 
         this.healthBarIndicator = this.scene.add.rectangle();
-        this.healthBarIndicator.setDepth(13)
+        this.healthBarIndicator.setDepth(ENEMY_HEALTH_BAR_FOREGROUND_INDICATOR_Z_INDEX)
         this.healthBarIndicator.setFillStyle(0x00FF00, 1)
         this.healthBarIndicator.setOrigin(0, 0.5)
         this.healthBarIndicator.setActive(false);
@@ -40,7 +42,7 @@ export class HealthBarObject {
         return this.currentValue / this.maxValue;
     }
 
-    init(position: Phaser.Math.Vector2, width: number, height: number, padding: number, maxValue: number, currentValue: number) {
+    public init(position: Phaser.Math.Vector2, width: number, height: number, padding: number, maxValue: number, currentValue: number) {
         this.position = position;
         this.width = width;
         this.height = height;
@@ -64,7 +66,7 @@ export class HealthBarObject {
         this.healthBarIndicator.setVisible(true);
     }
 
-    update(position: Phaser.Math.Vector2, currentValue: number) {
+    public update(position: Phaser.Math.Vector2, currentValue: number) {
         this.position = position;
         this.currentValue = currentValue;
 
@@ -74,7 +76,7 @@ export class HealthBarObject {
         this.healthBarIndicator.setDisplaySize((this.width - (2 * this.padding)) * this.getValuePercentage(), this.height - (2 * this.padding));
     }
 
-    remove() {
+    public remove() {
         this.healthBarBox.setActive(false);
         this.healthBarBox.setVisible(false);
 

@@ -17,8 +17,9 @@ export class RocketObject extends BaseMovingProjectile implements IAOEMovingProj
         effects: IEffect[],
         targets: IEnemy[],
         radius: number,
+        cb?: () => void,
     }): void {
-        const {startPosition, endPosition, radius} = params;
+        const {startPosition, endPosition, radius, cb} = params;
 
         super.init({
             ...params,
@@ -28,6 +29,8 @@ export class RocketObject extends BaseMovingProjectile implements IAOEMovingProj
                 this.setCircle(radius);
                 this.setSensor(true);
                 this.setRotation(Phaser.Math.Angle.BetweenPoints(startPosition, endPosition) + Math.PI / 2);
+
+                if(cb) cb();
             },
         })
     }

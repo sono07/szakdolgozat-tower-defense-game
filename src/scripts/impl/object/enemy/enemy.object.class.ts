@@ -1,10 +1,10 @@
-import { IEffect } from "../../api/effect/effect.interface";
-import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
-import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
-import { ENEMY_DAMAGE_TO_PLAYER, ENEMY_MONEY_VALUE } from "../utils/config.constants";
-import { ENEMY_HEALTH_BAR_OFFSET_PX, ENEMY_Z_INDEX } from "../utils/constants";
-import { HealthBarObject } from "./misc/health-bar.object.class";
-import { BaseObject } from "./_abstract/base.object.abstract";
+import { IEffect } from "../../../api/effect/effect.interface";
+import { IGameStateStore } from "../../../api/game-state/game-state-store.interface";
+import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
+import { ENEMY_DAMAGE_TO_PLAYER, ENEMY_MONEY_VALUE } from "../../utils/config.constants";
+import { ENEMY_HEALTH_BAR_OFFSET_PX, ENEMY_Z_INDEX } from "../../utils/constants";
+import { HealthBarObject } from "../misc/health-bar.object.class";
+import { BaseObject } from "../_abstract/base.object.abstract";
 
 export class EnemyObject extends BaseObject implements IEnemy {
     id!: number;
@@ -15,42 +15,50 @@ export class EnemyObject extends BaseObject implements IEnemy {
     private gameStateStore!: IGameStateStore;
     path!: Phaser.Curves.Path;
     pathT!: number;
-    private isBodyAdded = true;
 
     private healthBar: HealthBarObject;
 
     constructor(scene: Phaser.Scene) {
         super(scene, "enemy", "001");
 
+        this.setSensor(true);
         this.setDepth(ENEMY_Z_INDEX);
 
         this.healthBar = new HealthBarObject(this.scene);
     }
-    
-    public init(healt: number, speed: number, path: Phaser.Curves.Path, gameStateStore: IGameStateStore): void {
-        this.health = healt;
-        this.maxSpeed = speed;
-        this.speed = speed;
-        this.effects = [];
-        this.gameStateStore = gameStateStore;
-        this.path = path;
-        this.pathT = 0;
 
-        let vector = new Phaser.Math.Vector2();
-        this.path.getPoint(this.pathT, vector);
+    public init(params: {
+        health: number,
+        speed: number,
+        path: Phaser.Curves.Path,
+        gameStateStore: IGameStateStore,
+        cb?: () => void,
+    }): void {
+        const {health, speed, path, gameStateStore, cb} = params;
 
-        this.healthBar.init(new Phaser.Math.Vector2(vector.x, vector.y - ENEMY_HEALTH_BAR_OFFSET_PX), 50, 10, 1, this.health, this.health);
-        this.play({ key: "enemy-walk-animation", repeat: -1, frameRate: (8*5)/6 });
-        this.anims.timeScale = this.speed / this.maxSpeed;
+        super.init({
+            ...params,
+            cb: () => {
+                this.health = health;
+                this.maxSpeed = speed;
+                this.speed = speed;
+                this.effects = [];
+                this.gameStateStore = gameStateStore;
+                this.path = path;
+                this.pathT = 0;
+        
+                let vector = new Phaser.Math.Vector2();
+                this.path.getPoint(this.pathT, vector);
+        
+                this.healthBar.init(new Phaser.Math.Vector2(vector.x, vector.y - ENEMY_HEALTH_BAR_OFFSET_PX), 50, 10, 1, this.health, this.health);
+                this.play({ key: "enemy-walk-animation", repeat: -1, frameRate: (8*5)/6 });
+                this.anims.timeScale = this.speed / this.maxSpeed;
+        
+                this.position = vector;
 
-        this.position = vector;
-        if(!this.isBodyAdded) {
-            this.isBodyAdded = true;
-            this.scene.matter.world.add(this.body);
-        }
-
-        this.setActive(true);
-        this.setVisible(true);
+                if(cb) cb();
+            }
+        })
     }
 
     public addEffect(effect: IEffect): void {
@@ -88,15 +96,9 @@ export class EnemyObject extends BaseObject implements IEnemy {
     }
 
     public remove(): void {
-        this.stop();
-        this.healthBar.remove();
-
-        this.setActive(false);
-        this.setVisible(false);
-
-        if(this.isBodyAdded) {
-            this.isBodyAdded = false;
-            this.scene.matter.world.remove(this.body);
-        }
+        super.remove(() => {
+            this.stop();
+            this.healthBar.remove();
+        });
     }
 }

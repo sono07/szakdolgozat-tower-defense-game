@@ -21,8 +21,9 @@ export class LaserObject extends BaseProjectile {
         endPosition: Phaser.Math.Vector2,
         effects: IEffect[],
         targets: IEnemy[],
+        cb?: () => void,
     }): void {
-        const {startPosition, endPosition} = params;
+        const {startPosition, endPosition, cb} = params;
 
         super.init({
             ...params,
@@ -31,6 +32,8 @@ export class LaserObject extends BaseProjectile {
                 this.setScale(1, startPosition.distance(endPosition) / this.height);
                 this.setRotation(Phaser.Math.Angle.BetweenPoints(startPosition, endPosition) - Math.PI / 2);
                 this.position = startPosition.clone().lerp(endPosition.clone(), 0.5);
+
+                if(cb) cb();
             },
         })
     }

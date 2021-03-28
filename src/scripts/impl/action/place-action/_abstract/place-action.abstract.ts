@@ -46,7 +46,11 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.G
                 this.turret = this.group.get();
             }
 
-            this.turret.init(new Phaser.Math.Vector2(tile!.getCenterX(), tile!.getCenterY()), this.gameStateStore, true)
+            this.turret.init({
+                position: new Phaser.Math.Vector2(tile!.getCenterX(), tile!.getCenterY()),
+                gameStateStore: this.gameStateStore,
+                ignoreUpdate: true,
+            })
             this.turret.showRange();
         } else {
             this.turret?.remove()
@@ -64,7 +68,10 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.G
                         tile.getCenterX(),
                         tile.getCenterY(),
                     );
-                    turret.init(pos, this.gameStateStore);
+                    turret.init({
+                        position: pos,
+                        gameStateStore: this.gameStateStore,
+                    });
 
                     this.gameStateStore.spendMoney(price);
                     this.gameStateStore.setTile(tile.y, tile.x, this.group.getTile());

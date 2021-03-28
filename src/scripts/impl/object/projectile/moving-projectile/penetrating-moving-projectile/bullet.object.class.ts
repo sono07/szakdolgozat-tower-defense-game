@@ -19,13 +19,16 @@ export class BulletObject extends BasePenetratingMovingProjectile {
         effects: IEffect[],
         targets: IEnemy[],
         penetrationCount: number,
+        cb?: () => void,
     }): void {
-        const {startPosition, endPosition} = params;
+        const {startPosition, endPosition, cb} = params;
 
         super.init({
             ...params,
             cb: () => {
                 this.setRotation(Phaser.Math.Angle.BetweenPoints(startPosition, endPosition) + Math.PI / 2);
+
+                if(cb) cb();
             },
         })
     }

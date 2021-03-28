@@ -3,7 +3,9 @@ import { IGroup } from "../group/group.interface"
 import { ITurretGroup } from "../group/turret-group/turret-group.interface"
 import { IEnemySpawner } from "../map/enemy-spawner.interface"
 import { IEnemy } from "../object/enemy-object/enemy.interface"
-import { IAOEMovingProjectile, IPenetratingMovingProjectile, IProjectile } from "../object/projectile-object/projectile.interface"
+import { IAOEMovingProjectile } from "../object/projectile-object/aoe-moving-projectile.interface"
+import { IPenetratingMovingProjectile } from "../object/projectile-object/penetrating-moving-projectile.interface"
+import { IProjectile } from "../object/projectile-object/projectile.interface"
 import { ITurretObject } from "../object/turret-object/turret-object.interface"
 
 export interface IGameStateStore {

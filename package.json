@@ -1,13 +1,14 @@
 {
   "name": "tower-defense-game",
   "version": "1.0.0",
-  "description": "A 2D tower defense game written in Typescript, using Phaser 3 (html5 game-engine) and Ionic 4 (cross-platform bundler)",
+  "description": "A 2D tower defense game written in Typescript, using Phaser 3 (html5 game-engine) and Webpack (bundler)",
   "main": "main.ts",
   "scripts": {
     "start": "webpack-dev-server --hot --host 0.0.0.0",
     "build": "cross-env NODE_ENV=production webpack",
     "serve-build": "http-server --port 4949 --silent -o /dist",
-    "test": "jest"
+    "test": "jest",
+    "doc": "npx tplant -i ./src/scripts/impl/main.ts"
   },
   "dependencies": {
     "node-dijkstra": "^2.5.0",
@@ -28,6 +29,7 @@
     "cross-env": "^7.0.2",
     "http-server": "^0.12.3",
     "jest": "^26.6.3",
+    "tplant": "^2.3.6",
     "ts-loader": "^6.2.2",
     "typescript": "^4.2.3",
     "webpack": "^4.46.0",
