@@ -1,10 +1,10 @@
+import { EnemyWithDistance } from "../../../api/common/types";
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.class";
 import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
 import { GameStateStore } from "../../game-state/game-state.store.class";
-import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 import { TURRET_BULLET_MK1_FIRERATE, TURRET_BULLET_MK1_RANGE } from "../../utils/config.constants";
-import { EnemyWithDistance } from "../../../api/common/types";
+import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretBulletMk1Object extends BaseTurretObject {
     private isBodyAdded = true;
@@ -30,7 +30,7 @@ export class TurretBulletMk1Object extends BaseTurretObject {
         this.rangeCircle.setVisible(false);
     }
     
-    init(position: Phaser.Math.Vector2, gameStateStore: GameStateStore, ignoreUpdate?: boolean): void {
+    public init(position: Phaser.Math.Vector2, gameStateStore: GameStateStore, ignoreUpdate?: boolean): void {
         this.ignoreUpdate = ignoreUpdate == true;
         this.canShootAfterTimeMs = 0;
         this.gameStateStore = gameStateStore;
@@ -53,11 +53,11 @@ export class TurretBulletMk1Object extends BaseTurretObject {
         this.setVisible(true);
     }
 
-    showRange() {
+    public showRange() {
         this.rangeCircle.setVisible(true);
     }
 
-    hideRange() {
+    public hideRange() {
         this.rangeCircle.setVisible(false);
     }
 
@@ -85,14 +85,14 @@ export class TurretBulletMk1Object extends BaseTurretObject {
         if (bullet) {
             const fromPos = this.position.clone().add(forwardOffset);
             const targetPos = this.position.clone().add(dirRadius);
-            bullet.init(
-                fromPos,
-                targetPos,
-                300,
-                [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)],
-                this.gameStateStore.enemiesGroup.getChildren(),
-                0,
-            );
+            bullet.init({
+                startPosition: fromPos,
+                endPosition: targetPos,
+                speed: 300,
+                effects: [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)],
+                targets: this.gameStateStore.enemiesGroup.getChildren(),
+                penetrationCount: 0,
+            });
         }
     }
 
@@ -110,7 +110,7 @@ export class TurretBulletMk1Object extends BaseTurretObject {
         }
     }
 
-    update(time: number, delta: number): void {
+    public update(time: number, delta: number): void {
         if (!this.ignoreUpdate && time > this.canShootAfterTimeMs) {
             if(this.fire()) {
                 this.canShootAfterTimeMs = time + this.firerate;
@@ -118,7 +118,7 @@ export class TurretBulletMk1Object extends BaseTurretObject {
         }
     }
 
-    remove(): void {
+    public remove(): void {
         this.rangeCircle.setActive(false);
         this.rangeCircle.setVisible(false);
 

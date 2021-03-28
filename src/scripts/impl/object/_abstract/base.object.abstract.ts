@@ -1,8 +1,12 @@
-export abstract class BaseObject extends Phaser.Physics.Matter.Sprite {
+import { IObject } from "../../../api/object/object.interface";
+
+export abstract class BaseObject extends Phaser.Physics.Matter.Sprite implements IObject {
     _position!: Phaser.Math.Vector2;
 
-    constructor(scene: Phaser.Scene, texture: string, frame?: string, options?: Phaser.Types.Physics.Matter.MatterBodyConfig) {
-        super(scene.matter.world, 0, 0, texture, frame, {...options, isSensor: true});
+    constructor(scene: Phaser.Scene, texture: string, frame?: string, cb?: (self: BaseObject) => void) {
+        super(scene.matter.world, 0, 0, texture, frame);
+
+        if (cb) cb(this);
     }
 
     get position() {
@@ -21,4 +25,7 @@ export abstract class BaseObject extends Phaser.Physics.Matter.Sprite {
 
         return this;
     }
+
+    public abstract init(...args: any[]): void;
+    public abstract remove(): void;
 }

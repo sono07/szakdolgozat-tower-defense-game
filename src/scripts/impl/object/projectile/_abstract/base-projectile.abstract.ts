@@ -1,26 +1,55 @@
 import { IEffect } from "../../../../api/effect/effect.interface";
 import { IEnemy } from "../../../../api/object/enemy-object/enemy.interface";
+import { IProjectile } from "../../../../api/object/projectile-object/projectile.interface";
+import { PROJECTILE_Z_INDEX } from "../../../utils/constants";
 import { convertOverlapParams } from "../../../utils/matter.physics.utils";
-import { BaseObject } from "../../_abstract/_base.object.abstract";
+import { BaseObject } from "../../_abstract/base.object.abstract";
 
-export abstract class BaseProjectile extends BaseObject /*implements IProjectile*/ {
+export abstract class BaseProjectile extends BaseObject implements IProjectile {
+    protected isBodyAdded: boolean = true;
+    protected isRemoving: boolean = false;
     protected effects!: IEffect[];
-    protected visibleAfterRemoveMs!: number;
-    protected isRemoving!: boolean;
+    protected targets!: IEnemy[];
 
-    constructor(scene: Phaser.Scene, texture: string, frame?: string, options?: Phaser.Types.Physics.Matter.MatterBodyConfig) {
-        super(scene, texture, frame, {...options});
-        this.setDepth(5);
+    constructor(scene: Phaser.Scene, texture: string, frame?: string, cb?: (self: BaseObject) => void) {
+        super(scene, texture, frame, cb);
+
+        this.setSensor(true);
+        this.setDepth(PROJECTILE_Z_INDEX);
+
+        this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {this.remove()});
     }
 
-    protected abstract _init(...args: any): [position: Phaser.Math.Vector2, effects: IEffect[], visibleAfterRemoveMs: number, ...args: any[]];
+    public init(params: {
+        effects: IEffect[],
+        targets: IEnemy[],
+        cb?: () => void,
+    }) {
+        const { effects, targets, cb } = params;
 
-    protected _afterInit(position: Phaser.Math.Vector2, effects: IEffect[], visibleAfterRemoveMs: number, ...args: any[]): void {
-        this.effects = effects;
+        //reset body
+        if(!this.isBodyAdded) {
+            this.isBodyAdded = true;
+            this.scene.matter.world.add(this.body);
+        }
+
+        //reset animation frame.
+        this.setFrame('001');
+
         this.isRemoving = false;
-        this.visibleAfterRemoveMs = visibleAfterRemoveMs;
+        this.effects = effects;
+        this.targets = targets;
 
-        super._afterInit(position);
+        if(cb) cb();
+
+        this.setActive(true);
+        this.setVisible(true);
+    }
+
+    public update(time: number, delta: number, cb?: (time: number, delta: number) => void): void {
+        if(!this.isRemoving) {
+            if(cb) cb(time, delta);
+        }
     }
 
     protected checkOverlapAndApplyEffects(targets: IEnemy[]): void {
@@ -28,44 +57,36 @@ export abstract class BaseProjectile extends BaseObject /*implements IProjectile
             this,
             targets as any[],
             (obj1: any, obj2: any) => this.applyEffects(convertOverlapParams(obj1, obj2)[1]),
-            (obj1: any, obj2: any) => this.shouldApplyEffects(convertOverlapParams(obj1, obj2)[1]),
         )
     }
 
-    protected applyEffects(enemy: IEnemy): void {
-        if(enemy.active === true && this.active === true && !this.isRemoving) {
+    protected applyEffects(enemy: IEnemy, cb?: (enemy: IEnemy) => void): void {
+        if(enemy.active === true && this.isRemoving == false) {
             this.effects.forEach(effect => {
                 enemy.addEffect(effect.clone());
-            })
+            });
 
-            this.afterEffectsApplied(enemy);
+            if(cb) cb(enemy);
         }
     }
 
-    protected afterEffectsApplied(enemy: IEnemy): void {
-        //do nothing
-    }
-
-    /**
-     * Override this method to filter enemies to hit
-     * @param bullet
-     * @param enemy 
-     */
-    protected shouldApplyEffects(enemy: IEnemy): boolean {
-        return true;
-    }
-
-    protected processRemoving(delta: number): void {
-        this.visibleAfterRemoveMs -= delta;
-        if(this.visibleAfterRemoveMs <= 0) {
-            this.remove();
-        }
-    }
-
-    protected initRemoving() {
+    protected startRemove(cb?: () => void) {
         this.isRemoving = true;
+
+        if (cb) cb();
     }
 
-    protected _remove() {
+    public remove(cb?: IProjectile['remove']) {
+        this.setActive(false);
+        this.setVisible(false);
+
+        if (cb) cb();
+
+        if (this.isBodyAdded) {
+            this.isBodyAdded = false;
+            this.scene.matter.world.remove(this.body);
+        }
+
+        this.isRemoving = false;
     }
 }

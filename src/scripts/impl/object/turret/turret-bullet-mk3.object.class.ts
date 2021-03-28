@@ -1,10 +1,10 @@
+import { EnemyWithDistance } from "../../../api/common/types";
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.class";
 import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
 import { GameStateStore } from "../../game-state/game-state.store.class";
-import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 import { TURRET_BULLET_MK3_FIRERATE, TURRET_BULLET_MK3_RANGE } from "../../utils/config.constants";
-import { EnemyWithDistance } from "../../../api/common/types";
+import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretBulletMk3Object extends BaseTurretObject {
     private isBodyAdded = true;
@@ -86,42 +86,42 @@ export class TurretBulletMk3Object extends BaseTurretObject {
         if (bullet1) {
             const fromPos = this.position.clone().add(forwardOffset.clone().add(sideOffset.clone().scale(1)));
             const targetPos = this.position.clone().add(dirRadius).add(sideOffset.clone().scale(1));
-            bullet1.init(
-                fromPos,
-                targetPos,
-                300,
-                [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
-                this.gameStateStore.enemiesGroup.getChildren(),
-                0,
-            );
+            bullet1.init({
+                startPosition: fromPos,
+                endPosition: targetPos,
+                speed: 300,
+                effects: [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)],
+                targets: this.gameStateStore.enemiesGroup.getChildren(),
+                penetrationCount: 0,
+            });
         }
 
         const bullet2 = this.gameStateStore.bulletsGroup.get();
         if (bullet2) {
             const fromPos = this.position.clone().add(forwardOffset);
             const targetPos = this.position.clone().add(dirRadius);
-            bullet2.init(
-                fromPos,
-                targetPos,
-                300,
-                [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
-                this.gameStateStore.enemiesGroup.getChildren(),
-                0,
-            );
+            bullet2.init({
+                startPosition: fromPos,
+                endPosition: targetPos,
+                speed: 300,
+                effects: [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)],
+                targets: this.gameStateStore.enemiesGroup.getChildren(),
+                penetrationCount: 0,
+            });
         }
 
         const bullet3 = this.gameStateStore.bulletsGroup.get();
         if (bullet3) {
             const fromPos = this.position.clone().add(forwardOffset.clone().add(sideOffset.clone().scale(-1)));
             const targetPos = this.position.clone().add(dirRadius).add(sideOffset.clone().scale(-1));
-            bullet3.init(
-                fromPos,
-                targetPos,
-                300,
-                [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
-                this.gameStateStore.enemiesGroup.getChildren(),
-                0,
-            );
+            bullet3.init({
+                startPosition: fromPos,
+                endPosition: targetPos,
+                speed: 300,
+                effects: [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)],
+                targets: this.gameStateStore.enemiesGroup.getChildren(),
+                penetrationCount: 0,
+            });
         }
     }
 

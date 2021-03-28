@@ -6,10 +6,10 @@ import { BaseObject } from "../../_abstract/base.object.abstract";
 export abstract class BaseTurretObject extends BaseObject implements ITurretObject {
     public ignoreUpdate: boolean = false;
 
-    abstract init(position: Phaser.Math.Vector2, gameStateStore: GameStateStore, ignoreUpdate?: boolean): void;
-    abstract remove(): void;
-    abstract showRange(): void;
-    abstract hideRange(): void;
+    public abstract init(position: Phaser.Math.Vector2, gameStateStore: GameStateStore, ignoreUpdate?: boolean): void;
+    public abstract remove(): void;
+    public abstract showRange(): void;
+    public abstract hideRange(): void;
 }
 
 export const EnemySorters = {

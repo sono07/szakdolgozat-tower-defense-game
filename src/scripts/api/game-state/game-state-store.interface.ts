@@ -1,10 +1,10 @@
 import { IAction } from "../action/action.interface"
 import { IGroup } from "../group/group.interface"
 import { ITurretGroup } from "../group/turret-group/turret-group.interface"
-import { IEnemy } from "../object/enemy-object/enemy.interface"
-import { IProjectile } from "../object/projectile-object/projectile.interface"
-import { ITurretObject } from "../object/turret-object/turret-object.interface"
 import { IEnemySpawner } from "../map/enemy-spawner.interface"
+import { IEnemy } from "../object/enemy-object/enemy.interface"
+import { IAOEMovingProjectile, IPenetratingMovingProjectile, IProjectile } from "../object/projectile-object/projectile.interface"
+import { ITurretObject } from "../object/turret-object/turret-object.interface"
 
 export interface IGameStateStore {
     tileChangedCallbacks: ((i: number, j: number, value: number) => void)[];
@@ -38,11 +38,11 @@ export interface IGameStateStore {
     turretLaserMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>;
     turretLaserMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>;
 
-    bulletsGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;
+    bulletsGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>;
     lasersGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;
-    energyBallBluesGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;
-    energyBallOrangesGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;
-    rocketsGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;
+    energyBallBluesGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>;
+    energyBallOrangesGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>;
+    rocketsGroup: IGroup<Phaser.GameObjects.GameObject & IAOEMovingProjectile>;
 
     getAllTurretGroups(): ITurretGroup<Phaser.GameObjects.Sprite & ITurretObject>[];
     getAction(): IAction;

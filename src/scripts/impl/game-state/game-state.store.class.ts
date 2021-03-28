@@ -4,7 +4,7 @@ import { IGroup } from "../../api/group/group.interface";
 import { ITurretGroup } from "../../api/group/turret-group/turret-group.interface";
 import { IEnemySpawner } from "../../api/map/enemy-spawner.interface";
 import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
-import { IProjectile } from "../../api/object/projectile-object/projectile.interface";
+import { IAOEMovingProjectile, IPenetratingMovingProjectile, IProjectile } from "../../api/object/projectile-object/projectile.interface";
 import { ITurretObject } from "../../api/object/turret-object/turret-object.interface";
 import { SelectAction } from "../action/select-action.class";
 import { EnemyGroup } from "../group/enemy.group.class";
@@ -72,11 +72,11 @@ export class GameStateStore implements IGameStateStore {
     public turretLaserMk2sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>;
     public turretLaserMk3sGroup: ITurretGroup<Phaser.GameObjects.GameObject & ITurretObject>;
 
-    public bulletsGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;;
-    public lasersGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;;
-    public energyBallBluesGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;;
-    public energyBallOrangesGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;;
-    public rocketsGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;;
+    public bulletsGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>;
+    public lasersGroup: IGroup<Phaser.GameObjects.GameObject & IProjectile>;
+    public energyBallBluesGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>;
+    public energyBallOrangesGroup: IGroup<Phaser.GameObjects.GameObject & IPenetratingMovingProjectile>;
+    public rocketsGroup: IGroup<Phaser.GameObjects.GameObject & IAOEMovingProjectile>;
 
     constructor(scene: Phaser.Scene, map: number[][], path: Phaser.Curves.Path) {
         this.scene = scene;

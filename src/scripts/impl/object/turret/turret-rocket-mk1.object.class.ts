@@ -1,10 +1,10 @@
+import { EnemyWithDistance } from "../../../api/common/types";
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.class";
 import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
 import { GameStateStore } from "../../game-state/game-state.store.class";
-import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 import { TURRET_ROCKET_MK1_FIRERATE, TURRET_ROCKET_MK1_RANGE } from "../../utils/config.constants";
-import { EnemyWithDistance } from "../../../api/common/types";
+import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretRocketMk1Object extends BaseTurretObject {
     private isBodyAdded = true;
@@ -109,14 +109,14 @@ export class TurretRocketMk1Object extends BaseTurretObject {
         if (rocket) {
             const fromPos = this.position.clone().add(forwardOffset.clone().add(sideOffset));
             const targetPos = enemy.position.clone();
-            rocket.init(
-                fromPos,
-                targetPos,
-                100,
-                [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
-                this.gameStateStore.enemiesGroup.getChildren(),
-                50,
-            );
+            rocket.init({
+                startPosition: fromPos,
+                endPosition: targetPos,
+                speed: 100,
+                effects: [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
+                targets: this.gameStateStore.enemiesGroup.getChildren(),
+                radius: 50,
+            });
         }
     }
 

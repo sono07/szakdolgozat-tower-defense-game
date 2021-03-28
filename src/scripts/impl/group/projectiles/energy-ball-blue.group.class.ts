@@ -1,4 +1,4 @@
-import { EnergyBallBlueObject } from "../../object/projectile/energy-ball-blue.object.class";
+import { EnergyBallBlueObject } from "../../object/projectile/moving-projectile/penetrating-moving-projectile/energy-ball-blue.object.class";
 import { BaseGroup } from "../_abstract/base.group.abstract";
 
 export class EnergyBallBlueGroup extends BaseGroup<EnergyBallBlueObject> {
