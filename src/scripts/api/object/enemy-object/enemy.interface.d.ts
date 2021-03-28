@@ -9,11 +9,12 @@ export interface IEnemy extends IObject {
     pathT: number;
     effects: IEffect[];
 
-    addEffect(effect: IEffect): void;
     init(params: {
         health: number,
         speed: number,
         path: Phaser.Curves.Path,
         gameStateStore: IGameStateStore,
     }): void;
+
+    addEffect(effect: IEffect): void;
 }

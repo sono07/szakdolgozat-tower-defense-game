@@ -1,4 +1,5 @@
 import { EnemyWithDistance } from "../../../../api/common/types";
+import { IGameStateStore } from "../../../../api/game-state/game-state-store.interface";
 import { IEnemy } from "../../../../api/object/enemy-object/enemy.interface";
 import { ITurretObject } from "../../../../api/object/turret-object/turret-object.interface";
 import { GameStateStore } from "../../../game-state/game-state.store.class";
@@ -6,10 +7,10 @@ import { TURRET_BASE_Z_INDEX, TURRET_TOP_Z_INDEX } from "../../../utils/constant
 import { BaseObject } from "../../_abstract/base.object.abstract";
 
 export abstract class BaseTurretObject extends BaseObject implements ITurretObject {
-    public ignoreUpdate: boolean = false;
+    protected ignoreUpdate: boolean = false;
 
     protected canShootAfterTimeMs!: number;
-    protected gameStateStore!: GameStateStore;
+    protected gameStateStore!: IGameStateStore;
     protected radius: number;
     protected firerate: number;
     protected baseImage: Phaser.GameObjects.Image;

@@ -2,8 +2,6 @@ import { IGameStateStore } from "../../game-state/game-state-store.interface";
 import { IObject } from "../object.interface";
 
 export interface ITurretObject extends IObject {
-    ignoreUpdate: boolean;
-
     init(params: {
         position: Phaser.Math.Vector2,
         gameStateStore: IGameStateStore,

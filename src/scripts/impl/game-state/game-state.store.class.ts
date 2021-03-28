@@ -188,7 +188,7 @@ export class GameStateStore implements IGameStateStore {
         return this.health;
     }
 
-    public setHealth(value: number) {
+    private setHealth(value: number) {
         this.health = value;
 
         this.healtChangedCallbacks.forEach(cb => {
@@ -200,7 +200,7 @@ export class GameStateStore implements IGameStateStore {
         return this.score;
     }
 
-    public setScore(value: number) {
+    private setScore(value: number) {
         this.score = value;
 
         this.scoreChangedCallbacks.forEach(cb => {
@@ -212,7 +212,7 @@ export class GameStateStore implements IGameStateStore {
         return this.money;
     }
 
-    public setMoney(value: number) {
+    private setMoney(value: number) {
         this.money = value;
 
         this.moneyChangedCallbacks.forEach(cb => {

@@ -7,14 +7,14 @@ import { HealthBarObject } from "../misc/health-bar.object.class";
 import { BaseObject } from "../_abstract/base.object.abstract";
 
 export class EnemyObject extends BaseObject implements IEnemy {
-    health!: number;
+    public health!: number;
     private maxSpeed!: number;
-    speed!: number;
-    effects!: IEffect[];
+    public speed!: number;
+    public effects!: IEffect[];
+    public path!: Phaser.Curves.Path;
+    public pathT!: number;
     private gameStateStore!: IGameStateStore;
-    path!: Phaser.Curves.Path;
-    pathT!: number;
-
+    
     private healthBar: HealthBarObject;
 
     constructor(scene: Phaser.Scene) {

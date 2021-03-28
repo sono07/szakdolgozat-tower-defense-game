@@ -53,11 +53,8 @@ export interface IGameStateStore {
     getMapDataForTileMap(): number[][];
     setTile(i: number, j: number, value: number): void;
     getHealth(): number;
-    setHealth(value: number): void;
     getScore(): number;
-    setScore(value: number) : void;
     getMoney(): number;
-    setMoney(value: number): void;
     receiveMoney(value: number): void;
     spendMoney(value: number): void;
     receiveDamage(value: number): void;
