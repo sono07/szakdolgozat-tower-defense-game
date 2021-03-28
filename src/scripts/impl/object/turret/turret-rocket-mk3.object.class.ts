@@ -1,9 +1,7 @@
 import { EnemyWithDistance } from "../../../api/common/types";
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.class";
-import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
 import { GameStateStore } from "../../game-state/game-state.store.class";
-import { TURRET_ROCKET_MK3_FIRERATE, TURRET_ROCKET_MK3_RANGE } from "../../utils/config.constants";
+import { TURRET_ROCKET_MK3_EFFECTS, TURRET_ROCKET_MK3_FIRERATE, TURRET_ROCKET_MK3_RANGE } from "../../utils/config.constants";
 import { TURRET_BASE_Z_INDEX, TURRET_TOP_Z_INDEX } from "../../utils/constants";
 import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 
@@ -114,7 +112,7 @@ export class TurretRocketMk3Object extends BaseTurretObject {
                 startPosition: fromPos,
                 endPosition: targetPos,
                 speed: 200,
-                effects: [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 100)],
+                effects: TURRET_ROCKET_MK3_EFFECTS,
                 targets: this.gameStateStore.enemiesGroup.getChildren(),
                 radius: 100,
             });

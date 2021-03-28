@@ -1,9 +1,7 @@
 import { EnemyWithDistance } from "../../../api/common/types";
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.class";
-import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
 import { GameStateStore } from "../../game-state/game-state.store.class";
-import { TURRET_BULLET_MK1_FIRERATE, TURRET_BULLET_MK1_RANGE } from "../../utils/config.constants";
+import { TURRET_BULLET_MK1_EFFECTS, TURRET_BULLET_MK1_FIRERATE, TURRET_BULLET_MK1_RANGE } from "../../utils/config.constants";
 import { TURRET_BASE_Z_INDEX, TURRET_TOP_Z_INDEX } from "../../utils/constants";
 import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 
@@ -82,19 +80,25 @@ export class TurretBulletMk1Object extends BaseTurretObject {
         const dirRadius = enemy.position.clone().subtract(this.position.clone()).normalize().scale(this.radius);
         const forwardOffset = new Phaser.Math.Vector2(0, -49).scale(0.75).rotate(angle);
 
-        const bullet = this.gameStateStore.bulletsGroup.get();
-        if (bullet) {
-            const fromPos = this.position.clone().add(forwardOffset);
-            const targetPos = this.position.clone().add(dirRadius);
-            bullet.init({
-                startPosition: fromPos,
-                endPosition: targetPos,
-                speed: 300,
-                effects: [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)],
-                targets: this.gameStateStore.enemiesGroup.getChildren(),
-                penetrationCount: 0,
-            });
-        }
+        [
+            {
+                fromPos: this.position.clone().add(forwardOffset),
+                targetPos: this.position.clone().add(dirRadius),
+            },
+        ].forEach(args => {
+            const {fromPos, targetPos} = args;
+            const bullet = this.gameStateStore.bulletsGroup.get();
+            if (bullet) {
+                bullet.init({
+                    startPosition: fromPos,
+                    endPosition: targetPos,
+                    speed: 300,
+                    effects: TURRET_BULLET_MK1_EFFECTS,
+                    targets: this.gameStateStore.enemiesGroup.getChildren(),
+                    penetrationCount: 0,
+                });
+            }
+        })
     }
 
     private fire(): boolean {

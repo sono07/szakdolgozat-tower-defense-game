@@ -1,5 +1,8 @@
 //TODO these values should be fine tuned
 
+import { FlatSlowEffect } from "../effect/active-effect/flat-slow-effect.class";
+import { FlatDamageEffect } from "../effect/instant-effect/flat-damage-effect.class";
+
 export const GAME_WIDTH_PIXELS = 960;
 export const GAME_HEIGHT_PIXELS = 720;
 
@@ -21,7 +24,6 @@ export const ENEMY_DAMAGE_TO_PLAYER = 1;
 export const ENEMY_MONEY_VALUE = 100;
 
 export const REMOVE_PRICE_MULTIPLIER = 0.8;
-
 export const TURRET_BULLET_MK1_COST = 500;
 export const TURRET_BULLET_MK2_COST = 600;
 export const TURRET_BULLET_MK3_COST = 700;
@@ -69,3 +71,19 @@ export const TURRET_LASER_MK3_FIRERATE = 900;
 export const TURRET_ROCKET_MK1_FIRERATE = 1000;
 export const TURRET_ROCKET_MK2_FIRERATE = 950;
 export const TURRET_ROCKET_MK3_FIRERATE = 900;
+
+export const TURRET_BULLET_MK1_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_BULLET_MK2_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_BULLET_MK3_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ENERGY_BALL_BLUE_MK1_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ENERGY_BALL_BLUE_MK2_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ENERGY_BALL_BLUE_MK3_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ENERGY_BALL_ORANGE_MK1_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ENERGY_BALL_ORANGE_MK2_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ENERGY_BALL_ORANGE_MK3_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_LASER_MK1_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_LASER_MK2_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_LASER_MK3_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ROCKET_MK1_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ROCKET_MK2_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
+export const TURRET_ROCKET_MK3_EFFECTS = [ new FlatDamageEffect(25), new FlatSlowEffect(1000, 25)];
