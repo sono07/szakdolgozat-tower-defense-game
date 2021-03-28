@@ -39,7 +39,6 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.G
         }
     }
     
-
     public onTileHover(tile?: Phaser.Tilemaps.Tile): void {
         if(this.isGoodTile(tile)) {
             if(this.turret == null) {
@@ -53,7 +52,8 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.G
             })
             this.turret.showRange();
         } else {
-            this.turret?.remove()
+            this.turret?.remove();
+            this.turret = undefined;
         }
     }
 

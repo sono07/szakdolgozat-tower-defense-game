@@ -2,7 +2,7 @@ import { EnemyDescription } from "../../api/common/types";
 import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
 import { IEnemySpawner } from "../../api/map/enemy-spawner.interface";
 import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
-import { ENEMY_BASE_HEALTH, ENEMY_BASE_SPEED, ENEMY_EXTRA_HEALTH_PER_WAVE, WAVE_SPAWN_DELAY_MS, WAVE_START_DELAY_MS } from "../utils/config.constants";
+import { ENEMY_BASE_HEALTH, ENEMY_BASE_SPEED, ENEMY_EXTRA_COUNT_PER_WAVE, ENEMY_EXTRA_HEALTH_PER_WAVE, WAVE_SPAWN_DELAY_MS, WAVE_START_DELAY_MS } from "../utils/config.constants";
 
 export class EnemySpawner implements IEnemySpawner {
     private gameStateStore: IGameStateStore;
@@ -40,16 +40,14 @@ export class EnemySpawner implements IEnemySpawner {
             return e;
         })
 
-        this.enemyDescriptions.unshift({
-            group: this.gameStateStore.enemiesGroup as any,
-            health: ENEMY_BASE_HEALTH,
-            speed: ENEMY_BASE_SPEED,
-        },
-            {
+        for (let i = 0; i < ENEMY_EXTRA_COUNT_PER_WAVE; i++) {
+            this.enemyDescriptions.unshift({
                 group: this.gameStateStore.enemiesGroup as any,
                 health: ENEMY_BASE_HEALTH,
                 speed: ENEMY_BASE_SPEED,
             })
+        }
+
         this.waveEnemyNumberChangedCallback.forEach(cb => {
             cb(this.getWaveEnemyNumber())
         })

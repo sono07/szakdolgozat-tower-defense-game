@@ -41,6 +41,10 @@ export abstract class BasePenetratingMovingProjectile extends BaseMovingProjecti
         })
     }
 
+    protected shouldApplyEffects(enemy: IEnemy): boolean {
+        return !this.enemiesAlreadyGotHit.includes(enemy);
+    }
+
     protected applyEffects(enemy: IEnemy): void {
         super.applyEffects(enemy, (enemy) => {
             this.enemiesAlreadyGotHit.push(enemy);

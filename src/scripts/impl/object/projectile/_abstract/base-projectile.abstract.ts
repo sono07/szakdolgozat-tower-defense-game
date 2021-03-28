@@ -52,7 +52,12 @@ export abstract class BaseProjectile extends BaseObject implements IProjectile {
             this,
             targets as any[],
             (obj1: any, obj2: any) => this.applyEffects(convertOverlapParams(obj1, obj2)[1]),
+            (obj1: any, obj2: any) => this.shouldApplyEffects(convertOverlapParams(obj1, obj2)[1]),
         )
+    }
+
+    protected shouldApplyEffects(enemy: IEnemy): boolean {
+        return true;
     }
 
     protected applyEffects(enemy: IEnemy, cb?: (enemy: IEnemy) => void): void {
