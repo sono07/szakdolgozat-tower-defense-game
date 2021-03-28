@@ -7,7 +7,6 @@ import { HealthBarObject } from "../misc/health-bar.object.class";
 import { BaseObject } from "../_abstract/base.object.abstract";
 
 export class EnemyObject extends BaseObject implements IEnemy {
-    id!: number;
     health!: number;
     private maxSpeed!: number;
     speed!: number;

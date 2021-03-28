@@ -1,5 +1,5 @@
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { TURRET_LASER_MK3_EFFECTS, TURRET_LASER_MK3_FIRERATE, TURRET_LASER_MK3_RANGE } from "../../utils/config.constants";
+import { TURRET_LASER_MK3_FIRERATE, TURRET_LASER_MK3_PROJECTILE_EFFECTS, TURRET_LASER_MK3_RANGE } from "../../utils/config.constants";
 import { BaseTurretObject } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretLaserMk3Object extends BaseTurretObject {
@@ -23,7 +23,7 @@ export class TurretLaserMk3Object extends BaseTurretObject {
             laser.init({
                 startPosition: fromPos,
                 endPosition: targetPos,
-                effects: TURRET_LASER_MK3_EFFECTS,
+                effects: TURRET_LASER_MK3_PROJECTILE_EFFECTS,
                 targets: [enemy],
             });
         }

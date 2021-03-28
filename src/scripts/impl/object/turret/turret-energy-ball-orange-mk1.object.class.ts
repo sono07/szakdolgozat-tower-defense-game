@@ -1,5 +1,5 @@
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { TURRET_ENERGY_BALL_ORANGE_MK1_EFFECTS, TURRET_ENERGY_BALL_ORANGE_MK1_FIRERATE, TURRET_ENERGY_BALL_ORANGE_MK1_RANGE } from "../../utils/config.constants";
+import { TURRET_ENERGY_BALL_ORANGE_MK1_FIRERATE, TURRET_ENERGY_BALL_ORANGE_MK1_PROJECTILE_EFFECTS, TURRET_ENERGY_BALL_ORANGE_MK1_PROJECTILE_PENETRATION, TURRET_ENERGY_BALL_ORANGE_MK1_PROJECTILE_SPEED, TURRET_ENERGY_BALL_ORANGE_MK1_RANGE } from "../../utils/config.constants";
 import { BaseTurretObject } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretEnergyBallOrangeMk1Object extends BaseTurretObject {
@@ -23,10 +23,10 @@ export class TurretEnergyBallOrangeMk1Object extends BaseTurretObject {
             energyBallOrange.init({
                 startPosition: fromPos,
                 endPosition: targetPos,
-                speed: 400,
-                effects: TURRET_ENERGY_BALL_ORANGE_MK1_EFFECTS,
+                speed: TURRET_ENERGY_BALL_ORANGE_MK1_PROJECTILE_SPEED,
+                effects: TURRET_ENERGY_BALL_ORANGE_MK1_PROJECTILE_EFFECTS,
                 targets: this.gameStateStore.enemiesGroup.getChildren(),
-                penetrationCount: 0,
+                penetrationCount: TURRET_ENERGY_BALL_ORANGE_MK1_PROJECTILE_PENETRATION,
             });
         }
     }

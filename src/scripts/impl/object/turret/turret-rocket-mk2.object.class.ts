@@ -1,5 +1,5 @@
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { TURRET_ROCKET_MK2_EFFECTS, TURRET_ROCKET_MK2_FIRERATE, TURRET_ROCKET_MK2_RANGE } from "../../utils/config.constants";
+import { TURRET_ROCKET_MK2_FIRERATE, TURRET_ROCKET_MK2_PROJECTILE_BLOW_RADIUS, TURRET_ROCKET_MK2_PROJECTILE_EFFECTS, TURRET_ROCKET_MK2_PROJECTILE_SPEED, TURRET_ROCKET_MK2_RANGE } from "../../utils/config.constants";
 import { BaseTurretObject } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretRocketMk2Object extends BaseTurretObject {
@@ -48,10 +48,10 @@ export class TurretRocketMk2Object extends BaseTurretObject {
             rocket.init({
                 startPosition: fromPos,
                 endPosition: targetPos,
-                speed: 100,
-                effects: TURRET_ROCKET_MK2_EFFECTS,
+                speed: TURRET_ROCKET_MK2_PROJECTILE_SPEED,
+                effects: TURRET_ROCKET_MK2_PROJECTILE_EFFECTS,
                 targets: this.gameStateStore.enemiesGroup.getChildren(),
-                radius: 100,
+                radius: TURRET_ROCKET_MK2_PROJECTILE_BLOW_RADIUS,
             });
         }
     }

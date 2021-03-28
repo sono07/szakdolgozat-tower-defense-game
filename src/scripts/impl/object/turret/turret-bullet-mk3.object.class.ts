@@ -1,5 +1,5 @@
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { TURRET_BULLET_MK3_EFFECTS, TURRET_BULLET_MK3_FIRERATE, TURRET_BULLET_MK3_RANGE } from "../../utils/config.constants";
+import { TURRET_BULLET_MK3_FIRERATE, TURRET_BULLET_MK3_PROJECTILE_EFFECTS, TURRET_BULLET_MK3_PROJECTILE_PENETRATION, TURRET_BULLET_MK3_PROJECTILE_SPEED, TURRET_BULLET_MK3_RANGE } from "../../utils/config.constants";
 import { BaseTurretObject } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretBulletMk3Object extends BaseTurretObject {
@@ -39,10 +39,10 @@ export class TurretBulletMk3Object extends BaseTurretObject {
                 bullet.init({
                     startPosition: fromPos,
                     endPosition: targetPos,
-                    speed: 300,
-                    effects: TURRET_BULLET_MK3_EFFECTS,
+                    speed: TURRET_BULLET_MK3_PROJECTILE_SPEED,
+                    effects: TURRET_BULLET_MK3_PROJECTILE_EFFECTS,
                     targets: this.gameStateStore.enemiesGroup.getChildren(),
-                    penetrationCount: 0,
+                    penetrationCount: TURRET_BULLET_MK3_PROJECTILE_PENETRATION,
                 });
             }
         })
