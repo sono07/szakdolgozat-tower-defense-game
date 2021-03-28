@@ -20,7 +20,7 @@ export class PercentageFireEffect extends BaseActiveOverTimeEffect {
         enemy.health *= (1 - this.percentageAmount);
     }
 
-    copy(o: this): this {
+    public copy(o: this): this {
         this.percentageAmount = o.percentageAmount;
         super.copy(o);
 

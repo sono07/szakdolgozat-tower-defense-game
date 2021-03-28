@@ -14,11 +14,13 @@ export class PercentageDamageEffect extends BaseInstantEffect {
         this.percentageAmount = percentageAmount;
     }
 
-    protected _init(enemy: IEnemy): void {
-        enemy.health *= (1 - this.percentageAmount);
+    protected init(enemy: IEnemy): void {
+        super.init(enemy, (enemy) => {
+            enemy.health *= (1 - this.percentageAmount);
+        })
     }
 
-    copy(o: this): this {
+    public copy(o: this): this {
         this.percentageAmount = o.percentageAmount;
         super.copy(o);
 

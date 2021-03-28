@@ -6,14 +6,11 @@ import { BaseTurretGroup } from "./_abstract/base-turret.group.abstract.class";
 export class TurretLaserMk3Group extends BaseTurretGroup<TurretLaserMk3Object> {
 
     constructor(scene: Phaser.Scene) {
-        super(scene, TurretLaserMk3Object);
-    }
-
-    getPrice() {
-        return TURRET_LASER_MK3_COST;
-    }
-
-    getTile() {
-        return TILE_TURRET_LASER_MK3;
+        super(
+            scene,
+            TurretLaserMk3Object,
+            TURRET_LASER_MK3_COST,
+            TILE_TURRET_LASER_MK3,
+        );
     }
 }

@@ -1,6 +1,6 @@
 import { EnemyDescription } from "../../api/common/types";
-import { IEnemySpawner } from "../../api/map/enemy-spawner.interface";
 import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
+import { IEnemySpawner } from "../../api/map/enemy-spawner.interface";
 import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
 import { ENEMY_BASE_HEALTH, ENEMY_BASE_SPEED, ENEMY_EXTRA_HEALTH_PER_WAVE, WAVE_SPAWN_DELAY_MS, WAVE_START_DELAY_MS } from "../utils/config.constants";
 
@@ -26,11 +26,11 @@ export class EnemySpawner implements IEnemySpawner {
         this.path = gameStateStore.path;
     }
 
-    getWaveNumber(): number {
+    public getWaveNumber(): number {
         return this.waveNumber;
     }
 
-    getWaveEnemyNumber(): number {
+    public getWaveEnemyNumber(): number {
         return this.enemyDescriptions.length;
     }
 
@@ -90,7 +90,7 @@ export class EnemySpawner implements IEnemySpawner {
         }
     }
 
-    update(time: number, delta: number) {
+    public update(time: number, delta: number) {
         if (this.isWaveRunning == false) {
             this.startNewWave(time);
         } else {

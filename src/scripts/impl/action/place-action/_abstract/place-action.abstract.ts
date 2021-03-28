@@ -5,15 +5,16 @@ import { ITurretObject } from "../../../../api/object/turret-object/turret-objec
 import { getTileValue } from "../../../utils/action.utils";
 import { TILE_EMPTY } from "../../../utils/constants";
 
-export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.Sprite = ITurretObject & Phaser.GameObjects.Sprite> implements IAction {
+export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.GameObject = ITurretObject & Phaser.GameObjects.GameObject> implements IAction {
     public abstract actionKey: string;
 
-    protected abstract group: ITurretGroup<T>; 
-
+    private group: ITurretGroup<T>; 
     private gameStateStore: IGameStateStore;
+    private turret?: T;
 
-    constructor(gameStateStore: IGameStateStore) {
+    constructor(gameStateStore: IGameStateStore, group: ITurretGroup<T>) {
         this.gameStateStore = gameStateStore;
+        this.group = group
     }
 
     private isGoodTile(tile?: Phaser.Tilemaps.Tile) {
@@ -22,7 +23,7 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.S
             && this.gameStateStore.getMoney() >= this.getPriceForTile(tile)
     }
 
-    getPriceForTile(tile?: Phaser.Tilemaps.Tile): number {
+    public getPriceForTile(tile?: Phaser.Tilemaps.Tile): number {
         if(tile != null && getTileValue(this.gameStateStore, tile) == TILE_EMPTY) {
             return this.group.getPrice();
         } else {
@@ -30,7 +31,7 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.S
         }
     }
 
-    getSelectorColorForTile(tile?: Phaser.Tilemaps.Tile): number {
+    public getSelectorColorForTile(tile?: Phaser.Tilemaps.Tile): number {
         if(this.isGoodTile(tile)) {
             return 0x00FF00; //green
         } else {
@@ -38,8 +39,8 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.S
         }
     }
     
-    turret?: T;
-    onTileHover(tile?: Phaser.Tilemaps.Tile): void {
+
+    public onTileHover(tile?: Phaser.Tilemaps.Tile): void {
         if(this.isGoodTile(tile)) {
             if(this.turret == null) {
                 this.turret = this.group.get();
@@ -52,7 +53,7 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.S
         }
     }
 
-    onTileClick(tile: Phaser.Tilemaps.Tile): void {
+    public onTileClick(tile: Phaser.Tilemaps.Tile): void {
         if(tile != null && getTileValue(this.gameStateStore, tile) == TILE_EMPTY) {
             const price = this.getPriceForTile(tile);
 

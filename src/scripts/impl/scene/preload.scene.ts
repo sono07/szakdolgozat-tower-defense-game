@@ -3,18 +3,18 @@ import { BaseScene } from "./_abstract/base.scene.abstract";
 
 export const PRELOAD_SCENE_KEY = "Preload";
 export class PrealoadScene extends BaseScene {
-    progressBar!: Phaser.GameObjects.Graphics;
-    progressBox!: Phaser.GameObjects.Graphics;
-    loadingText!: Phaser.GameObjects.Text;
-    percentageText!: Phaser.GameObjects.Text;
-    fileText!: Phaser.GameObjects.Text;
-    backgroundImage!: Phaser.GameObjects.Image;
+    private progressBar!: Phaser.GameObjects.Graphics;
+    private progressBox!: Phaser.GameObjects.Graphics;
+    private loadingText!: Phaser.GameObjects.Text;
+    private percentageText!: Phaser.GameObjects.Text;
+    private fileText!: Phaser.GameObjects.Text;
+    private backgroundImage!: Phaser.GameObjects.Image;
 
     constructor() {
         super(PRELOAD_SCENE_KEY);
     }
 
-    init(data: object): void {
+    public init(data: object): void {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
@@ -79,7 +79,7 @@ export class PrealoadScene extends BaseScene {
         this.fileText.setText('Loading asset: ' + file.key);
     }
 
-    preload(): void {
+    public preload(): void {
         this.load.html('seed-input', 'seed-input/seed-input.html');
 
         this.load.atlas('ui', 'images/spritesheets/ui/ui.spritesheet.png', 'images/spritesheets/ui/ui.spritesheet.json');
@@ -98,7 +98,7 @@ export class PrealoadScene extends BaseScene {
         this.load.atlas('projectile-rocket', 'images/spritesheets/projectile/projectile-rocket.spritesheet.png', 'images/spritesheets/projectile/projectile-rocket.spritesheet.json');
     }
 
-    create(data: object): void {
+    public create(data: object): void {
         this.anims.create({ key: 'enemy-walk-animation', frames: this.anims.generateFrameNames('enemy', { prefix: '', start: 1, end: 8, zeroPad: 3 }), repeat: -1 })
         this.anims.create({ key: 'projectile-bullet-blow-animation', frames: this.anims.generateFrameNames('projectile-bullet', { prefix: '', start: 1, end: 6, zeroPad: 3 }), repeat: 0 });
         this.anims.create({ key: 'projectile-laser-blow-animation', frames: this.anims.generateFrameNames('projectile-laser', { prefix: '', start: 1, end: 5, zeroPad: 3 }), repeat: 0 });
@@ -116,6 +116,6 @@ export class PrealoadScene extends BaseScene {
         this.scene.start(MAIN_MENU_SCENE_KEY);
     }
 
-    update(time: number, delta: number): void {
+    public update(time: number, delta: number): void {
     }
 }

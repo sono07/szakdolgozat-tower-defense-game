@@ -3,23 +3,23 @@ import { BaseScene } from "./_abstract/base.scene.abstract";
 
 export const GAME_OVER_SCENE_KEY = "GameOver";
 export class GameOverScene extends BaseScene {
-    backgroundImage!: Phaser.GameObjects.Image;
-    gameOverText!: Phaser.GameObjects.Text;
-    scoreText!: Phaser.GameObjects.Text;
-    backText!: Phaser.GameObjects.Text;
-    backBox!: Phaser.GameObjects.Rectangle;
+    private backgroundImage!: Phaser.GameObjects.Image;
+    private gameOverText!: Phaser.GameObjects.Text;
+    private scoreText!: Phaser.GameObjects.Text;
+    private backText!: Phaser.GameObjects.Text;
+    private backBox!: Phaser.GameObjects.Rectangle;
 
     constructor() {
         super(GAME_OVER_SCENE_KEY);
     }
 
-    init(data: object): void {
+    public init(data: object): void {
     }
 
-    preload(): void {
+    public preload(): void {
     }
 
-    create(data: { score: number }): void {
+    public create(data: { score: number }): void {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
@@ -75,6 +75,6 @@ export class GameOverScene extends BaseScene {
         this.backText.setOrigin(0.5);
     }
 
-    update(time: number, delta: number): void {
+    public update(time: number, delta: number): void {
     }
 }

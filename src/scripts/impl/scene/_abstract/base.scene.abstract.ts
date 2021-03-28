@@ -6,8 +6,8 @@ export abstract class BaseScene extends Phaser.Scene implements IScene {
         super({ key });
     }
 
-    abstract init(data: object): void;
-    abstract preload(): void;
-    abstract create(data: object): void;
-    abstract update(time: number, delta: number): void;
+    public abstract init(data: object): void;
+    public abstract preload(): void;
+    public abstract create(data: object): void;
+    public abstract update(time: number, delta: number): void;
 }

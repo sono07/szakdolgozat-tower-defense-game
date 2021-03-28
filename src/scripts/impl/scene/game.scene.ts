@@ -1,9 +1,5 @@
-import { BaseScene } from './_abstract/base.scene.abstract';
-import { GameStateStore } from '../game-state/game-state.store.class';
-import { ROTATION_DIVISOR } from '../utils/constants';
-import { MAP_TILES_COL_COUNT, MAP_TILES_ROW_COUNT } from '../utils/config.constants';
-import { Tuple, WindowSizes } from '../../api/common/types';
 import { IAction } from '../../api/action/action.interface';
+import { Tuple, WindowSizes } from '../../api/common/types';
 import { PlaceTurretBulletMk1Action } from '../action/place-action/place-turret-bullet-mk1-action.class';
 import { PlaceTurretBulletMk2Action } from '../action/place-action/place-turret-bullet-mk2-action.class';
 import { PlaceTurretBulletMk3Action } from '../action/place-action/place-turret-bullet-mk3-action.class';
@@ -21,7 +17,11 @@ import { PlaceTurretRocketMk2Action } from '../action/place-action/place-turret-
 import { PlaceTurretRocketMk3Action } from '../action/place-action/place-turret-rocket-mk3-action.class';
 import { RemoveAction } from '../action/remove-action.class';
 import { SelectAction } from '../action/select-action.class';
+import { GameStateStore } from '../game-state/game-state.store.class';
 import { MapGenerator } from '../map/generate-map';
+import { MAP_TILES_COL_COUNT, MAP_TILES_ROW_COUNT } from '../utils/config.constants';
+import { ROTATION_DIVISOR } from '../utils/constants';
+import { BaseScene } from './_abstract/base.scene.abstract';
 
 export const GAME_SCENE_KEY = "Game";
 export class GameScene extends BaseScene {
@@ -36,13 +36,13 @@ export class GameScene extends BaseScene {
         super(GAME_SCENE_KEY);
     }
 
-    init(data: object): void {   
+    public init(data: object): void {   
     }
 
-    preload(): void {
+    public preload(): void {
     }
 
-    create(data: {seed: string}): void {
+    public create(data: {seed: string}): void {
         const windowSizes = this.getWindowSizes();
 
         const {map, path} = MapGenerator.generateMap(data.seed, MAP_TILES_ROW_COUNT, MAP_TILES_COL_COUNT)
@@ -58,7 +58,7 @@ export class GameScene extends BaseScene {
         this.createUIInputHandlers();
     }   
 
-    update(time: number, delta: number): void {
+    public update(time: number, delta: number): void {
         this.gameStateStore.updateSpawner(time, delta);
     }
 

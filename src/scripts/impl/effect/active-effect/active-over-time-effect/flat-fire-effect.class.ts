@@ -19,7 +19,7 @@ export class FlatFireEffect extends BaseActiveOverTimeEffect {
         enemy.health -= this.flatAmount;
     }
 
-    copy(o: this): this {
+    public copy(o: this): this {
         this.flatAmount = o.flatAmount;
         super.copy(o);
 

@@ -55,13 +55,13 @@ export class RemoveAction implements IAction {
         }
     }
 
-    getPriceForTile(tile?: Phaser.Tilemaps.Tile): number {
+    public getPriceForTile(tile?: Phaser.Tilemaps.Tile): number {
         const {price} = this.getPriceAndGroupForTile(tile);
 
         return price;
     }
 
-    getSelectorColorForTile(tile?: Phaser.Tilemaps.Tile): number {
+    public getSelectorColorForTile(tile?: Phaser.Tilemaps.Tile): number {
         if(tile != null
             && isRemovableTile(getTileValue(this.gameStateStore, tile))
             && this.gameStateStore.getMoney() >= this.getPriceAndGroupForTile(tile).price
@@ -72,11 +72,11 @@ export class RemoveAction implements IAction {
         }
     }
 
-    onTileHover(tile?: Phaser.Tilemaps.Tile): void {
+    public onTileHover(tile?: Phaser.Tilemaps.Tile): void {
         //do nothing
     }
 
-    onTileClick(tile: Phaser.Tilemaps.Tile): void {
+    public onTileClick(tile: Phaser.Tilemaps.Tile): void {
         if(tile != null && isRemovableTile(getTileValue(this.gameStateStore, tile))) {
             const {price, group} = this.getPriceAndGroupForTile(tile);
 

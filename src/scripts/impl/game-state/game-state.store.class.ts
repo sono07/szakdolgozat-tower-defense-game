@@ -1,3 +1,12 @@
+import { IAction } from "../../api/action/action.interface";
+import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
+import { IGroup } from "../../api/group/group.interface";
+import { ITurretGroup } from "../../api/group/turret-group/turret-group.interface";
+import { IEnemySpawner } from "../../api/map/enemy-spawner.interface";
+import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
+import { IProjectile } from "../../api/object/projectile-object/projectile.interface";
+import { ITurretObject } from "../../api/object/turret-object/turret-object.interface";
+import { SelectAction } from "../action/select-action.class";
 import { EnemyGroup } from "../group/enemy.group.class";
 import { BulletGroup } from "../group/projectiles/bullet.group.class";
 import { EnergyBallBlueGroup } from "../group/projectiles/energy-ball-blue.group.class";
@@ -7,9 +16,6 @@ import { RocketGroup } from "../group/projectiles/rocket.group.class";
 import { TurretBulletMk1Group } from "../group/turret/turret-bullet-mk1.group.class";
 import { TurretBulletMk2Group } from "../group/turret/turret-bullet-mk2.group.class";
 import { TurretBulletMk3Group } from "../group/turret/turret-bullet-mk3.group.class";
-import { TurretRocketMk1Group } from "../group/turret/turret-rocket-mk1.group.class";
-import { TurretRocketMk2Group } from "../group/turret/turret-rocket-mk2.group.class";
-import { TurretRocketMk3Group } from "../group/turret/turret-rocket-mk3.group.class";
 import { TurretEnergyBallBlueMk1Group } from "../group/turret/turret-energy-ball-blue-mk1.group.class";
 import { TurretEnergyBallBlueMk2Group } from "../group/turret/turret-energy-ball-blue-mk2.group.class";
 import { TurretEnergyBallBlueMk3Group } from "../group/turret/turret-energy-ball-blue-mk3.group.class";
@@ -19,19 +25,13 @@ import { TurretEnergyBallOrangeMk3Group } from "../group/turret/turret-energy-ba
 import { TurretLaserMk1Group } from "../group/turret/turret-laser-mk1.group.class";
 import { TurretLaserMk2Group } from "../group/turret/turret-laser-mk2.group.class";
 import { TurretLaserMk3Group } from "../group/turret/turret-laser-mk3.group.class";
-import { GAME_OVER_SCENE_KEY } from "../scene/game-over.scene";
-import { TILE_CRATERS, TILE_EMPTY, TILE_ROAD_2WAY_CORNER, TILE_ROAD_2WAY_STRAIGHT, TILE_ROAD_3WAY, TILE_ROAD_4WAY, TILE_TREES } from "../utils/constants";
-import { SelectAction } from "../action/select-action.class";
-import { ITurretGroup } from "../../api/group/turret-group/turret-group.interface";
-import { ITurretObject } from "../../api/object/turret-object/turret-object.interface";
-import { STARTING_HEALTH, STARTING_MONEY } from "../utils/config.constants";
+import { TurretRocketMk1Group } from "../group/turret/turret-rocket-mk1.group.class";
+import { TurretRocketMk2Group } from "../group/turret/turret-rocket-mk2.group.class";
+import { TurretRocketMk3Group } from "../group/turret/turret-rocket-mk3.group.class";
 import { EnemySpawner } from "../map/enemy-spawner.class";
-import { IAction } from "../../api/action/action.interface";
-import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
-import { IGroup } from "../../api/group/group.interface";
-import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
-import { IProjectile } from "../../api/object/projectile-object/projectile.interface";
-import { IEnemySpawner } from "../../api/map/enemy-spawner.interface";
+import { GAME_OVER_SCENE_KEY } from "../scene/game-over.scene";
+import { STARTING_HEALTH, STARTING_MONEY } from "../utils/config.constants";
+import { TILE_CRATERS, TILE_EMPTY, TILE_ROAD_2WAY_CORNER, TILE_ROAD_2WAY_STRAIGHT, TILE_ROAD_3WAY, TILE_ROAD_4WAY, TILE_TREES } from "../utils/constants";
 
 export class GameStateStore implements IGameStateStore {
     private scene: Phaser.Scene;
@@ -114,7 +114,7 @@ export class GameStateStore implements IGameStateStore {
         this.rocketsGroup = new RocketGroup(this.scene) as any;
     }
 
-    getAllTurretGroups(): ITurretGroup<Phaser.GameObjects.Sprite & ITurretObject>[] {
+    public getAllTurretGroups(): ITurretGroup<Phaser.GameObjects.Sprite & ITurretObject>[] {
         return [
             this.turretBulletMk1sGroup,
             this.turretBulletMk2sGroup,
@@ -138,11 +138,11 @@ export class GameStateStore implements IGameStateStore {
         ] as any[];
     }
 
-    getAction() {
+    public getAction() {
         return this.action;
     }
 
-    setAction(value: IAction) {
+    public setAction(value: IAction) {
         this.action = value;
 
         this.actionChangedCallbacks.forEach(cb => {
@@ -150,11 +150,11 @@ export class GameStateStore implements IGameStateStore {
         })
     }
 
-    getMap() {
+    public getMap() {
         return this.map;
     }
 
-    getMapDataForTileMap() {
+    public getMapDataForTileMap() {
         return this.map.map(row => row.map(cell => {
             switch(Math.floor(cell)) {
                 case TILE_CRATERS:
@@ -170,7 +170,7 @@ export class GameStateStore implements IGameStateStore {
         }))
     }
 
-    setTile(i: number, j: number, value: number) {
+    public setTile(i: number, j: number, value: number) {
         this.map[i][j] = value;
     
         this.tileChangedCallbacks.forEach(cb => {
@@ -182,11 +182,11 @@ export class GameStateStore implements IGameStateStore {
         })
     }
 
-    getHealth(): number {
+    public getHealth(): number {
         return this.health;
     }
 
-    setHealth(value: number) {
+    public setHealth(value: number) {
         this.health = value;
 
         this.healtChangedCallbacks.forEach(cb => {
@@ -194,11 +194,11 @@ export class GameStateStore implements IGameStateStore {
         })
     }
 
-    getScore(): number {
+    public getScore(): number {
         return this.score;
     }
 
-    setScore(value: number) {
+    public setScore(value: number) {
         this.score = value;
 
         this.scoreChangedCallbacks.forEach(cb => {
@@ -206,11 +206,11 @@ export class GameStateStore implements IGameStateStore {
         })
     }
 
-    getMoney(): number {
+    public getMoney(): number {
         return this.money;
     }
 
-    setMoney(value: number) {
+    public setMoney(value: number) {
         this.money = value;
 
         this.moneyChangedCallbacks.forEach(cb => {
@@ -218,16 +218,16 @@ export class GameStateStore implements IGameStateStore {
         })
     }
 
-    receiveMoney(value: number): void {
+    public receiveMoney(value: number): void {
         this.setScore(this.score + value);
         this.setMoney(this.money + value);
     }
 
-    spendMoney(value: number): void {
+    public spendMoney(value: number): void {
         this.setMoney(this.money - value);
     }
 
-    receiveDamage(value: number): void {
+    public receiveDamage(value: number): void {
         this.setHealth(this.health - value);
 
         if (this.health <= 0) {
@@ -235,7 +235,7 @@ export class GameStateStore implements IGameStateStore {
         }
     }
 
-    updateSpawner(time: number, delta: number) {
+    public updateSpawner(time: number, delta: number) {
         this.enemySpawner.update(time, delta);
     }
 }

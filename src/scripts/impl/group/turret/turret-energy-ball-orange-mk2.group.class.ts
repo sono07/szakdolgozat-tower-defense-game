@@ -6,14 +6,11 @@ import { BaseTurretGroup } from "./_abstract/base-turret.group.abstract.class";
 export class TurretEnergyBallOrangeMk2Group extends BaseTurretGroup<TurretEnergyBallOrangeMk2Object> {
 
     constructor(scene: Phaser.Scene) {
-        super(scene, TurretEnergyBallOrangeMk2Object);
-    }
-
-    getPrice() {
-        return TURRET_ENERGY_BALL_ORANGE_MK2_COST;
-    }
-
-    getTile() {
-        return TILE_TURRET_ENERGY_BALL_ORANGE_MK2;
+        super(
+            scene,
+            TurretEnergyBallOrangeMk2Object,
+            TURRET_ENERGY_BALL_ORANGE_MK2_COST,
+            TILE_TURRET_ENERGY_BALL_ORANGE_MK2,
+        );
     }
 }

@@ -4,15 +4,13 @@ import { TILE_TURRET_BULLET_MK1 } from "../../utils/constants";
 import { BaseTurretGroup } from "./_abstract/base-turret.group.abstract.class";
 
 export class TurretBulletMk1Group extends BaseTurretGroup<TurretBulletMk1Object> {
+
     constructor(scene: Phaser.Scene) {
-        super(scene, TurretBulletMk1Object);
-    }
-
-    getPrice() {
-        return TURRET_BULLET_MK1_COST;
-    }
-
-    getTile() {
-        return TILE_TURRET_BULLET_MK1;
+        super(
+            scene,
+            TurretBulletMk1Object,
+            TURRET_BULLET_MK1_COST,
+            TILE_TURRET_BULLET_MK1,
+        );
     }
 }

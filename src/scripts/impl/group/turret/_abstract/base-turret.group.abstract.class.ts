@@ -3,6 +3,21 @@ import { ITurretObject } from "../../../../api/object/turret-object/turret-objec
 import { BaseGroup } from "../../_abstract/base.group.abstract";
 
 export abstract class BaseTurretGroup<T extends Phaser.GameObjects.GameObject & ITurretObject> extends BaseGroup<T> implements ITurretGroup<T> {
-    abstract getPrice(): number;
-    abstract getTile(): number;
+    private priceValue: number;
+    private tileValue: number
+
+    constructor(scene: Phaser.Scene, clazz: new (scene: Phaser.Scene) => T, priceValue: number, tileValue: number) {
+        super(scene, clazz);
+
+        this.priceValue = priceValue;
+        this.tileValue = tileValue;
+    }
+    
+    public getPrice(): number {
+        return this.priceValue;
+    }
+
+    public getTile(): number {
+        return this.tileValue;
+    }
 }

@@ -13,19 +13,19 @@ export class FlatSlowEffect extends BaseActiveEffect {
         this.flatAmount = flatAmount;
     }
 
-    protected _init(enemy: IEnemy): void {
-        enemy.speed -= this.flatAmount;
+    protected init(enemy: IEnemy): void {
+        super.init(enemy, (enemy) => {
+            enemy.speed -= this.flatAmount;
+        })
     }
 
-    protected _update(time: number, delta: number, enemy: IEnemy): void {
-        //do nothing
+    protected remove(enemy: IEnemy): void {
+        super.remove(enemy, (enemy) => {
+            enemy.speed += this.flatAmount;
+        })
     }
 
-    protected _remove(enemy: IEnemy): void {
-        enemy.speed += this.flatAmount;
-    }
-
-    copy(o: this): this {
+    public copy(o: this): this {
         this.flatAmount = o.flatAmount;
         super.copy(o);
 

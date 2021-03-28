@@ -4,17 +4,17 @@ import { BaseScene } from "./_abstract/base.scene.abstract";
 
 export const MAIN_MENU_SCENE_KEY = "MainMenu";
 export class MainMenuScene extends BaseScene {
-    backgroundImage!: Phaser.GameObjects.Image;
-    mapText!: Phaser.GameObjects.Text;
-    seedContainer!: Phaser.GameObjects.DOMElement;
-    playText!: Phaser.GameObjects.Text;
-    playBox!: Phaser.GameObjects.Rectangle;
+    private backgroundImage!: Phaser.GameObjects.Image;
+    private mapText!: Phaser.GameObjects.Text;
+    private seedContainer!: Phaser.GameObjects.DOMElement;
+    private playText!: Phaser.GameObjects.Text;
+    private playBox!: Phaser.GameObjects.Rectangle;
 
     constructor() {
         super(MAIN_MENU_SCENE_KEY);
     }
 
-    init(data: object): void {
+    public init(data: object): void {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
@@ -71,12 +71,12 @@ export class MainMenuScene extends BaseScene {
         this.playText.setOrigin(0.5);
     }
 
-    preload(): void {
+    public preload(): void {
     }
 
-    create(data: object): void {
+    public create(data: object): void {
     }
 
-    update(time: number, delta: number): void {
+    public update(time: number, delta: number): void {
     }
 }

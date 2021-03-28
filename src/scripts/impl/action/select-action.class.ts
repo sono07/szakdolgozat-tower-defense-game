@@ -13,11 +13,11 @@ export class SelectAction implements IAction {
     }
 
 
-    getPriceForTile(tile?: Phaser.Tilemaps.Tile): number {
+    public getPriceForTile(tile?: Phaser.Tilemaps.Tile): number {
         return 0;
     }
 
-    getSelectorColorForTile(tile?: Phaser.Tilemaps.Tile): number {
+    public getSelectorColorForTile(tile?: Phaser.Tilemaps.Tile): number {
         if(tile != null && isTurretTile(getTileValue(this.gameStateStore, tile))) {
             return 0xFFFF00; //yellow
         } else {
@@ -25,7 +25,7 @@ export class SelectAction implements IAction {
         }
     }
 
-    onTileHover(tile?: Phaser.Tilemaps.Tile): void {
+    public onTileHover(tile?: Phaser.Tilemaps.Tile): void {
         const tGroups = this.gameStateStore.getAllTurretGroups();
 
         const posX = tile != null ? tile.getCenterX() : undefined;
@@ -45,7 +45,7 @@ export class SelectAction implements IAction {
         })
     }
 
-    onTileClick(tile: Phaser.Tilemaps.Tile): void {
+    public onTileClick(tile: Phaser.Tilemaps.Tile): void {
         //currently do nothing
     }
 }

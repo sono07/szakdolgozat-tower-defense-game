@@ -7,17 +7,17 @@ export class BootScene extends BaseScene {
         super(BOOT_SCENE_KEY);
     }
 
-    init(data: object): void {
+    public init(data: object): void {
     }
 
-    preload(): void {
+    public preload(): void {
         this.load.image('background', 'images/background.png');
     }
 
-    create(data: object): void {
+    public create(data: object): void {
         this.scene.start(PRELOAD_SCENE_KEY);
     }
 
-    update(time: number, delta: number): void {
+    public update(time: number, delta: number): void {
     }
 }
