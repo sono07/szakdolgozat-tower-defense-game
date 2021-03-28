@@ -20,7 +20,7 @@ import { SelectAction } from '../action/select-action.class';
 import { GameStateStore } from '../game-state/game-state.store.class';
 import { MapGenerator } from '../map/generate-map';
 import { MAP_TILES_COL_COUNT, MAP_TILES_ROW_COUNT } from '../utils/config.constants';
-import { ROTATION_DIVISOR } from '../utils/constants';
+import { ROTATION_DIVISOR, TILE_SELECTOR_Z_INDEX, UI_CLICKABLE_FIELD_BORDER_Z_INDEX, UI_CLICKABLE_FIELD_BOX_Z_INDEX, UI_CLICKABLE_FIELD_IMAGE_Z_INDEX, UI_CLICKABLE_FIELD_LAYER_Z_INDEX, UI_CLICKABLE_FIELD_OVERLAY_Z_INDEX, UI_INFO_FIELD_BOX_Z_INDEX, UI_INFO_FIELD_ICON_Z_INDEX, UI_INFO_FIELD_TEXT_Z_INDEX, UI_SEPARATOR_Z_INDEX, UI_SIDE_PANEL_Z_INDEX, UI_TOP_PANEL_Z_INDEX } from '../utils/constants';
 import { BaseScene } from './_abstract/base.scene.abstract';
 
 export const GAME_SCENE_KEY = "Game";
@@ -146,7 +146,7 @@ export class GameScene extends BaseScene {
         this.tileSelector.setStrokeStyle(1, 0xFFFF00, 1);
         this.tileSelector.setFillStyle(0xFFFF00, 0.25);
         this.tileSelector.setOrigin(0.5,0.5)
-        this.tileSelector.setDepth(10);
+        this.tileSelector.setDepth(TILE_SELECTOR_Z_INDEX);
         this.tileSelector.setVisible(false)
     }
 
@@ -174,12 +174,12 @@ export class GameScene extends BaseScene {
         topPanel.y = 40;
         topPanel.displayHeight = 80;
         topPanel.displayWidth = 980;
-        topPanel.setDepth(100);
+        topPanel.setDepth(UI_TOP_PANEL_Z_INDEX);
 
         const healthBox = this.add.graphics();
         healthBox.fillStyle(0x222222, 0.8);
         healthBox.fillRoundedRect(45, 25, 155, 30, 5);
-        healthBox.setDepth(101);
+        healthBox.setDepth(UI_INFO_FIELD_BOX_Z_INDEX);
 
         const healthIcon = this.add.image(0,0, 'ui', 'hearth');
         healthIcon.setOrigin(0, 0.5);
@@ -187,7 +187,7 @@ export class GameScene extends BaseScene {
         healthIcon.y = 40;
         healthIcon.displayHeight = 45;
         healthIcon.setScale(healthIcon.scaleY)
-        healthIcon.setDepth(102);
+        healthIcon.setDepth(UI_INFO_FIELD_ICON_Z_INDEX);
 
         const healthText = this.make.text({
             x: 190,
@@ -199,7 +199,7 @@ export class GameScene extends BaseScene {
             }
         });
         healthText.setOrigin(1, 0.5);
-        healthText.setDepth(103);
+        healthText.setDepth(UI_INFO_FIELD_TEXT_Z_INDEX);
         this.gameStateStore.healtChangedCallbacks.push((value) => {
             healthText.setText(value.toString())
         })
@@ -207,7 +207,7 @@ export class GameScene extends BaseScene {
         const moneyBox = this.add.graphics();
         moneyBox.fillStyle(0x222222, 0.8);
         moneyBox.fillRoundedRect(245, 25, 155, 30, 5);
-        moneyBox.setDepth(101);
+        moneyBox.setDepth(UI_INFO_FIELD_BOX_Z_INDEX);
 
         const moneyIcon = this.add.image(0,0, 'ui', 'money');
         moneyIcon.setOrigin(0, 0.5);
@@ -215,7 +215,7 @@ export class GameScene extends BaseScene {
         moneyIcon.y = 40;
         moneyIcon.displayHeight = 45;
         moneyIcon.setScale(moneyIcon.scaleY)
-        moneyIcon.setDepth(102);
+        moneyIcon.setDepth(UI_INFO_FIELD_ICON_Z_INDEX);
 
         const moneyText = this.make.text({
             x: 390,
@@ -227,7 +227,7 @@ export class GameScene extends BaseScene {
             }
         });
         moneyText.setOrigin(1, 0.5);
-        moneyText.setDepth(103);
+        moneyText.setDepth(UI_INFO_FIELD_TEXT_Z_INDEX);
         this.gameStateStore.moneyChangedCallbacks.push((value) => {
             moneyText.setText(value.toString())
         })
@@ -235,7 +235,7 @@ export class GameScene extends BaseScene {
         const scoreBox = this.add.graphics();
         scoreBox.fillStyle(0x222222, 0.8);
         scoreBox.fillRoundedRect(445, 25, 155, 30, 5);
-        scoreBox.setDepth(101);
+        scoreBox.setDepth(UI_INFO_FIELD_BOX_Z_INDEX);
 
         const scoreIcon = this.add.image(0,0, 'ui', 'score');
         scoreIcon.setOrigin(0, 0.5);
@@ -243,7 +243,7 @@ export class GameScene extends BaseScene {
         scoreIcon.y = 40;
         scoreIcon.displayHeight = 45;
         scoreIcon.setScale(scoreIcon.scaleY)
-        scoreIcon.setDepth(102);
+        scoreIcon.setDepth(UI_INFO_FIELD_ICON_Z_INDEX);
 
         const scoreText = this.make.text({
             x: 590,
@@ -255,7 +255,7 @@ export class GameScene extends BaseScene {
             }
         });
         scoreText.setOrigin(1, 0.5);
-        scoreText.setDepth(103);
+        scoreText.setDepth(UI_INFO_FIELD_TEXT_Z_INDEX);
         this.gameStateStore.scoreChangedCallbacks.push((value) => {
             scoreText.setText(value.toString())
         })
@@ -263,7 +263,7 @@ export class GameScene extends BaseScene {
         const waveBox = this.add.graphics();
         waveBox.fillStyle(0x222222, 0.8);
         waveBox.fillRoundedRect(655, 25, 120, 30, 5);
-        waveBox.setDepth(101);
+        waveBox.setDepth(UI_INFO_FIELD_BOX_Z_INDEX);
 
         const waveIcon = this.add.image(0,0, 'ui', 'wave');
         waveIcon.setOrigin(0, 0.5);
@@ -271,7 +271,7 @@ export class GameScene extends BaseScene {
         waveIcon.y = 40;
         waveIcon.displayHeight = 45;
         waveIcon.setScale(waveIcon.scaleY)
-        waveIcon.setDepth(102);
+        waveIcon.setDepth(UI_INFO_FIELD_ICON_Z_INDEX);
 
         const waveText = this.make.text({
             x: 765,
@@ -283,7 +283,7 @@ export class GameScene extends BaseScene {
             }
         });
         waveText.setOrigin(1, 0.5);
-        waveText.setDepth(103);
+        waveText.setDepth(UI_INFO_FIELD_TEXT_Z_INDEX);
         this.gameStateStore.enemySpawner.waveNumberChangedCallback.push((value) => {
             waveText.setText(value.toString())
         })
@@ -291,7 +291,7 @@ export class GameScene extends BaseScene {
         const enemyBox = this.add.graphics();
         enemyBox.fillStyle(0x222222, 0.8);
         enemyBox.fillRoundedRect(810, 25, 120, 30, 5);
-        enemyBox.setDepth(101);
+        enemyBox.setDepth(UI_INFO_FIELD_BOX_Z_INDEX);
 
         const enemyIcon = this.add.image(0,0, 'ui', 'enemy');
         enemyIcon.setOrigin(0, 0.5);
@@ -299,7 +299,7 @@ export class GameScene extends BaseScene {
         enemyIcon.y = 40;
         enemyIcon.displayHeight = 45;
         enemyIcon.setScale(enemyIcon.scaleY)
-        enemyIcon.setDepth(102);
+        enemyIcon.setDepth(UI_INFO_FIELD_ICON_Z_INDEX);
 
         const enemyText = this.make.text({
             x: 920,
@@ -311,7 +311,7 @@ export class GameScene extends BaseScene {
             }
         });
         enemyText.setOrigin(1, 0.5);
-        enemyText.setDepth(103);
+        enemyText.setDepth(UI_INFO_FIELD_TEXT_Z_INDEX);
         this.gameStateStore.enemySpawner.waveEnemyNumberChangedCallback.push((value) => {
             enemyText.setText(value.toString())
         })
@@ -327,12 +327,12 @@ export class GameScene extends BaseScene {
         //rotation swaps x with y
         sidePanel.displayHeight = 160;
         sidePanel.displayWidth = 740;
-        sidePanel.setDepth(99);
+        sidePanel.setDepth(UI_SIDE_PANEL_Z_INDEX);
 
         const priceBox = this.add.graphics();
         priceBox.fillStyle(0x222222, 0.8);
         priceBox.fillRoundedRect(820, 90, 120, 30, 5);
-        priceBox.setDepth(101);
+        priceBox.setDepth(UI_INFO_FIELD_BOX_Z_INDEX);
 
         const priceIcon = this.add.image(0,0, 'ui', 'money');
         priceIcon.setOrigin(0, 0.5);
@@ -340,7 +340,7 @@ export class GameScene extends BaseScene {
         priceIcon.y = 105;
         priceIcon.displayWidth = 20;
         priceIcon.setScale(priceIcon.scaleX)
-        priceIcon.setDepth(102);
+        priceIcon.setDepth(UI_INFO_FIELD_ICON_Z_INDEX);
 
         const priceText = this.make.text({
             x: 935,
@@ -352,7 +352,7 @@ export class GameScene extends BaseScene {
             }
         });
         priceText.setOrigin(1, 0.5);
-        priceText.setDepth(103);
+        priceText.setDepth(UI_INFO_FIELD_TEXT_Z_INDEX);
         this.priceText = priceText;
         this.gameStateStore.actionChangedCallbacks.push((action) => {
             const price = action.getPriceForTile();
@@ -363,7 +363,7 @@ export class GameScene extends BaseScene {
         separator.lineStyle(1, 0xFFFFFF, 0.8);
         separator.moveTo(820, 165);
         separator.lineTo(940, 165);
-        separator.setDepth(101);
+        separator.setDepth(UI_SEPARATOR_Z_INDEX);
         separator.strokePath()
 
         const buttons: {
@@ -441,7 +441,7 @@ export class GameScene extends BaseScene {
                 button.box.size.y,
                 5
             );
-            box.setDepth(101);
+            box.setDepth(UI_CLICKABLE_FIELD_BOX_Z_INDEX);
 
             const boxBorder = this.add.graphics();
             boxBorder.lineStyle(2, 0xFFFFFF, 0.8);
@@ -452,7 +452,7 @@ export class GameScene extends BaseScene {
                 button.box.size.y,
                 5
             );
-            boxBorder.setDepth(102);
+            boxBorder.setDepth(UI_CLICKABLE_FIELD_BORDER_Z_INDEX);
             boxBorder.setVisible(false);
 
             const boxOverlay = this.add.graphics();
@@ -464,7 +464,7 @@ export class GameScene extends BaseScene {
                 button.box.size.y,
                 5
             );
-            boxOverlay.setDepth(103);
+            boxOverlay.setDepth(UI_CLICKABLE_FIELD_OVERLAY_Z_INDEX);
             boxOverlay.setVisible(false);
 
             const image = this.add.image(
@@ -473,7 +473,7 @@ export class GameScene extends BaseScene {
                 button.image.texture,
                 button.image.frame
             )
-            image.setDepth(104);
+            image.setDepth(UI_CLICKABLE_FIELD_IMAGE_Z_INDEX);
             image.setOrigin(0.5)
             image.setDisplaySize(button.image.size.x, button.image.size.y)
 
@@ -484,7 +484,7 @@ export class GameScene extends BaseScene {
                 button.box.size.y,
             )
             interactiveLayer.setOrigin(0)
-            interactiveLayer.setDepth(110)
+            interactiveLayer.setDepth(UI_CLICKABLE_FIELD_LAYER_Z_INDEX)
             interactiveLayer.setInteractive({ useHandCursor: true })
             interactiveLayer.on(Phaser.Input.Events.POINTER_OVER, () => {
                 button.graphics?.boxHover.setVisible(true);

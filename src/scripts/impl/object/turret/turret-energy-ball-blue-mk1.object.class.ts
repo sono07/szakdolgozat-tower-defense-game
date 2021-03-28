@@ -4,6 +4,7 @@ import { FlatSlowEffect } from "../../effect/active-effect/flat-slow-effect.clas
 import { FlatDamageEffect } from "../../effect/instant-effect/flat-damage-effect.class";
 import { GameStateStore } from "../../game-state/game-state.store.class";
 import { TURRET_ENERGY_BALL_BLUE_MK1_FIRERATE, TURRET_ENERGY_BALL_BLUE_MK1_RANGE } from "../../utils/config.constants";
+import { TURRET_BASE_Z_INDEX, TURRET_TOP_Z_INDEX } from "../../utils/constants";
 import { BaseTurretObject, EnemySorters } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretEnergyBallBlueMk1Object extends BaseTurretObject {
@@ -18,10 +19,10 @@ export class TurretEnergyBallBlueMk1Object extends BaseTurretObject {
     constructor(scene: Phaser.Scene) {
         super(scene, 'turret-weapons', 'energy-ball-blue-mk1');
         this.setScale(0.75)
-        this.setDepth(6);
+        this.setDepth(TURRET_TOP_Z_INDEX);
 
         this.baseImage = this.scene.add.image(0, 0, 'turret-bases', '004');
-        this.baseImage.setDepth(4);
+        this.baseImage.setDepth(TURRET_BASE_Z_INDEX);
         this.baseImage.setScale(0.65);
 
         this.rangeCircle = this.scene.add.circle(0, 0, this.radius, 0xFFFFFF, 0.2)

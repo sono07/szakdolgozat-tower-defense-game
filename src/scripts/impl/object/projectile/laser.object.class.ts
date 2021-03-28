@@ -1,5 +1,6 @@
 import { IEffect } from "../../../api/effect/effect.interface";
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
+import { PROJECTILE_Z_INDEX } from "../../utils/constants";
 import { BaseProjectile } from "./_abstract/base-projectile.abstract";
 
 export class LaserObject extends BaseProjectile {
@@ -12,7 +13,7 @@ export class LaserObject extends BaseProjectile {
         
         this.hitAnim = this.scene.add.sprite(0, 0, 'projectile-energy-ball-blue', '001');
         this.hitAnim.setScale(0.7);
-        this.hitAnim.setDepth(10);
+        this.hitAnim.setDepth(PROJECTILE_Z_INDEX);
     }
 
     public init(params: {

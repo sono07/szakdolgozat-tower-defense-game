@@ -27,7 +27,6 @@ export class RocketObject extends BaseMovingProjectile implements IAOEMovingProj
                 this.setScale(200/256,200/256);
                 this.setCircle(radius);
                 this.setSensor(true);
-                console.warn(this.depth)
                 this.setRotation(Phaser.Math.Angle.BetweenPoints(startPosition, endPosition) + Math.PI / 2);
             },
         })
