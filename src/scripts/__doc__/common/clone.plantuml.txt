@@ -1,0 +1,11 @@
+@startuml
+interface ICloneable {
+    +copy(obj: this): this
+    +clone(): this
+}
+
+abstract class BaseCloneable implements ICloneable {
+    +{abstract} copy(obj: this): this
+    +clone(): this
+}
+@enduml

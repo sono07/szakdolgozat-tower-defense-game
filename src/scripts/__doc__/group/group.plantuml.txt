@@ -1,0 +1,110 @@
+@startuml
+interface IGroup<T extends Phaser.GameObjects.GameObject> extends Phaser.GameObjects.Group {
+    +children: Phaser.Structs.Set<T>
+    +createCallbackT: (item: T) => void
+    +removeCallbackT: (item: T) => void
+    +createMultipleCallbackT: (items: T[]) => void
+    +destroy(destroyChildren?: boolean | undefined): void
+    +create(x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined, active?: boolean | undefined): T
+    +createMultiple(config: Phaser.Types.GameObjects.Group.GroupCreateConfig | Phaser.Types.GameObjects.Group.GroupCreateConfig[]): T[]
+    +createFromConfig(options: Phaser.Types.GameObjects.Group.GroupCreateConfig): T[]
+    +add(child: T, addToScene?: boolean | undefined): this
+    +addMultiple(children: T[], addToScene?: boolean | undefined): this
+    +remove(child: T, removeFromScene?: boolean | undefined, destroyChild?: boolean | undefined): this
+    +contains(child: T): boolean
+    +getChildren(): T[]
+    +getMatching(property?: string | undefined, value?: any, startIndex?: number | undefined, endIndex?: number | undefined): T[]
+    +getFirst(state?: boolean | undefined, createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getFirstNth(nth: number, state?: boolean | undefined, createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getLast(state?: boolean | undefined, createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getLastNth(nth: number, state?: boolean | undefined, createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +get(x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getFirstAlive(createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getFirstDead(createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +kill(gameObject: T): void
+    +killAndHide(gameObject: T): void
+}
+
+abstract class BaseGroup<T extends Phaser.GameObjects.GameObject> extends Phaser.GameObjects.Group implements IGroup {
+    +children: Phaser.Structs.Set<T>
+    +createCallbackT: (item: T) => void
+    +createCallback: (item: Phaser.GameObjects.GameObject) => void
+    +removeCallbackT: (item: T) => void
+    +removeCallback: (item: Phaser.GameObjects.GameObject) => void
+    +createMultipleCallbackT: (items: T[]) => void
+    +createMultipleCallback: (items: Phaser.GameObjects.GameObject[]) => void
+    +destroy(destroyChildren?: boolean | undefined): void
+    +create(x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined, active?: boolean | undefined): T
+    +createMultiple(config: Phaser.Types.GameObjects.Group.GroupCreateConfig | Phaser.Types.GameObjects.Group.GroupCreateConfig[]): T[]
+    +createFromConfig(options: Phaser.Types.GameObjects.Group.GroupCreateConfig): T[]
+    +add(child: T, addToScene?: boolean | undefined): this
+    +addMultiple(children: T[], addToScene?: boolean | undefined): this
+    +remove(child: T, removeFromScene?: boolean | undefined, destroyChild?: boolean | undefined): this
+    +contains(child: T): boolean
+    +getChildren(): T[]
+    +getMatching(property?: string | undefined, value?: any, startIndex?: number | undefined, endIndex?: number | undefined): T[]
+    +getFirst(state?: boolean | undefined, createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getFirstNth(nth: number, state?: boolean | undefined, createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getLast(state?: boolean | undefined, createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getLastNth(nth: number, state?: boolean | undefined, createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +get(x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getFirstAlive(createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +getFirstDead(createIfNull?: boolean | undefined, x?: number | undefined, y?: number | undefined, key?: string | undefined, frame?: string | number | undefined, visible?: boolean | undefined): T
+    +kill(gameObject: T): void
+    +killAndHide(gameObject: T): void
+}
+
+class EnemyGroup extends BaseGroup
+
+class BulletGroup extends BaseGroup
+
+class EnergyBallBlueGroup extends BaseGroup
+
+class EnergyBallOrangeGroup extends BaseGroup
+
+class LaserGroup extends BaseGroup
+
+class RocketGroup extends BaseGroup
+
+interface ITurretGroup<T extends Phaser.GameObjects.GameObject & ITurretObject> extends IGroup {
+    +getPrice(): number
+    +getTile(): number
+}
+
+abstract class BaseTurretGroup<T extends Phaser.GameObjects.GameObject & ITurretObject> extends BaseGroup implements ITurretGroup {
+    -priceValue: number
+    -tileValue: number
+    +getPrice(): number
+    +getTile(): number
+}
+
+class TurretBulletMk1Group extends BaseTurretGroup
+
+class TurretBulletMk2Group extends BaseTurretGroup
+
+class TurretBulletMk3Group extends BaseTurretGroup
+
+class TurretEnergyBallBlueMk1Group extends BaseTurretGroup
+
+class TurretEnergyBallBlueMk2Group extends BaseTurretGroup
+
+class TurretEnergyBallBlueMk3Group extends BaseTurretGroup
+
+class TurretEnergyBallOrangeMk1Group extends BaseTurretGroup
+
+class TurretEnergyBallOrangeMk2Group extends BaseTurretGroup
+
+class TurretEnergyBallOrangeMk3Group extends BaseTurretGroup
+
+class TurretLaserMk1Group extends BaseTurretGroup
+
+class TurretLaserMk2Group extends BaseTurretGroup
+
+class TurretLaserMk3Group extends BaseTurretGroup
+
+class TurretRocketMk1Group extends BaseTurretGroup
+
+class TurretRocketMk2Group extends BaseTurretGroup
+
+class TurretRocketMk3Group extends BaseTurretGroup
+@enduml
