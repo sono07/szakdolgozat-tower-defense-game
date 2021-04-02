@@ -1,3 +1,4 @@
+import { Phaser } from "../api/__helper__/phaser.export";
 import { BootScene } from "./scene/boot.scene";
 import { GameOverScene } from "./scene/game-over.scene";
 import { GameScene } from "./scene/game.scene";

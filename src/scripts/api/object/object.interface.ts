@@ -1,3 +1,4 @@
+import { Phaser } from "../__helper__/phaser.export";
 export interface IObject {
     active: boolean;
     position: Phaser.Math.Vector2;

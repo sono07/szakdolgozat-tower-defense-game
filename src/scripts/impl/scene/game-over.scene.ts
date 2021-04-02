@@ -1,3 +1,4 @@
+import { Phaser } from '../../api/__helper__/phaser.export';
 import { MAIN_MENU_SCENE_KEY } from "./main-menu.scene";
 import { BaseScene } from "./_abstract/base.scene.abstract";
 

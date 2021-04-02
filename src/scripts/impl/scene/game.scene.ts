@@ -18,6 +18,7 @@ import { PlaceTurretRocketMk2Action } from '../action/place-action/place-turret-
 import { PlaceTurretRocketMk3Action } from '../action/place-action/place-turret-rocket-mk3-action.class';
 import { RemoveAction } from '../action/remove-action.class';
 import { SelectAction } from '../action/select-action.class';
+import { Phaser } from '../../api/__helper__/phaser.export';
 import { GameStateStore } from '../game-state/game-state.store.class';
 import { MapGenerator } from '../map/map-generator.class';
 import { MAP_TILES_COL_COUNT, MAP_TILES_ROW_COUNT } from '../utils/config.constants';

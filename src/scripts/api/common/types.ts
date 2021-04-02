@@ -1,3 +1,4 @@
+import { Phaser } from "../__helper__/phaser.export";
 import { IGroup } from "../group/group.interface";
 import { IEnemy } from "../object/enemy-object/enemy.interface";
 

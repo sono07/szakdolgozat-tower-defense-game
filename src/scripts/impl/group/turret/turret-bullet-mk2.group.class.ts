@@ -1,3 +1,4 @@
+import { Phaser } from '../../../api/__helper__/phaser.export';
 import { TurretBulletMk2Object } from "../../object/turret/turret-bullet-mk2.object.class";
 import { TURRET_BULLET_MK2_COST } from "../../utils/config.constants";
 import { TILE_TURRET_BULLET_MK2 } from "../../utils/constants";

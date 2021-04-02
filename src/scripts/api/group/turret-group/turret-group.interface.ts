@@ -1,3 +1,4 @@
+import { Phaser } from "../../__helper__/phaser.export";
 import { ITurretObject } from "../../object/turret-object/turret-object.interface";
 import { IGroup } from "../group.interface";
 

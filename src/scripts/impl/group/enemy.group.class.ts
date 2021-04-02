@@ -1,3 +1,4 @@
+import { Phaser } from '../../api/__helper__/phaser.export';
 import { EnemyObject } from "../object/enemy/enemy.object.class";
 import { BaseGroup } from "./_abstract/base.group.abstract";
 

@@ -1,3 +1,4 @@
+import { Phaser } from "../../__helper__/phaser.export";
 import { IGameStateStore } from "../../game-state/game-state-store.interface";
 import { IObject } from "../object.interface";
 

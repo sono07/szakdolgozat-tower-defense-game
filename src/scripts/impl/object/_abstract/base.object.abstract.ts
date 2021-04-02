@@ -1,3 +1,4 @@
+import { Phaser } from "../../../api/__helper__/phaser.export";
 import { IObject } from "../../../api/object/object.interface";
 
 export abstract class BaseObject extends Phaser.Physics.Matter.Sprite implements IObject {

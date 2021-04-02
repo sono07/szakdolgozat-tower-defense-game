@@ -1,3 +1,4 @@
+import { Phaser } from '../../../../api/__helper__/phaser.export';
 import { ITurretGroup } from "../../../../api/group/turret-group/turret-group.interface";
 import { ITurretObject } from "../../../../api/object/turret-object/turret-object.interface";
 import { BaseGroup } from "../../_abstract/base.group.abstract";

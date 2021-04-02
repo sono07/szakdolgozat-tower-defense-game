@@ -1,3 +1,4 @@
+import { Phaser } from '../../../api/__helper__/phaser.export';
 import { IScene } from "../../../api/scene/scene.interface";
 
 export abstract class BaseScene extends Phaser.Scene implements IScene {

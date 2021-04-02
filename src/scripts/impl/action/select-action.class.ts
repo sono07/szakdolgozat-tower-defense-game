@@ -1,3 +1,4 @@
+import { Phaser } from '../../api/__helper__/phaser.export';
 import { IAction } from "../../api/action/action.interface";
 import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
 import { getTileValue, isTurretTile } from "../utils/action.utils";

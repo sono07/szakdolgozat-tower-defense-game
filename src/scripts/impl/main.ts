@@ -1,4 +1,3 @@
-import 'Phaser';
 import { GameConfig } from './phaser.config';
 import { Game } from './phaser.game';
 

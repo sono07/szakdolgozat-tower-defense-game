@@ -1,3 +1,4 @@
+import { Phaser } from '../../../api/__helper__/phaser.export';
 import { IGroup } from "../../../api/group/group.interface";
 
 export abstract class BaseGroup<T extends Phaser.GameObjects.GameObject> extends Phaser.GameObjects.Group implements IGroup<T> {

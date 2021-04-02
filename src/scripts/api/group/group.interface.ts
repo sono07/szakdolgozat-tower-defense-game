@@ -1,3 +1,5 @@
+import { Phaser } from "../__helper__/phaser.export";
+
 export interface IGroup<T extends Phaser.GameObjects.GameObject> extends Phaser.GameObjects.Group {
     children: Phaser.Structs.Set<T>;
     createCallbackT: (item: T) => void;

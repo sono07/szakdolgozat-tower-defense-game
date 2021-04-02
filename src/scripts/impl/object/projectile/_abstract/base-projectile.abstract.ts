@@ -1,3 +1,4 @@
+import { Phaser } from '../../../../api/__helper__/phaser.export';
 import { IEffect } from "../../../../api/effect/effect.interface";
 import { IEnemy } from "../../../../api/object/enemy-object/enemy.interface";
 import { IProjectile } from "../../../../api/object/projectile-object/projectile.interface";

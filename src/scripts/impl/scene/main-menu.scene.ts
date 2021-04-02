@@ -1,3 +1,4 @@
+import { Phaser } from '../../api/__helper__/phaser.export';
 import { genRandomStr } from "../utils/random.utils";
 import { GAME_SCENE_KEY } from "./game.scene";
 import { BaseScene } from "./_abstract/base.scene.abstract";

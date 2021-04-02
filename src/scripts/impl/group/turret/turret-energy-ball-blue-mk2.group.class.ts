@@ -1,3 +1,4 @@
+import { Phaser } from '../../../api/__helper__/phaser.export';
 import { TurretEnergyBallBlueMk2Object } from "../../object/turret/turret-energy-ball-blue-mk2.object.class";
 import { TURRET_ENERGY_BALL_BLUE_MK2_COST } from "../../utils/config.constants";
 import { TILE_TURRET_ENERGY_BALL_BLUE_MK2 } from "../../utils/constants";

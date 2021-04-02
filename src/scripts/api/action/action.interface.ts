@@ -1,3 +1,5 @@
+import { Phaser } from "../__helper__/phaser.export";
+
 export interface IAction {
 	actionKey: string;
 	getPriceForTile(tile?: Phaser.Tilemaps.Tile): number;

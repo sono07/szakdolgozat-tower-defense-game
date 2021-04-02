@@ -1,3 +1,4 @@
+import { Phaser } from "../../__helper__/phaser.export";
 import { IEffect } from "../../effect/effect.interface";
 import { IEnemy } from "../enemy-object/enemy.interface";
 import { IProjectile } from "./projectile.interface";

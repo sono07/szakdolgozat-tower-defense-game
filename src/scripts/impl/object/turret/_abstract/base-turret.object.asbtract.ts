@@ -1,3 +1,4 @@
+import { Phaser } from '../../../../api/__helper__/phaser.export';
 import { EnemyWithDistance } from "../../../../api/common/types";
 import { IGameStateStore } from "../../../../api/game-state/game-state-store.interface";
 import { IEnemy } from "../../../../api/object/enemy-object/enemy.interface";
