@@ -9,7 +9,7 @@ export const TILE_ROAD_4WAY = 6;
 /**
  * All Turret tile values must be larger than this value!
  */
-export const MINIMUM_TURRET_TILE_VALUE = 10;
+export const TURRET_TILE_VALUE_LOWER_LIMIT = 10;
 
 export const TILE_TURRET_BULLET_MK1 = 11
 export const TILE_TURRET_BULLET_MK2 = 12

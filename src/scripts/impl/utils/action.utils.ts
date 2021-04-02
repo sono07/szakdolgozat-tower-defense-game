@@ -1,12 +1,14 @@
+import { Phaser } from "../../api/__helper__/phaser.export";
 import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
-import { MINIMUM_TURRET_TILE_VALUE, TILE_CRATERS, TILE_TREES } from "./constants";
+import { TILE_CRATERS, TILE_TREES, TURRET_TILE_VALUE_LOWER_LIMIT } from "./constants";
 
 export const isTurretTile = (v: number): boolean => {
-    return v >= MINIMUM_TURRET_TILE_VALUE;
+    return Math.floor(v) > TURRET_TILE_VALUE_LOWER_LIMIT;
 }
 
 export const isRemovableTile = (v: number): boolean => {
-    return isTurretTile(v) || v == TILE_TREES || v == TILE_CRATERS;
+    const value = Math.floor(v);
+    return isTurretTile(value) || value == TILE_TREES || value == TILE_CRATERS;
 }
 
 export const getTileValue = (gameStateStore: IGameStateStore, tile: Phaser.Tilemaps.Tile) : number => {
