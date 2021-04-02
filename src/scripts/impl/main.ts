@@ -1,11 +1,11 @@
-import { GameConfig } from './phaser.config';
-import { Game } from './phaser.game';
+import { PhaserConfig } from './game-config';
+import { GameEngine } from './game-engine';
 
 export class App {
-  public static game: Game;
+  public static gameEngine: GameEngine;
 
   public static run() {
-    this.game = new Game(GameConfig);
+    this.gameEngine = new GameEngine(PhaserConfig);
   }
 }
 

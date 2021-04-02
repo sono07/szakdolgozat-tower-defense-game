@@ -3,7 +3,7 @@ import { EnemyDescription } from "../../api/common/types";
 import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
 import { IEnemySpawner } from "../../api/map/enemy-spawner.interface";
 import { IEnemy } from "../../api/object/enemy-object/enemy.interface";
-import { ENEMY_BASE_HEALTH, ENEMY_BASE_SPEED, ENEMY_EXTRA_COUNT_PER_WAVE, ENEMY_EXTRA_HEALTH_PER_WAVE, WAVE_SPAWN_DELAY_MS, WAVE_START_DELAY_MS } from "../utils/config.constants";
+import { ENEMY_BASE_HEALTH, ENEMY_BASE_SPEED, ENEMY_EXTRA_COUNT_PER_WAVE, ENEMY_EXTRA_HEALTH_PER_WAVE, WAVE_SPAWN_DELAY_MS, WAVE_START_DELAY_MS } from "../game-config";
 
 export class EnemySpawner implements IEnemySpawner {
     private gameStateStore: IGameStateStore;

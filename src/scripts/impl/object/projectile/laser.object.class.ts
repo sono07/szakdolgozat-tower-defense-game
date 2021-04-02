@@ -1,7 +1,7 @@
 import { Phaser } from '../../../api/__helper__/phaser.export';
 import { IEffect } from "../../../api/effect/effect.interface";
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { PROJECTILE_Z_INDEX } from "../../utils/constants";
+import { PROJECTILE_Z_INDEX } from "../../game-constants";
 import { BaseProjectile } from "./_abstract/base-projectile.abstract";
 
 export class LaserObject extends BaseProjectile {

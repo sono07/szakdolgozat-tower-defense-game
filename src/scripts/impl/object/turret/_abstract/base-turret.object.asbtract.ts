@@ -4,7 +4,7 @@ import { IGameStateStore } from "../../../../api/game-state/game-state-store.int
 import { IEnemy } from "../../../../api/object/enemy-object/enemy.interface";
 import { ITurretObject } from "../../../../api/object/turret-object/turret-object.interface";
 import { GameStateStore } from "../../../game-state/game-state.store.class";
-import { TURRET_BASE_Z_INDEX, TURRET_TOP_Z_INDEX } from "../../../utils/constants";
+import { TURRET_BASE_Z_INDEX, TURRET_TOP_Z_INDEX } from "../../../game-constants";
 import { BaseObject } from "../../_abstract/base.object.abstract";
 
 export abstract class BaseTurretObject extends BaseObject implements ITurretObject {

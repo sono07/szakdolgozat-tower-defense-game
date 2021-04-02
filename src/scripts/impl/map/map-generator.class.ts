@@ -3,7 +3,7 @@ import random from 'random';
 import seedrandom from 'seedrandom';
 import { Map, Tuple } from '../../api/common/types';
 import { IMapGenerator } from '../../api/map/map-generator.interface';
-import { ROTATION_180, ROTATION_270, ROTATION_90, ROTATION_ZERO, TILE_CRATERS, TILE_EMPTY, TILE_ROAD_2WAY_CORNER, TILE_ROAD_2WAY_STRAIGHT, TILE_TREES } from '../utils/constants';
+import { ROTATION_180, ROTATION_270, ROTATION_90, ROTATION_ZERO, TILE_CRATERS, TILE_EMPTY, TILE_ROAD_2WAY_CORNER, TILE_ROAD_2WAY_STRAIGHT, TILE_TREES } from '../game-constants';
   
 const SIDE_RIGHT = 0;
 const SIDE_DOWN = 1;

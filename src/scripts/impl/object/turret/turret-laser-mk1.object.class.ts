@@ -1,6 +1,6 @@
 import { Phaser } from '../../../api/__helper__/phaser.export';
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { TURRET_LASER_MK1_FIRERATE, TURRET_LASER_MK1_PROJECTILE_EFFECTS, TURRET_LASER_MK1_RANGE } from "../../utils/config.constants";
+import { TURRET_LASER_MK1_FIRERATE, TURRET_LASER_MK1_PROJECTILE_EFFECTS, TURRET_LASER_MK1_RANGE } from "../../game-config";
 import { BaseTurretObject } from "./_abstract/base-turret.object.asbtract";
 
 export class TurretLaserMk1Object extends BaseTurretObject {

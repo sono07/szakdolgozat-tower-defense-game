@@ -4,7 +4,7 @@ import { IGameStateStore } from "../../../../api/game-state/game-state-store.int
 import { ITurretGroup } from "../../../../api/group/turret-group/turret-group.interface";
 import { ITurretObject } from "../../../../api/object/turret-object/turret-object.interface";
 import { getTileValue } from "../../../utils/action.utils";
-import { TILE_EMPTY } from "../../../utils/constants";
+import { TILE_EMPTY } from "../../../game-constants";
 
 export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.GameObject = ITurretObject & Phaser.GameObjects.GameObject> implements IAction {
     public abstract actionKey: string;

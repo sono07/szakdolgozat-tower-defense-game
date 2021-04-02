@@ -2,7 +2,7 @@ import { Phaser } from '../../api/__helper__/phaser.export';
 import { IAction } from "../../api/action/action.interface";
 import { IGameStateStore } from "../../api/game-state/game-state-store.interface";
 import { getTileValue, isTurretTile } from "../utils/action.utils";
-import { ACTION_KEY_SELECT } from "../utils/constants";
+import { ACTION_KEY_SELECT } from "../game-constants";
 
 export class SelectAction implements IAction {
     public actionKey = ACTION_KEY_SELECT;

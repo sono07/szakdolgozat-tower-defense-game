@@ -1,5 +1,5 @@
 import { Phaser } from '../../../api/__helper__/phaser.export';
-import { ENEMY_HEALTH_BAR_BACKGROUND_INDICATOR_Z_INDEX, ENEMY_HEALTH_BAR_BOX_Z_INDEX, ENEMY_HEALTH_BAR_FOREGROUND_INDICATOR_Z_INDEX } from "../../utils/constants";
+import { ENEMY_HEALTH_BAR_BACKGROUND_INDICATOR_Z_INDEX, ENEMY_HEALTH_BAR_BOX_Z_INDEX, ENEMY_HEALTH_BAR_FOREGROUND_INDICATOR_Z_INDEX } from "../../game-constants";
 
 export class HealthBarObject {
     private scene: Phaser.Scene;

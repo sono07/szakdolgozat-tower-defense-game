@@ -1,7 +1,7 @@
 import { Phaser } from '../../../api/__helper__/phaser.export';
 import { TurretBulletMk3Object } from "../../object/turret/turret-bullet-mk3.object.class";
-import { TURRET_BULLET_MK3_COST } from "../../utils/config.constants";
-import { TILE_TURRET_BULLET_MK3 } from "../../utils/constants";
+import { TURRET_BULLET_MK3_COST } from "../../game-config";
+import { TILE_TURRET_BULLET_MK3 } from "../../game-constants";
 import { BaseTurretGroup } from "./_abstract/base-turret.group.abstract.class";
 
 export class TurretBulletMk3Group extends BaseTurretGroup<TurretBulletMk3Object> {

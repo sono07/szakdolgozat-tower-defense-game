@@ -4,8 +4,8 @@ import { IGameStateStore } from "../../api/game-state/game-state-store.interface
 import { ITurretGroup } from "../../api/group/turret-group/turret-group.interface";
 import { ITurretObject } from "../../api/object/turret-object/turret-object.interface";
 import { getTileValue, isRemovableTile } from "../utils/action.utils";
-import { CRATERS_CLEAR_COST, REMOVE_PRICE_MULTIPLIER, TREES_CLEAR_COST } from "../utils/config.constants";
-import { ACTION_KEY_REMOVE, TILE_CRATERS, TILE_EMPTY, TILE_TREES } from "../utils/constants";
+import { CRATERS_CLEAR_COST, REMOVE_PRICE_MULTIPLIER, TREES_CLEAR_COST } from "../game-config";
+import { ACTION_KEY_REMOVE, TILE_CRATERS, TILE_EMPTY, TILE_TREES } from "../game-constants";
 
 export class RemoveAction implements IAction {
     public actionKey = ACTION_KEY_REMOVE;

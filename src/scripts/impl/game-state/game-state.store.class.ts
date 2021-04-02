@@ -33,8 +33,8 @@ import { TurretRocketMk2Group } from "../group/turret/turret-rocket-mk2.group.cl
 import { TurretRocketMk3Group } from "../group/turret/turret-rocket-mk3.group.class";
 import { EnemySpawner } from "../map/enemy-spawner.class";
 import { GAME_OVER_SCENE_KEY } from "../scene/game-over.scene";
-import { STARTING_HEALTH, STARTING_MONEY } from "../utils/config.constants";
-import { TILE_CRATERS, TILE_EMPTY, TILE_ROAD_2WAY_CORNER, TILE_ROAD_2WAY_STRAIGHT, TILE_ROAD_3WAY, TILE_ROAD_4WAY, TILE_TREES } from "../utils/constants";
+import { STARTING_HEALTH, STARTING_MONEY } from "../game-config";
+import { TILE_CRATERS, TILE_EMPTY, TILE_ROAD_2WAY_CORNER, TILE_ROAD_2WAY_STRAIGHT, TILE_ROAD_3WAY, TILE_ROAD_4WAY, TILE_TREES } from "../game-constants";
 
 export class GameStateStore implements IGameStateStore {
     private scene: Phaser.Scene;
