@@ -1,6 +1,8 @@
 *.map
 *.log
+.vscode
 debug/
 dist/
 build/
+coverage/
 node_modules/

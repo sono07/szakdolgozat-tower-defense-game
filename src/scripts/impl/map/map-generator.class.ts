@@ -62,7 +62,6 @@ class MapGenerator implements IMapGenerator {
         return str.split("_").map(v => Number.parseInt(v)) as Tuple<number, 2>;
     }
 
-    
     private  differenceToSide(value: Tuple<number, 2>) {
         if (value[0] == 1) {
             return SIDE_RIGHT;

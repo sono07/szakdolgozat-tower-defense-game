@@ -41,6 +41,9 @@
   "jest": {
     "setupFiles": [
       "jest-canvas-mock"
+    ],
+    "collectCoverageFrom": [
+      "src/scripts/impl/**/*.*"
     ]
   },
   "author": "Soós Noémi",

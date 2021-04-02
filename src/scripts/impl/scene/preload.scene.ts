@@ -3,7 +3,7 @@ import { MAIN_MENU_SCENE_KEY } from "./main-menu.scene";
 import { BaseScene } from "./__abstract__/base.scene.abstract";
 
 export const PRELOAD_SCENE_KEY = "Preload";
-export class PrealoadScene extends BaseScene {
+export class PreloadScene extends BaseScene {
     private progressBar!: Phaser.GameObjects.Graphics;
     private progressBox!: Phaser.GameObjects.Graphics;
     private loadingText!: Phaser.GameObjects.Text;
@@ -106,13 +106,6 @@ export class PrealoadScene extends BaseScene {
         this.anims.create({ key: 'projectile-energy-ball-orange-blow-animation', frames: this.anims.generateFrameNames('projectile-energy-ball-orange', { prefix: '', start: 1, end: 7, zeroPad: 3 }), repeat: 0 });
         this.anims.create({ key: 'projectile-energy-ball-blue-blow-animation', frames: this.anims.generateFrameNames('projectile-energy-ball-blue', { prefix: '', start: 1, end: 7, zeroPad: 3 }), repeat: 0 });
         this.anims.create({ key: 'projectile-rocket-blow-animation', frames: this.anims.generateFrameNames('projectile-rocket', { prefix: '', start: 2, end: 6, zeroPad: 3 }), repeat: 0 });
-
-        this.progressBar.destroy();
-        this.progressBox.destroy();
-        this.loadingText.destroy();
-        this.percentageText.destroy();
-        this.fileText.destroy();
-        this.backgroundImage.destroy();
 
         this.scene.start(MAIN_MENU_SCENE_KEY);
     }

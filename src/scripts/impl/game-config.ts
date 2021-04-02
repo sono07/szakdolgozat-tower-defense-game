@@ -3,7 +3,7 @@ import { BootScene } from "./scene/boot.scene";
 import { GameOverScene } from "./scene/game-over.scene";
 import { GameScene } from "./scene/game.scene";
 import { MainMenuScene } from "./scene/main-menu.scene";
-import { PrealoadScene } from "./scene/preload.scene";
+import { PreloadScene } from "./scene/preload.scene";
 import { FlatFireEffect } from "./effect/active-effect/active-over-time-effect/flat-fire-effect.class";
 import { FlatSlowEffect } from "./effect/active-effect/flat-slow-effect.class";
 import { FlatDamageEffect } from "./effect/instant-effect/flat-damage-effect.class";
@@ -33,7 +33,7 @@ export const PhaserConfig: Phaser.Types.Core.GameConfig = {
     dom: {
         createContainer: true,
     },
-    scene: [BootScene, PrealoadScene, MainMenuScene, GameScene, GameOverScene]
+    scene: [BootScene, PreloadScene, MainMenuScene, GameScene, GameOverScene]
 };
 
 export const MAP_TILES_COL_COUNT = 10;
