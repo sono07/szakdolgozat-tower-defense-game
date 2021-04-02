@@ -1,6 +1,6 @@
 import { Phaser } from '../../api/__helper__/phaser.export';
 import { MAIN_MENU_SCENE_KEY } from "./main-menu.scene";
-import { BaseScene } from "./_abstract/base.scene.abstract";
+import { BaseScene } from "./__abstract__/base.scene.abstract";
 
 export const GAME_OVER_SCENE_KEY = "GameOver";
 export class GameOverScene extends BaseScene {

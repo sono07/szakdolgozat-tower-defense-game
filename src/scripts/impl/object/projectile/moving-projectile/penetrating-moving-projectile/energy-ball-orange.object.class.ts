@@ -1,5 +1,5 @@
 import { Phaser } from '../../../../../api/__helper__/phaser.export';
-import { BasePenetratingMovingProjectile } from "./_abstract/base-penetrating-moving-projectile.abstract";
+import { BasePenetratingMovingProjectile } from "./__abstract__/base-penetrating-moving-projectile.abstract";
 
 export class EnergyBallOrangeObject extends BasePenetratingMovingProjectile {
 

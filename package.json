@@ -8,7 +8,7 @@
     "build": "cross-env NODE_ENV=production webpack",
     "serve-build": "http-server --port 4949 --silent -o /dist",
     "test": "jest",
-    "doc": "npx tplant -i ./src/scripts/impl/main.ts > ./src/scripts/_doc/generated-plantuml.txt"
+    "doc": "npx tplant -i ./src/scripts/impl/main.ts > ./src/scripts/__doc__/generated-plantuml.txt"
   },
   "dependencies": {
     "node-dijkstra": "^2.5.0",

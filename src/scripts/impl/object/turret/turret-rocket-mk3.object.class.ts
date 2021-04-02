@@ -1,7 +1,7 @@
 import { Phaser } from '../../../api/__helper__/phaser.export';
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { TURRET_ROCKET_MK3_FIRERATE, TURRET_ROCKET_MK3_PROJECTILE_BLOW_RADIUS, TURRET_ROCKET_MK3_PROJECTILE_EFFECTS, TURRET_ROCKET_MK3_PROJECTILE_SPEED, TURRET_ROCKET_MK3_RANGE } from "../../game-config";
-import { BaseTurretObject } from "./_abstract/base-turret.object.asbtract";
+import { BaseTurretObject } from "./__abstract__/base-turret.object.asbtract";
 
 export class TurretRocketMk3Object extends BaseTurretObject {
     private slotIndex: number = 0;

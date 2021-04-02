@@ -5,7 +5,7 @@ import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { ENEMY_DAMAGE_TO_PLAYER, ENEMY_MONEY_VALUE } from "../../game-config";
 import { ENEMY_HEALTH_BAR_OFFSET_PX, ENEMY_Z_INDEX } from "../../game-constants";
 import { HealthBarObject } from "../misc/health-bar.object.class";
-import { BaseObject } from "../_abstract/base.object.abstract";
+import { BaseObject } from "../__abstract__/base.object.abstract";
 
 export class EnemyObject extends BaseObject implements IEnemy {
     public health!: number;

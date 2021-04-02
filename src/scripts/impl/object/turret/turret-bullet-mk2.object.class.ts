@@ -1,7 +1,7 @@
 import { Phaser } from '../../../api/__helper__/phaser.export';
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
 import { TURRET_BULLET_MK2_FIRERATE, TURRET_BULLET_MK2_PROJECTILE_EFFECTS, TURRET_BULLET_MK2_PROJECTILE_PENETRATION, TURRET_BULLET_MK2_PROJECTILE_SPEED, TURRET_BULLET_MK2_RANGE } from "../../game-config";
-import { BaseTurretObject } from "./_abstract/base-turret.object.asbtract";
+import { BaseTurretObject } from "./__abstract__/base-turret.object.asbtract";
 
 export class TurretBulletMk2Object extends BaseTurretObject {
     constructor(scene: Phaser.Scene) {

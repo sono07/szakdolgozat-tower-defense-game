@@ -2,7 +2,7 @@ import { Phaser } from '../../../api/__helper__/phaser.export';
 import { TurretLaserMk2Object } from "../../object/turret/turret-laser-mk2.object.class";
 import { TURRET_LASER_MK2_COST } from "../../game-config";
 import { TILE_TURRET_LASER_MK2 } from "../../game-constants";
-import { BaseTurretGroup } from "./_abstract/base-turret.group.abstract.class";
+import { BaseTurretGroup } from "./__abstract__/base-turret.group.abstract.class";
 
 export class TurretLaserMk2Group extends BaseTurretGroup<TurretLaserMk2Object> {
 

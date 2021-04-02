@@ -1,5 +1,5 @@
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { BaseActiveEffect } from "./_abstract/active-effect.abstract";
+import { BaseActiveEffect } from "./__abstract__/active-effect.abstract";
 
 export class FlatSlowEffect extends BaseActiveEffect {
     private flatAmount: number;

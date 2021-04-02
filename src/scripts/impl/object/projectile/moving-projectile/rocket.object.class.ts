@@ -2,7 +2,7 @@ import { Phaser } from '../../../../api/__helper__/phaser.export';
 import { IEffect } from "../../../../api/effect/effect.interface";
 import { IEnemy } from "../../../../api/object/enemy-object/enemy.interface";
 import { IAOEMovingProjectile } from "../../../../api/object/projectile-object/aoe-moving-projectile.interface";
-import { BaseMovingProjectile } from "./_abstract/base-moving-projectile.abstract";
+import { BaseMovingProjectile } from "./__abstract__/base-moving-projectile.abstract";
 
 export class RocketObject extends BaseMovingProjectile implements IAOEMovingProjectile {
     private radius!: number;

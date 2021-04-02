@@ -1,5 +1,5 @@
 import { IEnemy } from "../../../../api/object/enemy-object/enemy.interface";
-import { BaseActiveOverTimeEffect } from "./_abstract/active-over-time-effect.abstract";
+import { BaseActiveOverTimeEffect } from "./__abstract__/active-over-time-effect.abstract";
 
 export class FlatFireEffect extends BaseActiveOverTimeEffect {
     private flatAmount: number;

@@ -23,7 +23,7 @@ import { GameStateStore } from '../game-state/game-state.store.class';
 import { MapGenerator } from '../map/map-generator.class';
 import { MAP_TILES_COL_COUNT, MAP_TILES_ROW_COUNT } from '../game-config';
 import { ROTATION_DIVISOR, TILE_SELECTOR_Z_INDEX, UI_CLICKABLE_FIELD_BORDER_Z_INDEX, UI_CLICKABLE_FIELD_BOX_Z_INDEX, UI_CLICKABLE_FIELD_IMAGE_Z_INDEX, UI_CLICKABLE_FIELD_LAYER_Z_INDEX, UI_CLICKABLE_FIELD_OVERLAY_Z_INDEX, UI_INFO_FIELD_BOX_Z_INDEX, UI_INFO_FIELD_ICON_Z_INDEX, UI_INFO_FIELD_TEXT_Z_INDEX, UI_SEPARATOR_Z_INDEX, UI_SIDE_PANEL_Z_INDEX, UI_TOP_PANEL_Z_INDEX } from '../game-constants';
-import { BaseScene } from './_abstract/base.scene.abstract';
+import { BaseScene } from './__abstract__/base.scene.abstract';
 
 export const GAME_SCENE_KEY = "Game";
 export class GameScene extends BaseScene {

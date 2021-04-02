@@ -1,5 +1,5 @@
 import { PRELOAD_SCENE_KEY } from "./preload.scene";
-import { BaseScene } from "./_abstract/base.scene.abstract";
+import { BaseScene } from "./__abstract__/base.scene.abstract";
 
 export const BOOT_SCENE_KEY = "Boot";
 export class BootScene extends BaseScene {

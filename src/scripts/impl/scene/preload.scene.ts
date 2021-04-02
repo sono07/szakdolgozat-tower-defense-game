@@ -1,6 +1,6 @@
 import { Phaser } from '../../api/__helper__/phaser.export';
 import { MAIN_MENU_SCENE_KEY } from "./main-menu.scene";
-import { BaseScene } from "./_abstract/base.scene.abstract";
+import { BaseScene } from "./__abstract__/base.scene.abstract";
 
 export const PRELOAD_SCENE_KEY = "Preload";
 export class PrealoadScene extends BaseScene {

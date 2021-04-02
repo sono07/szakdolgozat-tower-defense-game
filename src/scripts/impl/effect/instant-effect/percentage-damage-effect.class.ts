@@ -1,5 +1,5 @@
 import { IEnemy } from "../../../api/object/enemy-object/enemy.interface";
-import { BaseInstantEffect } from "./_abstract/instant-effect.abstract";
+import { BaseInstantEffect } from "./__abstract__/instant-effect.abstract";
 
 export class PercentageDamageEffect extends BaseInstantEffect {
     private percentageAmount: number;
