@@ -60,7 +60,7 @@ test('Test isRemovableTile', () => {
 })
 
 test('Test getTileValue getMap called', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[0]])
     } as any))();
 
@@ -69,13 +69,13 @@ test('Test getTileValue getMap called', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    getTileValue(gameSatetStore, tile);
+    getTileValue(gameStateStore, tile);
 
-    expect(gameSatetStore.getMap).toBeCalledTimes(1);
+    expect(gameStateStore.getMap).toBeCalledTimes(1);
 })
 
 test('Test getTileValue proper indexes', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[0, 0], [3, 0]])
     } as any))();
 
@@ -84,11 +84,11 @@ test('Test getTileValue proper indexes', () => {
         y: 1,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(3)
+    expect(getTileValue(gameStateStore, tile)).toBe(3)
 })
 
 test('Test getTileValue flooring 1', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[-0.1]])
     } as any))();
 
@@ -97,11 +97,11 @@ test('Test getTileValue flooring 1', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(-1)
+    expect(getTileValue(gameStateStore, tile)).toBe(-1)
 })
 
 test('Test getTileValue flooring 2', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[-0.99]])
     } as any))();
 
@@ -110,11 +110,11 @@ test('Test getTileValue flooring 2', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(-1)
+    expect(getTileValue(gameStateStore, tile)).toBe(-1)
 })
 
 test('Test getTileValue flooring 3', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[-1]])
     } as any))();
 
@@ -123,11 +123,11 @@ test('Test getTileValue flooring 3', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(-1)
+    expect(getTileValue(gameStateStore, tile)).toBe(-1)
 })
 
 test('Test getTileValue flooring 4', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[-1.1]])
     } as any))();
 
@@ -136,11 +136,11 @@ test('Test getTileValue flooring 4', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(-2)
+    expect(getTileValue(gameStateStore, tile)).toBe(-2)
 })
 
 test('Test getTileValue flooring 5', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[0.1]])
     } as any))();
 
@@ -149,11 +149,11 @@ test('Test getTileValue flooring 5', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(0)
+    expect(getTileValue(gameStateStore, tile)).toBe(0)
 })
 
 test('Test getTileValue flooring 6', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[0.99]])
     } as any))();
 
@@ -162,11 +162,11 @@ test('Test getTileValue flooring 6', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(0)
+    expect(getTileValue(gameStateStore, tile)).toBe(0)
 })
 
 test('Test getTileValue flooring 7', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[1]])
     } as any))();
 
@@ -175,11 +175,11 @@ test('Test getTileValue flooring 7', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(1)
+    expect(getTileValue(gameStateStore, tile)).toBe(1)
 })
 
 test('Test getTileValue flooring 7', () => {
-    const gameSatetStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
+    const gameStateStore = jest.fn<IGameStateStore, any[]>((...args: any[]) => ({
         getMap: jest.fn().mockReturnValue([[1.1]])
     } as any))();
 
@@ -188,7 +188,7 @@ test('Test getTileValue flooring 7', () => {
         y: 0,
     } as Phaser.Tilemaps.Tile))();
 
-    expect(getTileValue(gameSatetStore, tile)).toBe(1)
+    expect(getTileValue(gameStateStore, tile)).toBe(1)
 })
 
 

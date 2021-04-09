@@ -66,8 +66,6 @@ test('Test proper map values', () => {
   }
 })
 
-
-
 test('Test proper path start & end', () => {
   const seed = "asdsa";
   const width = 8;
