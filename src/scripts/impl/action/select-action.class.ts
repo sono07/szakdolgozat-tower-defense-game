@@ -13,7 +13,6 @@ export class SelectAction implements IAction {
         this.gameStateStore = gameStateStore;
     }
 
-
     public getPriceForTile(tile?: Phaser.Tilemaps.Tile): number {
         return 0;
     }

@@ -2,7 +2,7 @@ import { Phaser } from '../../../api/__helper__/phaser.export';
 import { TurretEnergyBallBlueMk2Object } from "../../object/turret/turret-energy-ball-blue-mk2.object.class";
 import { TURRET_ENERGY_BALL_BLUE_MK2_COST } from "../../game-config";
 import { TILE_TURRET_ENERGY_BALL_BLUE_MK2 } from "../../game-constants";
-import { BaseTurretGroup } from "./__abstract__/base-turret.group.abstract.class";
+import { BaseTurretGroup } from "./__abstract__/base-turret.group.abstract";
 
 export class TurretEnergyBallBlueMk2Group extends BaseTurretGroup<TurretEnergyBallBlueMk2Object> {
 

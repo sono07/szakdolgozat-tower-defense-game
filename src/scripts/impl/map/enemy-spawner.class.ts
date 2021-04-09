@@ -11,7 +11,6 @@ export class EnemySpawner implements IEnemySpawner {
 
     private waveNumber: number = 0;
     private nextWaveTime: number = 0;
-    private isWaveRunning: boolean = false;
 
     private enemyDescriptions: EnemyDescription[] = []
     private nextEnemyIndex: number = 0;
@@ -61,14 +60,12 @@ export class EnemySpawner implements IEnemySpawner {
         this.nextEnemyIndex = 0;
         this.nextWaveTime = time + WAVE_START_DELAY_MS;
         this.nextEnemyTime = this.nextWaveTime;
-
-        this.isWaveRunning = true;
     }
 
-    private processWave(time: number) {
-        if (time > this.nextWaveTime) {
+    public update(time: number, delta: number) {
+        if (time >= this.nextWaveTime) {
             if (this.nextEnemyIndex < this.enemyDescriptions.length) {
-                if (time > this.nextEnemyTime) {
+                if (time >= this.nextEnemyTime) {
                     const enemyDescription = this.enemyDescriptions[this.nextEnemyIndex];
 
                     const enemy = enemyDescription.group.get();
@@ -88,17 +85,9 @@ export class EnemySpawner implements IEnemySpawner {
             } else {
                 if (this.spawnedEnemies.every(se => se.active == false && se.visible == false)) {
                     this.spawnedEnemies = [];
-                    this.isWaveRunning = false;
+                    this.startNewWave(time);
                 }
             }
-        }
-    }
-
-    public update(time: number, delta: number) {
-        if (this.isWaveRunning == false) {
-            this.startNewWave(time);
-        } else {
-            this.processWave(time);
         }
     }
 }

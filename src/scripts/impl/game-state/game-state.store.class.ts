@@ -159,14 +159,15 @@ export class GameStateStore implements IGameStateStore {
 
     public getMapDataForTileMap() {
         return this.map.map(row => row.map(cell => {
-            switch(Math.floor(cell)) {
+            const flooredCell = Math.floor(cell);
+            switch(flooredCell) {
                 case TILE_CRATERS:
                 case TILE_TREES:
                 case TILE_ROAD_2WAY_STRAIGHT:
                 case TILE_ROAD_2WAY_CORNER:
                 case TILE_ROAD_3WAY:
                 case TILE_ROAD_4WAY:
-                    return cell;
+                    return flooredCell;
                 default:
                     return TILE_EMPTY;
             }

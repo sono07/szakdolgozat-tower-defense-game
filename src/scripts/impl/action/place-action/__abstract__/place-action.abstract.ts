@@ -25,11 +25,8 @@ export abstract class PlaceAction<T extends ITurretObject & Phaser.GameObjects.G
     }
 
     public getPriceForTile(tile?: Phaser.Tilemaps.Tile): number {
-        if(tile != null && getTileValue(this.gameStateStore, tile) == TILE_EMPTY) {
-            return this.group.getPrice();
-        } else {
-            return this.group.getPrice();
-        }
+        //always show the price of the selected turret
+        return this.group.getPrice();
     }
 
     public getSelectorColorForTile(tile?: Phaser.Tilemaps.Tile): number {
