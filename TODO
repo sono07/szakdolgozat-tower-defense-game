@@ -45,3 +45,6 @@ tesztelés
 
     //TODO tests
     //TODO sounds
+
+jest issue: functions which are modifies input parameters cannot be tested properly, the original input valueas are not kept during tests
+

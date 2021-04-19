@@ -8,6 +8,8 @@ export abstract class BaseObject extends Phaser.Physics.Matter.Sprite implements
     constructor(scene: Phaser.Scene, texture: string, frame?: string, cb?: (self: BaseObject) => void) {
         super(scene.matter.world, 0, 0, texture, frame);
 
+        this.position = new Phaser.Math.Vector2(this.x, this.y)
+
         if (cb) cb(this);
     }
 

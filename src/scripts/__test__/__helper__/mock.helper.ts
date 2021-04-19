@@ -1,6 +1,8 @@
 const proxyHandler: ProxyHandler<any> = {
   get(target, key, receiver) {
-    if(typeof target[key] === 'object' && target[key] !== null) {
+    if(key === 'constructor') {
+      return target[key];
+    } else if(typeof target[key] === 'object' && target[key] !== null) {
       return new Proxy(target[key], proxyHandler)
     } else {
       target[key] = {};
