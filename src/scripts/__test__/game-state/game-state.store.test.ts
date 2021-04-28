@@ -307,7 +307,7 @@ test("Test game state store getMap", () => {
 
 test("Test game state store getMapDataForTileMap values", () => {
   const scene: Phaser.Scene = jest.fn() as any;
-  const map = [[1,2],[3,4.4]];
+  const map = [[1,-2222],[3,4.4]];
   const path: Phaser.Curves.Path = jest.fn() as any;
 
   const gameStateStore = new GameStateStore(scene, map, path);
@@ -316,7 +316,7 @@ test("Test game state store getMapDataForTileMap values", () => {
   for(let row of result) {
     for(let cell of row) {
       const goodValues = [TILE_CRATERS, TILE_TREES, TILE_ROAD_2WAY_STRAIGHT, TILE_ROAD_2WAY_CORNER, TILE_ROAD_3WAY, TILE_ROAD_4WAY, TILE_EMPTY];
-      expect(goodValues.includes(cell)).toStrictEqual(true);
+      expect(goodValues.includes(Math.floor(cell))).toStrictEqual(true);
     }
   }
 })
@@ -389,9 +389,9 @@ test("Test game state store setTile tileForTileMapChangedCallbacks called 2", ()
   gameStateStore.setTile(0, 1, TILE_TREES+0.1);
 
   expect(cb1).toBeCalledTimes(1);
-  expect(cb1).toBeCalledWith(0, 1, TILE_TREES);
+  expect(cb1).toBeCalledWith(0, 1, TILE_TREES+0.1);
   expect(cb2).toBeCalledTimes(1);
-  expect(cb2).toBeCalledWith(0, 1, TILE_TREES);
+  expect(cb2).toBeCalledWith(0, 1, TILE_TREES+0.1);
 })
 
 test("Test game state store getHealth", () => {
