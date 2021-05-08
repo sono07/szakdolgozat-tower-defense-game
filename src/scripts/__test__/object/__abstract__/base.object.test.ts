@@ -24,6 +24,7 @@ test('Test base object construct', () => {
     phaserMatterSpriteMockHelper.setup((proto) => {
         proto.x = 11;
         proto.y = 22;
+        proto.setSensor = jest.fn();
     })
     phaserVector2MockHelper.setup((proto) => {
     })
@@ -47,6 +48,9 @@ test('Test base object construct', () => {
     expect(phaserVector2MockHelper.get().constructor).toBeCalledTimes(1);
     expect(phaserVector2MockHelper.get().constructor).toBeCalledWith(11, 22);
 
+    expect(phaserMatterSpriteMockHelper.get().setSensor).toBeCalledTimes(1);
+    expect(phaserMatterSpriteMockHelper.get().setSensor).toBeCalledWith(true);
+
     expect(cb).toBeCalledTimes(1);
     expect(cb).toBeCalledWith(object);
 })
@@ -55,6 +59,7 @@ test('Test base object get pos', () => {
     phaserMatterSpriteMockHelper.setup((proto) => {
         proto.x = 11;
         proto.y = 22;
+        proto.setSensor = jest.fn();
     })
     phaserVector2MockHelper.setup((proto) => {
         (proto.constructor as jest.Mock).mockImplementation((x, y) => ({x, y}))
@@ -78,6 +83,7 @@ test('Test base object set pos', () => {
     phaserMatterSpriteMockHelper.setup((proto) => {
         proto.x = 11;
         proto.y = 22;
+        proto.setSensor = jest.fn();
     })
     phaserVector2MockHelper.setup((proto) => {
         (proto.constructor as jest.Mock).mockImplementation((x, y) => ({x, y}))
@@ -106,6 +112,7 @@ test('Test base object set pos 2', () => {
         proto.x = 11;
         proto.y = 22;
         proto.setPosition = jest.fn();
+        proto.setSensor = jest.fn();
     })
     phaserVector2MockHelper.setup((proto) => {
         (proto.constructor as jest.Mock).mockImplementation((x, y) => ({x, y}))
@@ -133,6 +140,7 @@ test('Test base object init', () => {
     phaserMatterSpriteMockHelper.setup((proto) => {
         proto.x = 11;
         proto.y = 22;
+        proto.setSensor = jest.fn();
         proto.setPosition = jest.fn();
 
         proto.setActive = jest.fn();
@@ -174,6 +182,7 @@ test('Test base object init & remove', () => {
     phaserMatterSpriteMockHelper.setup((proto) => {
         proto.x = 11;
         proto.y = 22;
+        proto.setSensor = jest.fn();
         proto.setPosition = jest.fn();
 
         proto.setActive = jest.fn();
@@ -219,6 +228,7 @@ test('Test base object init & remove & init', () => {
     phaserMatterSpriteMockHelper.setup((proto) => {
         proto.x = 11;
         proto.y = 22;
+        proto.setSensor = jest.fn();
         proto.setPosition = jest.fn();
 
         proto.setActive = jest.fn();
